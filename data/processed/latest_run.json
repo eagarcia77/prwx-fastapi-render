@@ -1,11 +1,11 @@
 {
   "status": "ok",
-  "generated_at_utc": "2026-07-03T21:39:07+00:00",
-  "model_version": "0.9.0",
+  "generated_at_utc": "2026-07-03T21:41:18+00:00",
+  "model_version": "1.0.0",
   "rows_predicted": 16,
   "used_offline_fallback": false,
-  "max_corrected_precip_24h_in": 0.7921905388968342,
-  "max_operational_risk_score": 30.564095927865175,
+  "max_corrected_precip_24h_in": 0.7921905382544945,
+  "max_operational_risk_score": 30.56409592079944,
   "critical_count": 0,
   "high_count": 0,
   "source_files": {
@@ -30,11 +30,11 @@
     "trained": true,
     "model_path": "/home/runner/work/prwx-fastapi-render/prwx-fastapi-render/models/prwx_advanced_bias_model.joblib",
     "metrics": {
-      "mae": 0.1829926177102681,
-      "rmse": 0.23619368532423538,
-      "bias": 0.0022748000279249557,
-      "r2": 0.9675394824426248,
-      "residual_std": 0.23618273068087953,
+      "mae": 0.18299261776621983,
+      "rmse": 0.23619368541565433,
+      "bias": 0.0022748000131885384,
+      "r2": 0.9675394824174971,
+      "residual_std": 0.2361827307724447,
       "members": 5.0
     }
   },
@@ -45,7 +45,7 @@
     "briefing_v6": "/home/runner/work/prwx-fastapi-render/prwx-fastapi-render/data/processed/prwx_briefing_v6.json",
     "geojson_v6": "/home/runner/work/prwx-fastapi-render/prwx-fastapi-render/data/processed/live_predictions_v6.geojson"
   },
-  "message": "Operational v0.9 realtime + animated rain/wind + safety alerts update completed.",
+  "message": "Operational v1.0 temperature + clear realtime command center update completed.",
   "clear_ui_mode": true,
   "seismic_eew_mode": true,
   "seismic": {
@@ -79,5 +79,14 @@
     "safety_alerts_v9": "/home/runner/work/prwx-fastapi-render/prwx-fastapi-render/data/processed/safety_alerts_v9.csv",
     "realtime_summary_v9": "/home/runner/work/prwx-fastapi-render/prwx-fastapi-render/data/processed/realtime_summary_v9.json",
     "focus_municipalities_v9": "/home/runner/work/prwx-fastapi-render/prwx-fastapi-render/data/processed/focus_municipalities_v9.csv"
+  },
+  "temperature_visible_by_municipality": true,
+  "animated_rain_wind_temperature_map": true,
+  "v10_artifacts": {
+    "predictions_v10": "/home/runner/work/prwx-fastapi-render/prwx-fastapi-render/data/processed/live_predictions_v10.csv",
+    "weather_animation_v10": "/home/runner/work/prwx-fastapi-render/prwx-fastapi-render/data/processed/weather_animation_v10.csv",
+    "temperature_municipalities_v10": "/home/runner/work/prwx-fastapi-render/prwx-fastapi-render/data/processed/temperature_municipalities_v10.csv",
+    "focus_temperature_v10": "/home/runner/work/prwx-fastapi-render/prwx-fastapi-render/data/processed/focus_temperature_v10.csv",
+    "realtime_summary_v10": "/home/runner/work/prwx-fastapi-render/prwx-fastapi-render/data/processed/realtime_summary_v10.json"
   }
 }

@@ -1,13 +1,13 @@
 {
-  "generated_at_utc": "2026-07-03T21:39:07+00:00",
+  "generated_at_utc": "2026-07-03T21:41:18+00:00",
   "headline": "Lectura rápida: San Germán requiere la primera revisión del panel.",
   "plain_language_summary": "Hay 16 municipios visibles. La lluvia máxima corregida es 0.79 pulgadas en 24 horas. 0 municipios tienen riesgo 55 o mayor. Los pueblos destacados son Juana Díaz, Ponce, San Juan y San Germán. Use esta vista como apoyo educativo y operacional; verifique siempre NWS San Juan, USGS, Red Sísmica de Puerto Rico y autoridades oficiales.",
   "focus_municipalities": [
     {
       "municipality_display": "Juana Díaz",
       "region": "south_coast",
-      "corrected_precip_24h_in": 0.4886560621612549,
-      "operational_risk_score": 7.575216683773805,
+      "corrected_precip_24h_in": 0.4886560614584761,
+      "operational_risk_score": 7.575216676043238,
       "impact_level": "bajo",
       "action_explained": "Monitoreo normal",
       "focus_reason": "pueblo prioritario del usuario; zona sur con riesgo de calor, lluvia intensa localizada y escorrentías rápidas",
@@ -16,8 +16,8 @@
     {
       "municipality_display": "Ponce",
       "region": "south_coast",
-      "corrected_precip_24h_in": 0.434989159132864,
-      "operational_risk_score": 5.914880750461504,
+      "corrected_precip_24h_in": 0.4349891584343858,
+      "operational_risk_score": 5.914880742778244,
       "impact_level": "bajo",
       "action_explained": "Monitoreo normal",
       "focus_reason": "ciudad principal del sur; vulnerabilidad a lluvia extrema, calor, crecidas urbanas y eventos costeros",
@@ -26,8 +26,8 @@
     {
       "municipality_display": "San Juan",
       "region": "north_coast",
-      "corrected_precip_24h_in": 0.6908053691474516,
-      "operational_risk_score": 8.953859060621967,
+      "corrected_precip_24h_in": 0.690805368335482,
+      "operational_risk_score": 8.953859051690301,
       "impact_level": "bajo",
       "action_explained": "Monitoreo normal",
       "focus_reason": "zona metropolitana; alta exposición poblacional, operación institucional y carreteras críticas",
@@ -36,8 +36,8 @@
     {
       "municipality_display": "San Germán",
       "region": "west",
-      "corrected_precip_24h_in": 0.7396912025396337,
-      "operational_risk_score": 9.46160322793597,
+      "corrected_precip_24h_in": 0.739691201911827,
+      "operational_risk_score": 9.461603221030096,
       "impact_level": "bajo",
       "action_explained": "Monitoreo normal",
       "focus_reason": "zona oeste/suroeste; relevancia institucional y exposición a lluvia orográfica/local",

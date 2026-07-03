@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-07-03T21:39:07+00:00",
+  "generated_at_utc": "2026-07-03T21:41:18+00:00",
   "model_version": "0.7.0",
   "headline": "Monitoreo sísmico: evento M3.2 - 64 km N of Charlotte Amalie, U.S. Virgin Islands.",
   "earthquake_prediction_policy": "Los terremotos no se predicen con certeza. El módulo implementa alerta temprana posterior al inicio del evento, no predicción previa.",
