@@ -1,1 +1,2 @@
 generated_at_utc,hazard_type,source,severity,status,headline,municipality,lat,lon,recommended_action,is_official,confidence_note
+2026-07-03T21:39:07+00:00,android_sensor_bridge,Android Sensor Bridge experimental,vigilancia,requiere verificación oficial,Señal colectiva experimental: 4 teléfonos con posible movimiento.,zona aproximada,18.0025,-66.8875,"No emitir alerta pública automática. Validar con USGS, Red Sísmica de PR y fuentes oficiales.",False,"Señal agregada y anónima; inspirada en redes de acelerómetros tipo Android, no conectada al sistema privado de Google."

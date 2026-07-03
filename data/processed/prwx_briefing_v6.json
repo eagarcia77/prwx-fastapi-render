@@ -1,117 +1,128 @@
 {
-  "generated_at_utc": "2026-07-02T12:31:01+00:00",
+  "generated_at_utc": "2026-07-03T21:39:07+00:00",
   "headline": "Vigilancia preventiva: condiciones variables por región.",
-  "executive_summary": "El sistema v0.6 estima una lluvia máxima corregida de 1.84 pulgadas en 24 horas, con nivel de impacto 'vigilancia' para Adjuntas. La lectura combina pronóstico base, corrección local, incertidumbre, señales hidrológicas, MRMS/USGS cuando están disponibles y alertas NWS activas. Este resumen es experimental y debe contrastarse con fuentes oficiales.",
+  "executive_summary": "El sistema v0.6 estima una lluvia máxima corregida de 0.79 pulgadas en 24 horas, con nivel de impacto 'vigilancia' para Aguada. La lectura combina pronóstico base, corrección local, incertidumbre, señales hidrológicas, MRMS/USGS cuando están disponibles y alertas NWS activas. Este resumen es experimental y debe contrastarse con fuentes oficiales.",
   "top_municipalities": [
+    {
+      "municipality": "Aguada",
+      "region": "west",
+      "corrected_precip_24h_in": 0.79,
+      "operational_risk_score": 30.6,
+      "impact_level": "vigilancia",
+      "action_priority": 3,
+      "school_ops_signal": "preparar comunicación preventiva",
+      "road_flood_signal": "sin señal crítica",
+      "confidence_score": 84.0
+    },
     {
       "municipality": "Adjuntas",
       "region": "central_mountains",
-      "corrected_precip_24h_in": 1.84,
-      "operational_risk_score": 26.3,
+      "corrected_precip_24h_in": 0.69,
+      "operational_risk_score": 24.5,
       "impact_level": "vigilancia",
-      "action_priority": 2,
-      "school_ops_signal": "vigilancia normal",
+      "action_priority": 3,
+      "school_ops_signal": "preparar comunicación preventiva",
       "road_flood_signal": "sin señal crítica",
-      "confidence_score": 90.0
+      "confidence_score": 77.0
     },
     {
-      "municipality": "San German",
+      "municipality": "Anasco",
       "region": "west",
-      "corrected_precip_24h_in": 1.32,
-      "operational_risk_score": 17.5,
-      "impact_level": "bajo",
-      "action_priority": 1,
-      "school_ops_signal": "operación normal",
+      "corrected_precip_24h_in": 0.76,
+      "operational_risk_score": 23.7,
+      "impact_level": "vigilancia",
+      "action_priority": 3,
+      "school_ops_signal": "preparar comunicación preventiva",
       "road_flood_signal": "sin señal crítica",
-      "confidence_score": 92.0
+      "confidence_score": 81.0
     },
     {
       "municipality": "Aguadilla",
       "region": "west",
-      "corrected_precip_24h_in": 1.12,
-      "operational_risk_score": 15.4,
-      "impact_level": "bajo",
-      "action_priority": 1,
-      "school_ops_signal": "operación normal",
-      "road_flood_signal": "sin señal crítica",
-      "confidence_score": 90.0
-    },
-    {
-      "municipality": "Aguada",
-      "region": "west",
-      "corrected_precip_24h_in": 1.12,
-      "operational_risk_score": 15.3,
-      "impact_level": "bajo",
-      "action_priority": 1,
-      "school_ops_signal": "operación normal",
-      "road_flood_signal": "sin señal crítica",
-      "confidence_score": 90.0
-    },
-    {
-      "municipality": "Juana Diaz",
-      "region": "south_coast",
-      "corrected_precip_24h_in": 0.77,
-      "operational_risk_score": 11.4,
-      "impact_level": "bajo",
-      "action_priority": 1,
-      "school_ops_signal": "operación normal",
-      "road_flood_signal": "sin señal crítica",
-      "confidence_score": 93.0
-    },
-    {
-      "municipality": "San Juan",
-      "region": "north_coast",
       "corrected_precip_24h_in": 0.76,
-      "operational_risk_score": 11.4,
+      "operational_risk_score": 23.0,
+      "impact_level": "vigilancia",
+      "action_priority": 3,
+      "school_ops_signal": "preparar comunicación preventiva",
+      "road_flood_signal": "sin señal crítica",
+      "confidence_score": 85.0
+    },
+    {
+      "municipality": "Aibonito",
+      "region": "central_mountains",
+      "corrected_precip_24h_in": 0.71,
+      "operational_risk_score": 13.8,
       "impact_level": "bajo",
       "action_priority": 1,
       "school_ops_signal": "operación normal",
       "road_flood_signal": "sin señal crítica",
-      "confidence_score": 90.0
+      "confidence_score": 80.0
     },
     {
-      "municipality": "Ponce",
+      "municipality": "Barceloneta",
+      "region": "north_coast",
+      "corrected_precip_24h_in": 0.57,
+      "operational_risk_score": 11.5,
+      "impact_level": "bajo",
+      "action_priority": 1,
+      "school_ops_signal": "operación normal",
+      "road_flood_signal": "sin señal crítica",
+      "confidence_score": 83.0
+    },
+    {
+      "municipality": "Arroyo",
       "region": "south_coast",
-      "corrected_precip_24h_in": 0.71,
+      "corrected_precip_24h_in": 0.79,
       "operational_risk_score": 10.8,
       "impact_level": "bajo",
       "action_priority": 1,
       "school_ops_signal": "operación normal",
       "road_flood_signal": "sin señal crítica",
-      "confidence_score": 93.0
+      "confidence_score": 82.0
+    },
+    {
+      "municipality": "Aguas Buenas",
+      "region": "central_mountains",
+      "corrected_precip_24h_in": 0.7,
+      "operational_risk_score": 10.7,
+      "impact_level": "bajo",
+      "action_priority": 1,
+      "school_ops_signal": "operación normal",
+      "road_flood_signal": "sin señal crítica",
+      "confidence_score": 78.0
     }
   ],
   "regional_summary": [
     {
-      "region": "central_mountains",
-      "municipalities": 1,
-      "max_risk": 26.28,
-      "avg_risk": 26.28,
-      "max_precip": 1.84,
-      "priority_max": 2
+      "region": "west",
+      "municipalities": 5,
+      "max_risk": 30.56,
+      "avg_risk": 19.11,
+      "max_precip": 0.79,
+      "priority_max": 3
     },
     {
-      "region": "west",
-      "municipalities": 3,
-      "max_risk": 17.47,
-      "avg_risk": 16.03,
-      "max_precip": 1.32,
+      "region": "central_mountains",
+      "municipalities": 4,
+      "max_risk": 24.53,
+      "avg_risk": 14.77,
+      "max_precip": 0.71,
+      "priority_max": 3
+    },
+    {
+      "region": "north_coast",
+      "municipalities": 4,
+      "max_risk": 11.52,
+      "avg_risk": 9.41,
+      "max_precip": 0.69,
       "priority_max": 1
     },
     {
       "region": "south_coast",
-      "municipalities": 2,
-      "max_risk": 11.44,
-      "avg_risk": 11.1,
-      "max_precip": 0.77,
-      "priority_max": 1
-    },
-    {
-      "region": "north_coast",
-      "municipalities": 1,
-      "max_risk": 11.4,
-      "avg_risk": 11.4,
-      "max_precip": 0.76,
+      "municipalities": 3,
+      "max_risk": 10.79,
+      "avg_risk": 8.09,
+      "max_precip": 0.79,
       "priority_max": 1
     }
   ],

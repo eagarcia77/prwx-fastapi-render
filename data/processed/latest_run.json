@@ -1,47 +1,59 @@
 {
   "status": "ok",
-  "generated_at_utc": "2026-07-02T12:31:01+00:00",
-  "model_version": "2.1.0",
-  "rows_predicted": 7,
-  "used_offline_fallback": true,
-  "max_corrected_precip_24h_in": 1.8412138885455935,
-  "max_operational_risk_score": 26.283755106881713,
+  "generated_at_utc": "2026-07-03T21:39:07+00:00",
+  "model_version": "0.9.0",
+  "rows_predicted": 16,
+  "used_offline_fallback": false,
+  "max_corrected_precip_24h_in": 0.7921905388968342,
+  "max_operational_risk_score": 30.564095927865175,
   "critical_count": 0,
   "high_count": 0,
   "source_files": {
-    "nws": "/mnt/data/pr_weather_model_pr_v19_service_android_verified/data/processed/live_nws_forecast.csv",
-    "mrms": "/mnt/data/pr_weather_model_pr_v19_service_android_verified/data/processed/live_mrms_qpe.csv",
-    "usgs": "/mnt/data/pr_weather_model_pr_v19_service_android_verified/data/processed/live_usgs_gages.csv",
-    "alerts": "/mnt/data/pr_weather_model_pr_v19_service_android_verified/data/processed/live_nws_alerts.csv",
-    "predictions": "/mnt/data/pr_weather_model_pr_v19_service_android_verified/data/processed/live_predictions_v5.csv",
-    "history": "/mnt/data/pr_weather_model_pr_v19_service_android_verified/data/processed/history/live_predictions_history_v5.csv"
+    "nws": "/home/runner/work/prwx-fastapi-render/prwx-fastapi-render/data/processed/live_nws_forecast.csv",
+    "mrms": "/home/runner/work/prwx-fastapi-render/prwx-fastapi-render/data/processed/live_mrms_qpe.csv",
+    "usgs": "/home/runner/work/prwx-fastapi-render/prwx-fastapi-render/data/processed/live_usgs_gages.csv",
+    "alerts": "/home/runner/work/prwx-fastapi-render/prwx-fastapi-render/data/processed/live_nws_alerts.csv",
+    "predictions": "/home/runner/work/prwx-fastapi-render/prwx-fastapi-render/data/processed/live_predictions_v5.csv",
+    "history": "/home/runner/work/prwx-fastapi-render/prwx-fastapi-render/data/processed/history/live_predictions_history_v5.csv"
   },
   "quality": {
-    "rows": 7,
+    "rows": 16,
     "columns": 60,
-    "missing_cells": 7,
-    "mean_completeness_pct": 98.33333333333333,
+    "missing_cells": 4,
+    "mean_completeness_pct": 99.58333333333333,
     "quality_flags": {
-      "offline_demo_fallback": 7
+      "pop_proxy_no_qpf": 12,
+      "pop_proxy_no_qpf;mrms_forecast_gap": 4
     }
   },
   "model": {
-    "trained": false,
-    "model_path": "/mnt/data/pr_weather_model_pr_v19_service_android_verified/models/prwx_advanced_bias_model.joblib",
-    "message": "Existing v0.5 model found."
+    "trained": true,
+    "model_path": "/home/runner/work/prwx-fastapi-render/prwx-fastapi-render/models/prwx_advanced_bias_model.joblib",
+    "metrics": {
+      "mae": 0.1829926177102681,
+      "rmse": 0.23619368532423538,
+      "bias": 0.0022748000279249557,
+      "r2": 0.9675394824426248,
+      "residual_std": 0.23618273068087953,
+      "members": 5.0
+    }
   },
   "immersive_mode": true,
   "v6_artifacts": {
-    "predictions_v6": "/mnt/data/pr_weather_model_pr_v19_service_android_verified/data/processed/live_predictions_v6.csv",
-    "immersive_grid_v6": "/mnt/data/pr_weather_model_pr_v19_service_android_verified/data/processed/immersive_grid_v6.csv",
-    "briefing_v6": "/mnt/data/pr_weather_model_pr_v19_service_android_verified/data/processed/prwx_briefing_v6.json",
-    "geojson_v6": "/mnt/data/pr_weather_model_pr_v19_service_android_verified/data/processed/live_predictions_v6.geojson"
+    "predictions_v6": "/home/runner/work/prwx-fastapi-render/prwx-fastapi-render/data/processed/live_predictions_v6.csv",
+    "immersive_grid_v6": "/home/runner/work/prwx-fastapi-render/prwx-fastapi-render/data/processed/immersive_grid_v6.csv",
+    "briefing_v6": "/home/runner/work/prwx-fastapi-render/prwx-fastapi-render/data/processed/prwx_briefing_v6.json",
+    "geojson_v6": "/home/runner/work/prwx-fastapi-render/prwx-fastapi-render/data/processed/live_predictions_v6.geojson"
   },
-  "message": "Operational v1.5 MRMS-ready resilience update completed.",
+  "message": "Operational v0.9 realtime + animated rain/wind + safety alerts update completed.",
   "clear_ui_mode": true,
-  "seismic_eew_mode": false,
+  "seismic_eew_mode": true,
   "seismic": {
-    "enabled": false
+    "enabled": true,
+    "status": "ok",
+    "earthquakes_path": "/home/runner/work/prwx-fastapi-render/prwx-fastapi-render/data/processed/live_earthquakes_v7.csv",
+    "warning_path": "/home/runner/work/prwx-fastapi-render/prwx-fastapi-render/data/processed/seismic_eew_v7.csv",
+    "briefing_path": "/home/runner/work/prwx-fastapi-render/prwx-fastapi-render/data/processed/seismic_briefing_v7.json"
   },
   "accessible_ui_mode": true,
   "wave_ready_design": true,
@@ -52,9 +64,9 @@
     "San Germán"
   ],
   "v8_artifacts": {
-    "predictions_v8": "/mnt/data/pr_weather_model_pr_v19_service_android_verified/data/processed/live_predictions_v8.csv",
-    "focus_municipalities_v8": "/mnt/data/pr_weather_model_pr_v19_service_android_verified/data/processed/focus_municipalities_v8.csv",
-    "accessible_summary_v8": "/mnt/data/pr_weather_model_pr_v19_service_android_verified/data/processed/accessible_summary_v8.json"
+    "predictions_v8": "/home/runner/work/prwx-fastapi-render/prwx-fastapi-render/data/processed/live_predictions_v8.csv",
+    "focus_municipalities_v8": "/home/runner/work/prwx-fastapi-render/prwx-fastapi-render/data/processed/focus_municipalities_v8.csv",
+    "accessible_summary_v8": "/home/runner/work/prwx-fastapi-render/prwx-fastapi-render/data/processed/accessible_summary_v8.json"
   },
   "realtime_mode": true,
   "update_interval_seconds": 60,
@@ -62,50 +74,10 @@
   "earthquake_tsunami_safety_panel": true,
   "android_sensor_bridge_mode": "experimental_aggregated_signals_only",
   "v9_artifacts": {
-    "predictions_v9": "/mnt/data/pr_weather_model_pr_v19_service_android_verified/data/processed/live_predictions_v9.csv",
-    "weather_animation_v9": "/mnt/data/pr_weather_model_pr_v19_service_android_verified/data/processed/weather_animation_v9.csv",
-    "safety_alerts_v9": "/mnt/data/pr_weather_model_pr_v19_service_android_verified/data/processed/safety_alerts_v9.csv",
-    "realtime_summary_v9": "/mnt/data/pr_weather_model_pr_v19_service_android_verified/data/processed/realtime_summary_v9.json",
-    "focus_municipalities_v9": "/mnt/data/pr_weather_model_pr_v19_service_android_verified/data/processed/focus_municipalities_v9.csv"
-  },
-  "temperature_visible_by_municipality": true,
-  "animated_rain_wind_temperature_map": true,
-  "v10_artifacts": {
-    "predictions_v10": "/mnt/data/pr_weather_model_pr_v19_service_android_verified/data/processed/live_predictions_v10.csv",
-    "weather_animation_v10": "/mnt/data/pr_weather_model_pr_v19_service_android_verified/data/processed/weather_animation_v10.csv",
-    "temperature_municipalities_v10": "/mnt/data/pr_weather_model_pr_v19_service_android_verified/data/processed/temperature_municipalities_v10.csv",
-    "focus_temperature_v10": "/mnt/data/pr_weather_model_pr_v19_service_android_verified/data/processed/focus_temperature_v10.csv",
-    "realtime_summary_v10": "/mnt/data/pr_weather_model_pr_v19_service_android_verified/data/processed/realtime_summary_v10.json"
-  },
-  "atlantic_hurricane_animation": true,
-  "global_earthquake_map": true,
-  "expanded_earthquake_tsunami_information": true,
-  "v13_artifacts": {
-    "atlantic_hurricane_tracks": "/mnt/data/pr_weather_model_pr_v19_service_android_verified/data/processed/atlantic_hurricane_tracks_v13.csv",
-    "atlantic_hurricane_summary": "/mnt/data/pr_weather_model_pr_v19_service_android_verified/data/processed/atlantic_hurricane_summary_v13.json",
-    "global_earthquakes": "/mnt/data/pr_weather_model_pr_v19_service_android_verified/data/processed/global_earthquakes_v13.csv",
-    "global_tsunami_watch": "/mnt/data/pr_weather_model_pr_v19_service_android_verified/data/processed/global_tsunami_watch_v13.csv",
-    "global_seismic_summary": "/mnt/data/pr_weather_model_pr_v19_service_android_verified/data/processed/global_seismic_summary_v13.json"
-  },
-  "radar_layers": true,
-  "hurricane_uncertainty_cone": true,
-  "global_seismic_filters": true,
-  "stronger_tsunami_earthquake_alerts": true,
-  "v14_artifacts": {
-    "radar_layers": "/mnt/data/pr_weather_model_pr_v19_service_android_verified/data/processed/radar_layers_v14.csv",
-    "hurricane_cone": "/mnt/data/pr_weather_model_pr_v19_service_android_verified/data/processed/atlantic_hurricane_cone_v14.csv",
-    "hurricane_pr_risk": "/mnt/data/pr_weather_model_pr_v19_service_android_verified/data/processed/hurricane_pr_risk_v14.csv",
-    "v14_summary": "/mnt/data/pr_weather_model_pr_v19_service_android_verified/data/processed/v14_operational_summary.json"
-  },
-  "mrms_ready_manifest": true,
-  "system_health_panel": true,
-  "resilient_empty_csv_handling": true,
-  "v15_artifacts": {
-    "system_health": "/mnt/data/pr_weather_model_pr_v19_service_android_verified/data/processed/system_health_v15.json",
-    "mrms_manifest": "/mnt/data/pr_weather_model_pr_v19_service_android_verified/data/processed/mrms_manifest_v15.csv"
-  },
-  "dashboard_bugfix": "fixed filtered_global NameError in global earthquakes tab",
-  "android_app_starter_included": true,
-  "render_ready": true,
-  "github_actions_ready": true
+    "predictions_v9": "/home/runner/work/prwx-fastapi-render/prwx-fastapi-render/data/processed/live_predictions_v9.csv",
+    "weather_animation_v9": "/home/runner/work/prwx-fastapi-render/prwx-fastapi-render/data/processed/weather_animation_v9.csv",
+    "safety_alerts_v9": "/home/runner/work/prwx-fastapi-render/prwx-fastapi-render/data/processed/safety_alerts_v9.csv",
+    "realtime_summary_v9": "/home/runner/work/prwx-fastapi-render/prwx-fastapi-render/data/processed/realtime_summary_v9.json",
+    "focus_municipalities_v9": "/home/runner/work/prwx-fastapi-render/prwx-fastapi-render/data/processed/focus_municipalities_v9.csv"
+  }
 }

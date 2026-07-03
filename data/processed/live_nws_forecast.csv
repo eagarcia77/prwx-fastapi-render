@@ -1,8 +1,17 @@
 generated_at_utc,municipality,lat,lon,region,elevation_m,coastal,source_status,base_precip_24h_in,precip_probability_avg,precip_probability_max,base_temp_f,relative_humidity,wind_speed_mph,wind_dir_deg,periods_used
-2026-07-02T12:31:01+00:00,Juana Diaz,18.053,-66.506,south_coast,65,1,"error: HTTPSConnectionPool(host='api.weather.gov', port=443): Max retries exceeded with url: /points/18.0530,-66.5060 (Caused by NameResolutionError(""HTTPSConnection(host='api.weather.gov', port=443): Failed to resolve 'api.weather.gov' ([Errno -3] Temporary failure in name resolution)""))",,,,,,,,0
-2026-07-02T12:31:01+00:00,Ponce,18.011,-66.614,south_coast,15,1,"error: HTTPSConnectionPool(host='api.weather.gov', port=443): Max retries exceeded with url: /points/18.0110,-66.6140 (Caused by NameResolutionError(""HTTPSConnection(host='api.weather.gov', port=443): Failed to resolve 'api.weather.gov' ([Errno -3] Temporary failure in name resolution)""))",,,,,,,,0
-2026-07-02T12:31:01+00:00,San German,18.082,-67.044,west,88,0,"error: HTTPSConnectionPool(host='api.weather.gov', port=443): Max retries exceeded with url: /points/18.0820,-67.0440 (Caused by NameResolutionError(""HTTPSConnection(host='api.weather.gov', port=443): Failed to resolve 'api.weather.gov' ([Errno -3] Temporary failure in name resolution)""))",,,,,,,,0
-2026-07-02T12:31:01+00:00,San Juan,18.465,-66.105,north_coast,8,1,"error: HTTPSConnectionPool(host='api.weather.gov', port=443): Max retries exceeded with url: /points/18.4650,-66.1050 (Caused by NameResolutionError(""HTTPSConnection(host='api.weather.gov', port=443): Failed to resolve 'api.weather.gov' ([Errno -3] Temporary failure in name resolution)""))",,,,,,,,0
-2026-07-02T12:31:01+00:00,Adjuntas,18.163,-66.723,central_mountains,494,0,"error: HTTPSConnectionPool(host='api.weather.gov', port=443): Max retries exceeded with url: /points/18.1630,-66.7230 (Caused by NameResolutionError(""HTTPSConnection(host='api.weather.gov', port=443): Failed to resolve 'api.weather.gov' ([Errno -3] Temporary failure in name resolution)""))",,,,,,,,0
-2026-07-02T12:31:01+00:00,Aguada,18.379,-67.188,west,18,1,"error: HTTPSConnectionPool(host='api.weather.gov', port=443): Max retries exceeded with url: /points/18.3790,-67.1880 (Caused by NameResolutionError(""HTTPSConnection(host='api.weather.gov', port=443): Failed to resolve 'api.weather.gov' ([Errno -3] Temporary failure in name resolution)""))",,,,,,,,0
-2026-07-02T12:31:01+00:00,Aguadilla,18.427,-67.154,west,30,1,"error: HTTPSConnectionPool(host='api.weather.gov', port=443): Max retries exceeded with url: /points/18.4270,-67.1540 (Caused by NameResolutionError(""HTTPSConnection(host='api.weather.gov', port=443): Failed to resolve 'api.weather.gov' ([Errno -3] Temporary failure in name resolution)""))",,,,,,,,0
+2026-07-03T21:39:07+00:00,Juana Diaz,18.053,-66.506,south_coast,65,1,pop_proxy_no_qpf,0.043,4.5,20.0,83.9,66.3,10.4,86.2,24
+2026-07-03T21:39:07+00:00,Ponce,18.011,-66.614,south_coast,15,1,pop_proxy_no_qpf,0.046,4.8,20.0,85.5,63.4,10.6,90.9,24
+2026-07-03T21:39:07+00:00,San German,18.082,-67.044,west,88,0,pop_proxy_no_qpf,0.084,8.8,30.0,82.8,80.3,9.5,102.2,24
+2026-07-03T21:39:07+00:00,San Juan,18.465,-66.105,north_coast,8,1,pop_proxy_no_qpf,0.248,25.8,50.0,82.5,81.5,13.2,90.0,24
+2026-07-03T21:39:07+00:00,Adjuntas,18.163,-66.723,central_mountains,494,0,pop_proxy_no_qpf,0.12,12.5,50.0,76.3,81.8,5.4,112.5,24
+2026-07-03T21:39:07+00:00,Aguada,18.379,-67.188,west,18,1,pop_proxy_no_qpf,0.178,18.6,80.0,82.3,82.1,6.8,78.8,24
+2026-07-03T21:39:07+00:00,Aguadilla,18.427,-67.154,west,30,1,pop_proxy_no_qpf,0.167,17.4,90.0,82.9,76.4,8.0,81.6,24
+2026-07-03T21:39:07+00:00,Aguas Buenas,18.256,-66.103,central_mountains,259,0,pop_proxy_no_qpf,0.192,20.0,50.0,80.0,80.8,9.1,112.5,24
+2026-07-03T21:39:07+00:00,Aibonito,18.139,-66.266,central_mountains,720,0,pop_proxy_no_qpf,0.116,12.1,40.0,75.9,81.3,9.2,88.1,24
+2026-07-03T21:39:07+00:00,Anasco,18.282,-67.14,west,20,1,pop_proxy_no_qpf,0.172,17.9,70.0,82.2,82.9,4.6,102.2,24
+2026-07-03T21:39:07+00:00,Arecibo,18.472,-66.716,north_coast,10,1,pop_proxy_no_qpf,0.121,12.6,70.0,82.5,81.8,13.3,92.8,24
+2026-07-03T21:39:07+00:00,Arroyo,17.965,-66.061,south_coast,16,1,pop_proxy_no_qpf,0.281,29.2,60.0,82.5,74.9,12.2,84.4,24
+2026-07-03T21:39:07+00:00,Barceloneta,18.45,-66.538,north_coast,15,1,pop_proxy_no_qpf,0.102,10.6,60.0,82.2,81.7,12.5,95.6,24
+2026-07-03T21:39:07+00:00,Barranquitas,18.186,-66.306,central_mountains,640,0,pop_proxy_no_qpf,0.108,11.2,50.0,76.0,85.7,8.2,95.6,24
+2026-07-03T21:39:07+00:00,Bayamon,18.399,-66.156,north_coast,16,0,pop_proxy_no_qpf,0.192,20.0,60.0,84.0,79.4,11.5,98.4,24
+2026-07-03T21:39:07+00:00,Cabo Rojo,18.086,-67.145,west,10,1,pop_proxy_no_qpf,0.084,8.8,30.0,82.2,83.6,9.7,99.4,24

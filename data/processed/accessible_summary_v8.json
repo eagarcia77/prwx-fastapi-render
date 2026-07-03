@@ -1,47 +1,47 @@
 {
-  "generated_at_utc": "2026-07-02T12:31:01+00:00",
+  "generated_at_utc": "2026-07-03T21:39:07+00:00",
   "headline": "Lectura rápida: San Germán requiere la primera revisión del panel.",
-  "plain_language_summary": "Hay 7 municipios visibles. La lluvia máxima corregida es 1.84 pulgadas en 24 horas. 0 municipios tienen riesgo 55 o mayor. Los pueblos destacados son Juana Díaz, Ponce, San Juan y San Germán. Use esta vista como apoyo educativo y operacional; verifique siempre NWS San Juan, USGS, Red Sísmica de Puerto Rico y autoridades oficiales.",
+  "plain_language_summary": "Hay 16 municipios visibles. La lluvia máxima corregida es 0.79 pulgadas en 24 horas. 0 municipios tienen riesgo 55 o mayor. Los pueblos destacados son Juana Díaz, Ponce, San Juan y San Germán. Use esta vista como apoyo educativo y operacional; verifique siempre NWS San Juan, USGS, Red Sísmica de Puerto Rico y autoridades oficiales.",
   "focus_municipalities": [
     {
       "municipality_display": "Juana Díaz",
       "region": "south_coast",
-      "corrected_precip_24h_in": 0.7673537854785839,
-      "operational_risk_score": 11.440891640264423,
+      "corrected_precip_24h_in": 0.4886560621612549,
+      "operational_risk_score": 7.575216683773805,
       "impact_level": "bajo",
       "action_explained": "Monitoreo normal",
       "focus_reason": "pueblo prioritario del usuario; zona sur con riesgo de calor, lluvia intensa localizada y escorrentías rápidas",
-      "plain_language_summary": "Juana Díaz: riesgo 11 de 100, lluvia estimada 0.77 pulgadas en 24 horas. Nivel bajo. Acción sugerida: Monitoreo normal. Condición general baja. Mantener monitoreo de rutina."
+      "plain_language_summary": "Juana Díaz: riesgo 8 de 100, lluvia estimada 0.49 pulgadas en 24 horas. Nivel bajo. Acción sugerida: Monitoreo normal. Condición general baja. Mantener monitoreo de rutina."
     },
     {
       "municipality_display": "Ponce",
       "region": "south_coast",
-      "corrected_precip_24h_in": 0.7050963761185426,
-      "operational_risk_score": 10.756060137303969,
+      "corrected_precip_24h_in": 0.434989159132864,
+      "operational_risk_score": 5.914880750461504,
       "impact_level": "bajo",
       "action_explained": "Monitoreo normal",
       "focus_reason": "ciudad principal del sur; vulnerabilidad a lluvia extrema, calor, crecidas urbanas y eventos costeros",
-      "plain_language_summary": "Ponce: riesgo 11 de 100, lluvia estimada 0.71 pulgadas en 24 horas. Nivel bajo. Acción sugerida: Monitoreo normal. Condición general baja. Mantener monitoreo de rutina."
+      "plain_language_summary": "Ponce: riesgo 6 de 100, lluvia estimada 0.43 pulgadas en 24 horas. Nivel bajo. Acción sugerida: Monitoreo normal. Condición general baja. Mantener monitoreo de rutina."
     },
     {
       "municipality_display": "San Juan",
       "region": "north_coast",
-      "corrected_precip_24h_in": 0.7631997841003935,
-      "operational_risk_score": 11.395197625104329,
+      "corrected_precip_24h_in": 0.6908053691474516,
+      "operational_risk_score": 8.953859060621967,
       "impact_level": "bajo",
       "action_explained": "Monitoreo normal",
       "focus_reason": "zona metropolitana; alta exposición poblacional, operación institucional y carreteras críticas",
-      "plain_language_summary": "San Juan: riesgo 11 de 100, lluvia estimada 0.76 pulgadas en 24 horas. Nivel bajo. Acción sugerida: Monitoreo normal. Condición general baja. Mantener monitoreo de rutina."
+      "plain_language_summary": "San Juan: riesgo 9 de 100, lluvia estimada 0.69 pulgadas en 24 horas. Nivel bajo. Acción sugerida: Monitoreo normal. Condición general baja. Mantener monitoreo de rutina."
     },
     {
       "municipality_display": "San Germán",
       "region": "west",
-      "corrected_precip_24h_in": 1.3153256679173733,
-      "operational_risk_score": 17.468582347091107,
+      "corrected_precip_24h_in": 0.7396912025396337,
+      "operational_risk_score": 9.46160322793597,
       "impact_level": "bajo",
       "action_explained": "Monitoreo normal",
       "focus_reason": "zona oeste/suroeste; relevancia institucional y exposición a lluvia orográfica/local",
-      "plain_language_summary": "San Germán: riesgo 17 de 100, lluvia estimada 1.32 pulgadas en 24 horas. Nivel bajo. Acción sugerida: Monitoreo normal. Condición general baja. Mantener monitoreo de rutina."
+      "plain_language_summary": "San Germán: riesgo 9 de 100, lluvia estimada 0.74 pulgadas en 24 horas. Nivel bajo. Acción sugerida: Monitoreo normal. Condición general baja. Mantener monitoreo de rutina."
     }
   ],
   "wave_accessibility_notes": [

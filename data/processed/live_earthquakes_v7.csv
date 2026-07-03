@@ -1,0 +1,2 @@
+event_id,event_time_utc,place,magnitude,mmi,alert,status,tsunami,lat,lon,depth_km,source,detail_url
+",pr71522468,us6000t9r4,",2026-07-03T02:31:00.140000+00:00,"64 km N of Charlotte Amalie, U.S. Virgin Islands",3.21,,,reviewed,0,18.9146666666667,-65.028,22.23,USGS realtime GeoJSON,https://earthquake.usgs.gov/earthquakes/eventpage/pr71522468
