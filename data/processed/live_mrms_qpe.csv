@@ -1,13 +1,4 @@
 municipality,lat,lon,region,mrms_qpe_24h_in,mrms_status
-Juana Diaz,18.053,-66.506,south_coast,0.0,ok
-Ponce,18.011,-66.614,south_coast,0.0,ok
-San German,18.082,-67.044,west,0.0,ok
-San Juan,18.465,-66.105,north_coast,0.0,ok
-Adjuntas,18.163,-66.723,central_mountains,12.5,ok
-Aguada,18.379,-67.188,west,27.3,ok
-Aguadilla,18.427,-67.154,west,12.4,ok
-Aguas Buenas,18.256,-66.103,central_mountains,0.0,ok
-Aibonito,18.139,-66.266,central_mountains,0.0,ok
-Anasco,18.282,-67.14,west,14.7,ok
-Arecibo,18.472,-66.716,north_coast,0.5,ok
-Arroyo,17.965,-66.061,south_coast,0.2,ok
+Juana Diaz,18.053,-66.506,south_coast,,mrms_error:ConnectionError
+Ponce,18.011,-66.614,south_coast,,mrms_error:ConnectionError
+San German,18.082,-67.044,west,,mrms_error:ConnectionError

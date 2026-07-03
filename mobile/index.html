@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0f766e">
+  <meta name="description" content="PR-WX Mobile Web Sensor Bridge">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="stylesheet" href="./styles.css">
+  <title>PR-WX Web Sensor Bridge</title>
+</head>
+<body>
+  <main class="shell">
+    <section class="hero">
+      <p class="eyebrow">PR-WX v2.2</p>
+      <h1>Web Sensor Bridge</h1>
+      <p>Funciona desde una página web segura para enviar señales experimentales de movimiento al dashboard PR-WX.</p>
+      <div class="badges">
+        <span>HTTPS</span><span>Sin device ID</span><span>Ubicación aproximada</span><span>Validación oficial</span>
+      </div>
+    </section>
+
+    <section class="card warning">
+      <h2>Uso seguro</h2>
+      <p>Esta página no predice terremotos y no emite alertas públicas. Solo envía señales experimentales que deben validarse contra USGS, Red Sísmica y manejo de emergencias.</p>
+    </section>
+
+    <section class="card">
+      <h2>1. Servidor PR-WX</h2>
+      <label for="apiBase">URL de la API</label>
+      <input id="apiBase" type="url" placeholder="https://tu-servicio.onrender.com" autocomplete="url">
+      <p class="hint">Si abres esta página desde Render, se usa automáticamente la misma URL.</p>
+    </section>
+
+    <section class="card">
+      <h2>2. Consentimiento y ubicación</h2>
+      <label class="check"><input id="consent" type="checkbox"> Acepto enviar señales aproximadas del sensor, sin nombre, teléfono ni identificador del equipo.</label>
+      <div class="grid">
+        <div><label for="lat">Latitud aproximada</label><input id="lat" inputmode="decimal" placeholder="18.02"></div>
+        <div><label for="lon">Longitud aproximada</label><input id="lon" inputmode="decimal" placeholder="-66.61"></div>
+      </div>
+      <button id="geoBtn" type="button">Usar ubicación aproximada</button>
+    </section>
+
+    <section class="card">
+      <h2>3. Sensores y monitoreo</h2>
+      <div class="grid">
+        <button id="sensorBtn" type="button">Permitir sensores</button>
+        <button id="notifyBtn" type="button">Permitir notificaciones</button>
+      </div>
+      <div class="grid">
+        <button id="startBtn" type="button" class="primary">Iniciar monitoreo</button>
+        <button id="testBtn" type="button">Enviar prueba segura</button>
+      </div>
+      <div class="metrics">
+        <div><span>Estado</span><strong id="state">detenido</strong></div>
+        <div><span>Pico g</span><strong id="peak">0.000</strong></div>
+        <div><span>Enviados</span><strong id="sent">0</strong></div>
+        <div><span>Último envío</span><strong id="last">N/D</strong></div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Registro</h2>
+      <pre id="log" aria-live="polite"></pre>
+    </section>
+  </main>
+  <script src="./app.js"></script>
+</body>
+</html>

@@ -1,0 +1,9 @@
+{
+  "name": "PR-WX Web Sensor Bridge",
+  "short_name": "PR-WX Bridge",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#f8fafc",
+  "theme_color": "#0f766e",
+  "icons": []
+}

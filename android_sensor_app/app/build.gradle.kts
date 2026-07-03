@@ -13,7 +13,7 @@ android {
         targetSdk = 35
         versionCode = 1
         versionName = "2.0.0"
-        buildConfigField("String", "DEFAULT_SERVER_URL", "https://prwx-fastapi-render.onrender.com/")
+        buildConfigField("String", "DEFAULT_SERVER_URL", "\"http://10.0.2.2:8000\"")
     }
 }
 
