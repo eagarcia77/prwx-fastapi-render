@@ -1,0 +1,59 @@
+name: Update PR-WX live data
+
+on:
+  workflow_dispatch:
+  schedule:
+    # GitHub schedules use UTC. This runs every 3 hours.
+    - cron: "12 */3 * * *"
+
+permissions:
+  contents: write
+
+jobs:
+  update-live-data:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements.txt
+          python -m pip install -e .
+
+      - name: Run tests
+        run: python -m pytest -q
+
+      - name: Update live forecast and predictions
+        env:
+          PRWX_NWS_USER_AGENT: ${{ vars.PRWX_NWS_USER_AGENT }}
+        run: |
+          UA="${PRWX_NWS_USER_AGENT:-PR-WX-Hybrid-Model/0.4 GitHubActions}"
+          python scripts/07_update_live_pipeline.py --all --append-history --user-agent "$UA" --fail-on-empty --pause-seconds 0.2
+          python scripts/08_validate_outputs.py
+
+      - name: Commit updated data
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -f data/processed/live_nws_forecast.csv \
+                     data/processed/live_predictions.csv \
+                     data/processed/latest_live_nws_forecast.csv \
+                     data/processed/latest_live_predictions.csv \
+                     data/processed/latest_run.json \
+                     data/processed/latest_run_snapshot.json \
+                     data/processed/history/live_predictions_history.csv
+          if git diff --cached --quiet; then
+            echo "No data changes to commit."
+          else
+            git commit -m "Update live PR weather predictions"
+            git push
+          fi
