@@ -1,0 +1,79 @@
+municipality,lat,lon,region,elevation_m,coastal
+Adjuntas,18.163,-66.723,central_mountains,494,0
+Aguada,18.379,-67.188,west,18,1
+Aguadilla,18.427,-67.154,west,30,1
+Aguas Buenas,18.256,-66.103,central_mountains,259,0
+Aibonito,18.139,-66.266,central_mountains,720,0
+Anasco,18.282,-67.140,west,20,1
+Arecibo,18.472,-66.716,north_coast,10,1
+Arroyo,17.965,-66.061,south_coast,16,1
+Barceloneta,18.450,-66.538,north_coast,15,1
+Barranquitas,18.186,-66.306,central_mountains,640,0
+Bayamon,18.399,-66.156,north_coast,16,0
+Cabo Rojo,18.086,-67.145,west,10,1
+Caguas,18.234,-66.048,central_mountains,72,0
+Camuy,18.485,-66.845,north_coast,24,1
+Canovanas,18.377,-65.899,east,10,1
+Carolina,18.381,-65.957,north_coast,12,1
+Catano,18.443,-66.118,north_coast,3,1
+Cayey,18.113,-66.166,central_mountains,512,0
+Ceiba,18.264,-65.649,east,15,1
+Ciales,18.336,-66.469,central_mountains,126,0
+Cidra,18.176,-66.161,central_mountains,403,0
+Coamo,18.080,-66.357,south_coast,80,0
+Comerio,18.218,-66.226,central_mountains,150,0
+Corozal,18.341,-66.316,central_mountains,75,0
+Culebra,18.303,-65.301,east,10,1
+Dorado,18.458,-66.267,north_coast,5,1
+Fajardo,18.325,-65.652,east,10,1
+Florida,18.363,-66.562,north_coast,30,0
+Guanica,17.972,-66.908,south_coast,5,1
+Guayama,17.985,-66.114,south_coast,20,1
+Guayanilla,18.019,-66.792,south_coast,15,1
+Guaynabo,18.358,-66.111,north_coast,60,0
+Gurabo,18.254,-65.973,east,70,0
+Hatillo,18.486,-66.825,north_coast,10,1
+Hormigueros,18.139,-67.127,west,20,0
+Humacao,18.151,-65.827,east,20,1
+Isabela,18.501,-67.024,west,15,1
+Jayuya,18.219,-66.592,central_mountains,441,0
+Juana Diaz,18.053,-66.506,south_coast,65,1
+Juncos,18.228,-65.921,east,75,0
+Lajas,18.050,-67.059,west,15,1
+Lares,18.295,-66.878,central_mountains,320,0
+Las Marias,18.253,-66.992,west,250,0
+Las Piedras,18.183,-65.871,east,80,0
+Loiza,18.431,-65.880,north_coast,3,1
+Luquillo,18.373,-65.716,east,8,1
+Manati,18.427,-66.493,north_coast,15,1
+Maricao,18.181,-66.980,west,640,0
+Maunabo,18.007,-65.899,south_coast,15,1
+Mayaguez,18.201,-67.139,west,8,1
+Moca,18.394,-67.113,west,140,0
+Morovis,18.326,-66.406,central_mountains,160,0
+Naguabo,18.212,-65.734,east,15,1
+Naranjito,18.300,-66.245,central_mountains,160,0
+Orocovis,18.226,-66.391,central_mountains,550,0
+Patillas,18.006,-66.013,south_coast,15,1
+Penuelas,18.056,-66.721,south_coast,75,1
+Ponce,18.011,-66.614,south_coast,15,1
+Quebradillas,18.473,-66.938,north_coast,20,1
+Rincon,18.340,-67.250,west,10,1
+Rio Grande,18.380,-65.831,east,10,1
+Sabana Grande,18.078,-66.960,west,75,0
+Salinas,17.978,-66.298,south_coast,10,1
+San German,18.082,-67.044,west,88,0
+San Juan,18.465,-66.105,north_coast,8,1
+San Lorenzo,18.189,-65.961,east,100,0
+San Sebastian,18.335,-66.990,west,72,0
+Santa Isabel,17.966,-66.405,south_coast,5,1
+Toa Alta,18.389,-66.249,north_coast,35,0
+Toa Baja,18.444,-66.259,north_coast,5,1
+Trujillo Alto,18.354,-66.007,north_coast,65,0
+Utuado,18.267,-66.700,central_mountains,132,0
+Vega Alta,18.412,-66.332,north_coast,10,1
+Vega Baja,18.446,-66.388,north_coast,10,1
+Vieques,18.126,-65.441,east,15,1
+Villalba,18.127,-66.492,central_mountains,270,0
+Yabucoa,18.050,-65.879,east,20,1
+Yauco,18.035,-66.849,south_coast,25,1

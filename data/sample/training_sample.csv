@@ -1,0 +1,11 @@
+date,location_id,municipality,region,lat,lon,elevation_m,coastal,month,hour,base_temp_f,observed_temp_f,base_precip_24h_in,observed_precip_24h_in,relative_humidity,wind_speed_mph,wind_dir_deg,pw_in,dust_index
+2026-06-01,SJ,San Juan,north_coast,18.4655,-66.1057,8,1,6,14,90,91,0.20,0.30,73,14,90,1.90,0.40
+2026-06-01,PONCE,Ponce,south_coast,18.0111,-66.6141,10,1,6,14,92,95,0.10,0.05,66,12,140,1.70,0.55
+2026-06-01,MAYAGUEZ,Mayaguez,west,18.2011,-67.1396,18,1,6,14,88,90,0.50,1.20,78,9,110,2.00,0.35
+2026-06-01,CAGUAS,Caguas,east,18.2341,-66.0485,75,0,6,14,89,91,0.40,0.90,77,8,120,2.05,0.20
+2026-06-01,ADJUNTAS,Adjuntas,central_mountains,18.1635,-66.7237,500,0,6,14,82,81,0.80,1.60,85,6,130,2.10,0.10
+2026-09-15,SJ,San Juan,north_coast,18.4655,-66.1057,8,1,9,15,89,90,1.00,1.40,80,16,100,2.20,0.20
+2026-09-15,PONCE,Ponce,south_coast,18.0111,-66.6141,10,1,9,15,91,93,0.70,2.60,76,18,160,2.30,0.10
+2026-09-15,YUNQUE,El Yunque,east,18.3000,-65.7900,900,0,9,15,77,76,2.20,4.80,92,20,130,2.45,0.05
+2026-11-05,UTUADO,Utuado,central_mountains,18.2655,-66.7004,130,0,11,13,83,84,1.40,2.20,88,7,90,2.35,0.05
+2026-11-05,GUAYAMA,Guayama,south_coast,17.9841,-66.1138,15,1,11,13,90,91,0.30,0.70,74,11,100,2.00,0.25

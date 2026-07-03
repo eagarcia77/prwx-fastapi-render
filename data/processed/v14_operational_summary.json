@@ -1,0 +1,27 @@
+{
+  "generated_at_utc": "2026-07-02T12:31:01+00:00",
+  "model_version": "1.4.0",
+  "headline": "v1.4 activa radar por capas, cono de incertidumbre y 3 sistema(s) tropical(es) visibles.",
+  "active_storms": [
+    "Ariadna",
+    "Boreal",
+    "Celeste"
+  ],
+  "highest_radar_rate_in_hr": 0.295,
+  "puerto_rico_hurricane_watch_items": [
+    {
+      "storm_name": "Ariadna",
+      "forecast_hour": 96,
+      "forecast_label": "+96h",
+      "distance_to_pr_km": 366.2,
+      "max_wind_mph": 81.0,
+      "pr_watch_level": "vigilancia",
+      "screen_reader_label": "Ariadna a 366 kilómetros de Puerto Rico en +96 horas. Nivel: vigilancia."
+    }
+  ],
+  "accessibility_notes": [
+    "Cada mapa tiene tabla textual equivalente.",
+    "El color no es la única señal de riesgo.",
+    "El cono de incertidumbre incluye lectura clara para lectores de pantalla."
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "generated_at_utc": "2026-07-02T12:51:51+00:00",
+  "model_version": "1.9.0",
+  "android_bridge_status": "ok",
+  "what_was_verified": [
+    "Local Android Sensor Bridge sample/cluster logic.",
+    "Coarse location fields only.",
+    "No personal identifiers required.",
+    "Cluster evaluation returns recommendation.",
+    "EEW limitation message remains: no earthquake prediction."
+  ],
+  "important_limitation": "PR-WX cannot directly access Google’s private Android Earthquake Alerts production network. A real Android app must send consent-based, coarse accelerometer triggers to this dashboard.",
+  "trigger_rows": 4,
+  "columns_ok": true,
+  "privacy_ok": true,
+  "cluster": {
+    "cluster_status": "posible señal colectiva",
+    "trigger_count": 4,
+    "avg_confidence": 0.69,
+    "centroid_lat": 18.0025,
+    "centroid_lon": -66.8875,
+    "recommendation": "Validar inmediatamente contra fuentes oficiales antes de alertar.",
+    "privacy_note": "Usar ubicación aproximada, sin identificadores personales ni historial individual."
+  },
+  "recommended_next_step": "Crear app Android/Kotlin real con consentimiento, coarse location, acelerómetro, filtro de falso positivo y endpoint seguro hacia /seismic/android-trigger."
+}

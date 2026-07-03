@@ -1,0 +1,38 @@
+{
+  "generated_at_utc": "2026-07-02T12:31:01+00:00",
+  "model_version": "1.3.0",
+  "headline": "Se registran 4 eventos sísmicos recientes en el feed usado; 2 tienen bandera de tsunami.",
+  "earthquake_count": 4,
+  "tsunami_candidates": 2,
+  "max_magnitude": 6.1,
+  "top_events": [
+    {
+      "place": "Alaska Peninsula",
+      "magnitude": 6.1,
+      "tsunami": 1,
+      "event_time_utc": "2026-07-02T12:31:01+00:00"
+    },
+    {
+      "place": "Near the coast of Chile",
+      "magnitude": 5.8,
+      "tsunami": 1,
+      "event_time_utc": "2026-07-02T12:31:01+00:00"
+    },
+    {
+      "place": "Japan region",
+      "magnitude": 5.2,
+      "tsunami": 0,
+      "event_time_utc": "2026-07-02T12:31:01+00:00"
+    },
+    {
+      "place": "Puerto Rico region",
+      "magnitude": 4.6,
+      "tsunami": 0,
+      "event_time_utc": "2026-07-02T12:31:01+00:00"
+    }
+  ],
+  "notes": [
+    "El marcador de tsunami proviene del feed de eventos y no sustituye un centro oficial de alerta de tsunami.",
+    "Verifique siempre NOAA Tsunami Warning Center y autoridades locales."
+  ]
+}

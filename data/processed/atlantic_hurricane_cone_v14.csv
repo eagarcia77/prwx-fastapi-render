@@ -1,0 +1,121 @@
+storm_name,storm_type,forecast_hour,forecast_label,cone_side,lat,lon,center_lat,center_lon,uncertainty_nm,max_wind_mph,screen_reader_label
+Ariadna,Huracán,0,+0h,centro,14.8,-47.5,14.8,-47.5,35.0,95,Cono de incertidumbre de Ariadna en +0 horas con radio aproximado de 35 millas náuticas.
+Ariadna,Huracán,0,+0h,norte,15.383,-47.5,14.8,-47.5,35.0,95,Cono de incertidumbre de Ariadna en +0 horas con radio aproximado de 35 millas náuticas.
+Ariadna,Huracán,0,+0h,sur,14.217,-47.5,14.8,-47.5,35.0,95,Cono de incertidumbre de Ariadna en +0 horas con radio aproximado de 35 millas náuticas.
+Ariadna,Huracán,0,+0h,este,14.8,-46.897,14.8,-47.5,35.0,95,Cono de incertidumbre de Ariadna en +0 horas con radio aproximado de 35 millas náuticas.
+Ariadna,Huracán,0,+0h,oeste,14.8,-48.103,14.8,-47.5,35.0,95,Cono de incertidumbre de Ariadna en +0 horas con radio aproximado de 35 millas náuticas.
+Ariadna,Huracán,12,+12h,centro,15.6,-49.7,15.6,-49.7,48.8,94,Cono de incertidumbre de Ariadna en +12 horas con radio aproximado de 49 millas náuticas.
+Ariadna,Huracán,12,+12h,norte,16.413,-49.7,15.6,-49.7,48.8,94,Cono de incertidumbre de Ariadna en +12 horas con radio aproximado de 49 millas náuticas.
+Ariadna,Huracán,12,+12h,sur,14.787,-49.7,15.6,-49.7,48.8,94,Cono de incertidumbre de Ariadna en +12 horas con radio aproximado de 49 millas náuticas.
+Ariadna,Huracán,12,+12h,este,15.6,-48.856,15.6,-49.7,48.8,94,Cono de incertidumbre de Ariadna en +12 horas con radio aproximado de 49 millas náuticas.
+Ariadna,Huracán,12,+12h,oeste,15.6,-50.544,15.6,-49.7,48.8,94,Cono de incertidumbre de Ariadna en +12 horas con radio aproximado de 49 millas náuticas.
+Ariadna,Huracán,24,+24h,centro,16.4,-51.9,16.4,-51.9,62.6,92,Cono de incertidumbre de Ariadna en +24 horas con radio aproximado de 63 millas náuticas.
+Ariadna,Huracán,24,+24h,norte,17.443,-51.9,16.4,-51.9,62.6,92,Cono de incertidumbre de Ariadna en +24 horas con radio aproximado de 63 millas náuticas.
+Ariadna,Huracán,24,+24h,sur,15.357,-51.9,16.4,-51.9,62.6,92,Cono de incertidumbre de Ariadna en +24 horas con radio aproximado de 63 millas náuticas.
+Ariadna,Huracán,24,+24h,este,16.4,-50.812,16.4,-51.9,62.6,92,Cono de incertidumbre de Ariadna en +24 horas con radio aproximado de 63 millas náuticas.
+Ariadna,Huracán,24,+24h,oeste,16.4,-52.988,16.4,-51.9,62.6,92,Cono de incertidumbre de Ariadna en +24 horas con radio aproximado de 63 millas náuticas.
+Ariadna,Huracán,36,+36h,centro,17.2,-54.1,17.2,-54.1,76.4,90,Cono de incertidumbre de Ariadna en +36 horas con radio aproximado de 76 millas náuticas.
+Ariadna,Huracán,36,+36h,norte,18.473,-54.1,17.2,-54.1,76.4,90,Cono de incertidumbre de Ariadna en +36 horas con radio aproximado de 76 millas náuticas.
+Ariadna,Huracán,36,+36h,sur,15.927,-54.1,17.2,-54.1,76.4,90,Cono de incertidumbre de Ariadna en +36 horas con radio aproximado de 76 millas náuticas.
+Ariadna,Huracán,36,+36h,este,17.2,-52.767,17.2,-54.1,76.4,90,Cono de incertidumbre de Ariadna en +36 horas con radio aproximado de 76 millas náuticas.
+Ariadna,Huracán,36,+36h,oeste,17.2,-55.433,17.2,-54.1,76.4,90,Cono de incertidumbre de Ariadna en +36 horas con radio aproximado de 76 millas náuticas.
+Ariadna,Huracán,48,+48h,centro,18.0,-56.3,18.0,-56.3,90.2,88,Cono de incertidumbre de Ariadna en +48 horas con radio aproximado de 90 millas náuticas.
+Ariadna,Huracán,48,+48h,norte,19.503,-56.3,18.0,-56.3,90.2,88,Cono de incertidumbre de Ariadna en +48 horas con radio aproximado de 90 millas náuticas.
+Ariadna,Huracán,48,+48h,sur,16.497,-56.3,18.0,-56.3,90.2,88,Cono de incertidumbre de Ariadna en +48 horas con radio aproximado de 90 millas náuticas.
+Ariadna,Huracán,48,+48h,este,18.0,-54.719,18.0,-56.3,90.2,88,Cono de incertidumbre de Ariadna en +48 horas con radio aproximado de 90 millas náuticas.
+Ariadna,Huracán,48,+48h,oeste,18.0,-57.881,18.0,-56.3,90.2,88,Cono de incertidumbre de Ariadna en +48 horas con radio aproximado de 90 millas náuticas.
+Ariadna,Huracán,72,+72h,centro,19.6,-60.7,19.6,-60.7,117.8,85,Cono de incertidumbre de Ariadna en +72 horas con radio aproximado de 118 millas náuticas.
+Ariadna,Huracán,72,+72h,norte,21.563,-60.7,19.6,-60.7,117.8,85,Cono de incertidumbre de Ariadna en +72 horas con radio aproximado de 118 millas náuticas.
+Ariadna,Huracán,72,+72h,sur,17.637,-60.7,19.6,-60.7,117.8,85,Cono de incertidumbre de Ariadna en +72 horas con radio aproximado de 118 millas náuticas.
+Ariadna,Huracán,72,+72h,este,19.6,-58.616,19.6,-60.7,117.8,85,Cono de incertidumbre de Ariadna en +72 horas con radio aproximado de 118 millas náuticas.
+Ariadna,Huracán,72,+72h,oeste,19.6,-62.784,19.6,-60.7,117.8,85,Cono de incertidumbre de Ariadna en +72 horas con radio aproximado de 118 millas náuticas.
+Ariadna,Huracán,96,+96h,centro,21.2,-65.1,21.2,-65.1,145.4,81,Cono de incertidumbre de Ariadna en +96 horas con radio aproximado de 145 millas náuticas.
+Ariadna,Huracán,96,+96h,norte,23.623,-65.1,21.2,-65.1,145.4,81,Cono de incertidumbre de Ariadna en +96 horas con radio aproximado de 145 millas náuticas.
+Ariadna,Huracán,96,+96h,sur,18.777,-65.1,21.2,-65.1,145.4,81,Cono de incertidumbre de Ariadna en +96 horas con radio aproximado de 145 millas náuticas.
+Ariadna,Huracán,96,+96h,este,21.2,-62.501,21.2,-65.1,145.4,81,Cono de incertidumbre de Ariadna en +96 horas con radio aproximado de 145 millas náuticas.
+Ariadna,Huracán,96,+96h,oeste,21.2,-67.699,21.2,-65.1,145.4,81,Cono de incertidumbre de Ariadna en +96 horas con radio aproximado de 145 millas náuticas.
+Ariadna,Huracán,120,+120h,centro,22.8,-69.5,22.8,-69.5,173.0,77,Cono de incertidumbre de Ariadna en +120 horas con radio aproximado de 173 millas náuticas.
+Ariadna,Huracán,120,+120h,norte,25.683,-69.5,22.8,-69.5,173.0,77,Cono de incertidumbre de Ariadna en +120 horas con radio aproximado de 173 millas náuticas.
+Ariadna,Huracán,120,+120h,sur,19.917,-69.5,22.8,-69.5,173.0,77,Cono de incertidumbre de Ariadna en +120 horas con radio aproximado de 173 millas náuticas.
+Ariadna,Huracán,120,+120h,este,22.8,-66.372,22.8,-69.5,173.0,77,Cono de incertidumbre de Ariadna en +120 horas con radio aproximado de 173 millas náuticas.
+Ariadna,Huracán,120,+120h,oeste,22.8,-72.628,22.8,-69.5,173.0,77,Cono de incertidumbre de Ariadna en +120 horas con radio aproximado de 173 millas náuticas.
+Boreal,Tormenta Tropical,0,+0h,centro,22.1,-59.0,22.1,-59.0,35.0,60,Cono de incertidumbre de Boreal en +0 horas con radio aproximado de 35 millas náuticas.
+Boreal,Tormenta Tropical,0,+0h,norte,22.683,-59.0,22.1,-59.0,35.0,60,Cono de incertidumbre de Boreal en +0 horas con radio aproximado de 35 millas náuticas.
+Boreal,Tormenta Tropical,0,+0h,sur,21.517,-59.0,22.1,-59.0,35.0,60,Cono de incertidumbre de Boreal en +0 horas con radio aproximado de 35 millas náuticas.
+Boreal,Tormenta Tropical,0,+0h,este,22.1,-58.37,22.1,-59.0,35.0,60,Cono de incertidumbre de Boreal en +0 horas con radio aproximado de 35 millas náuticas.
+Boreal,Tormenta Tropical,0,+0h,oeste,22.1,-59.63,22.1,-59.0,35.0,60,Cono de incertidumbre de Boreal en +0 horas con radio aproximado de 35 millas náuticas.
+Boreal,Tormenta Tropical,12,+12h,centro,22.6,-60.4,22.6,-60.4,48.8,59,Cono de incertidumbre de Boreal en +12 horas con radio aproximado de 49 millas náuticas.
+Boreal,Tormenta Tropical,12,+12h,norte,23.413,-60.4,22.6,-60.4,48.8,59,Cono de incertidumbre de Boreal en +12 horas con radio aproximado de 49 millas náuticas.
+Boreal,Tormenta Tropical,12,+12h,sur,21.787,-60.4,22.6,-60.4,48.8,59,Cono de incertidumbre de Boreal en +12 horas con radio aproximado de 49 millas náuticas.
+Boreal,Tormenta Tropical,12,+12h,este,22.6,-59.519,22.6,-60.4,48.8,59,Cono de incertidumbre de Boreal en +12 horas con radio aproximado de 49 millas náuticas.
+Boreal,Tormenta Tropical,12,+12h,oeste,22.6,-61.281,22.6,-60.4,48.8,59,Cono de incertidumbre de Boreal en +12 horas con radio aproximado de 49 millas náuticas.
+Boreal,Tormenta Tropical,24,+24h,centro,23.1,-61.8,23.1,-61.8,62.6,57,Cono de incertidumbre de Boreal en +24 horas con radio aproximado de 63 millas náuticas.
+Boreal,Tormenta Tropical,24,+24h,norte,24.143,-61.8,23.1,-61.8,62.6,57,Cono de incertidumbre de Boreal en +24 horas con radio aproximado de 63 millas náuticas.
+Boreal,Tormenta Tropical,24,+24h,sur,22.057,-61.8,23.1,-61.8,62.6,57,Cono de incertidumbre de Boreal en +24 horas con radio aproximado de 63 millas náuticas.
+Boreal,Tormenta Tropical,24,+24h,este,23.1,-60.666,23.1,-61.8,62.6,57,Cono de incertidumbre de Boreal en +24 horas con radio aproximado de 63 millas náuticas.
+Boreal,Tormenta Tropical,24,+24h,oeste,23.1,-62.934,23.1,-61.8,62.6,57,Cono de incertidumbre de Boreal en +24 horas con radio aproximado de 63 millas náuticas.
+Boreal,Tormenta Tropical,36,+36h,centro,23.6,-63.2,23.6,-63.2,76.4,55,Cono de incertidumbre de Boreal en +36 horas con radio aproximado de 76 millas náuticas.
+Boreal,Tormenta Tropical,36,+36h,norte,24.873,-63.2,23.6,-63.2,76.4,55,Cono de incertidumbre de Boreal en +36 horas con radio aproximado de 76 millas náuticas.
+Boreal,Tormenta Tropical,36,+36h,sur,22.327,-63.2,23.6,-63.2,76.4,55,Cono de incertidumbre de Boreal en +36 horas con radio aproximado de 76 millas náuticas.
+Boreal,Tormenta Tropical,36,+36h,este,23.6,-61.81,23.6,-63.2,76.4,55,Cono de incertidumbre de Boreal en +36 horas con radio aproximado de 76 millas náuticas.
+Boreal,Tormenta Tropical,36,+36h,oeste,23.6,-64.59,23.6,-63.2,76.4,55,Cono de incertidumbre de Boreal en +36 horas con radio aproximado de 76 millas náuticas.
+Boreal,Tormenta Tropical,48,+48h,centro,24.1,-64.6,24.1,-64.6,90.2,53,Cono de incertidumbre de Boreal en +48 horas con radio aproximado de 90 millas náuticas.
+Boreal,Tormenta Tropical,48,+48h,norte,25.603,-64.6,24.1,-64.6,90.2,53,Cono de incertidumbre de Boreal en +48 horas con radio aproximado de 90 millas náuticas.
+Boreal,Tormenta Tropical,48,+48h,sur,22.597,-64.6,24.1,-64.6,90.2,53,Cono de incertidumbre de Boreal en +48 horas con radio aproximado de 90 millas náuticas.
+Boreal,Tormenta Tropical,48,+48h,este,24.1,-62.953,24.1,-64.6,90.2,53,Cono de incertidumbre de Boreal en +48 horas con radio aproximado de 90 millas náuticas.
+Boreal,Tormenta Tropical,48,+48h,oeste,24.1,-66.247,24.1,-64.6,90.2,53,Cono de incertidumbre de Boreal en +48 horas con radio aproximado de 90 millas náuticas.
+Boreal,Tormenta Tropical,72,+72h,centro,25.1,-67.4,25.1,-67.4,117.8,50,Cono de incertidumbre de Boreal en +72 horas con radio aproximado de 118 millas náuticas.
+Boreal,Tormenta Tropical,72,+72h,norte,27.063,-67.4,25.1,-67.4,117.8,50,Cono de incertidumbre de Boreal en +72 horas con radio aproximado de 118 millas náuticas.
+Boreal,Tormenta Tropical,72,+72h,sur,23.137,-67.4,25.1,-67.4,117.8,50,Cono de incertidumbre de Boreal en +72 horas con radio aproximado de 118 millas náuticas.
+Boreal,Tormenta Tropical,72,+72h,este,25.1,-65.232,25.1,-67.4,117.8,50,Cono de incertidumbre de Boreal en +72 horas con radio aproximado de 118 millas náuticas.
+Boreal,Tormenta Tropical,72,+72h,oeste,25.1,-69.568,25.1,-67.4,117.8,50,Cono de incertidumbre de Boreal en +72 horas con radio aproximado de 118 millas náuticas.
+Boreal,Tormenta Tropical,96,+96h,centro,26.1,-70.2,26.1,-70.2,145.4,46,Cono de incertidumbre de Boreal en +96 horas con radio aproximado de 145 millas náuticas.
+Boreal,Tormenta Tropical,96,+96h,norte,28.523,-70.2,26.1,-70.2,145.4,46,Cono de incertidumbre de Boreal en +96 horas con radio aproximado de 145 millas náuticas.
+Boreal,Tormenta Tropical,96,+96h,sur,23.677,-70.2,26.1,-70.2,145.4,46,Cono de incertidumbre de Boreal en +96 horas con radio aproximado de 145 millas náuticas.
+Boreal,Tormenta Tropical,96,+96h,este,26.1,-67.501,26.1,-70.2,145.4,46,Cono de incertidumbre de Boreal en +96 horas con radio aproximado de 145 millas náuticas.
+Boreal,Tormenta Tropical,96,+96h,oeste,26.1,-72.899,26.1,-70.2,145.4,46,Cono de incertidumbre de Boreal en +96 horas con radio aproximado de 145 millas náuticas.
+Boreal,Tormenta Tropical,120,+120h,centro,27.1,-73.0,27.1,-73.0,173.0,42,Cono de incertidumbre de Boreal en +120 horas con radio aproximado de 173 millas náuticas.
+Boreal,Tormenta Tropical,120,+120h,norte,29.983,-73.0,27.1,-73.0,173.0,42,Cono de incertidumbre de Boreal en +120 horas con radio aproximado de 173 millas náuticas.
+Boreal,Tormenta Tropical,120,+120h,sur,24.217,-73.0,27.1,-73.0,173.0,42,Cono de incertidumbre de Boreal en +120 horas con radio aproximado de 173 millas náuticas.
+Boreal,Tormenta Tropical,120,+120h,este,27.1,-69.761,27.1,-73.0,173.0,42,Cono de incertidumbre de Boreal en +120 horas con radio aproximado de 173 millas náuticas.
+Boreal,Tormenta Tropical,120,+120h,oeste,27.1,-76.239,27.1,-73.0,173.0,42,Cono de incertidumbre de Boreal en +120 horas con radio aproximado de 173 millas náuticas.
+Celeste,Depresión Tropical,0,+0h,centro,11.9,-34.0,11.9,-34.0,35.0,35,Cono de incertidumbre de Celeste en +0 horas con radio aproximado de 35 millas náuticas.
+Celeste,Depresión Tropical,0,+0h,norte,12.483,-34.0,11.9,-34.0,35.0,35,Cono de incertidumbre de Celeste en +0 horas con radio aproximado de 35 millas náuticas.
+Celeste,Depresión Tropical,0,+0h,sur,11.317,-34.0,11.9,-34.0,35.0,35,Cono de incertidumbre de Celeste en +0 horas con radio aproximado de 35 millas náuticas.
+Celeste,Depresión Tropical,0,+0h,este,11.9,-33.404,11.9,-34.0,35.0,35,Cono de incertidumbre de Celeste en +0 horas con radio aproximado de 35 millas náuticas.
+Celeste,Depresión Tropical,0,+0h,oeste,11.9,-34.596,11.9,-34.0,35.0,35,Cono de incertidumbre de Celeste en +0 horas con radio aproximado de 35 millas náuticas.
+Celeste,Depresión Tropical,12,+12h,centro,12.5,-35.7,12.5,-35.7,48.8,34,Cono de incertidumbre de Celeste en +12 horas con radio aproximado de 49 millas náuticas.
+Celeste,Depresión Tropical,12,+12h,norte,13.313,-35.7,12.5,-35.7,48.8,34,Cono de incertidumbre de Celeste en +12 horas con radio aproximado de 49 millas náuticas.
+Celeste,Depresión Tropical,12,+12h,sur,11.687,-35.7,12.5,-35.7,48.8,34,Cono de incertidumbre de Celeste en +12 horas con radio aproximado de 49 millas náuticas.
+Celeste,Depresión Tropical,12,+12h,este,12.5,-34.867,12.5,-35.7,48.8,34,Cono de incertidumbre de Celeste en +12 horas con radio aproximado de 49 millas náuticas.
+Celeste,Depresión Tropical,12,+12h,oeste,12.5,-36.533,12.5,-35.7,48.8,34,Cono de incertidumbre de Celeste en +12 horas con radio aproximado de 49 millas náuticas.
+Celeste,Depresión Tropical,24,+24h,centro,13.1,-37.4,13.1,-37.4,62.6,32,Cono de incertidumbre de Celeste en +24 horas con radio aproximado de 63 millas náuticas.
+Celeste,Depresión Tropical,24,+24h,norte,14.143,-37.4,13.1,-37.4,62.6,32,Cono de incertidumbre de Celeste en +24 horas con radio aproximado de 63 millas náuticas.
+Celeste,Depresión Tropical,24,+24h,sur,12.057,-37.4,13.1,-37.4,62.6,32,Cono de incertidumbre de Celeste en +24 horas con radio aproximado de 63 millas náuticas.
+Celeste,Depresión Tropical,24,+24h,este,13.1,-36.329,13.1,-37.4,62.6,32,Cono de incertidumbre de Celeste en +24 horas con radio aproximado de 63 millas náuticas.
+Celeste,Depresión Tropical,24,+24h,oeste,13.1,-38.471,13.1,-37.4,62.6,32,Cono de incertidumbre de Celeste en +24 horas con radio aproximado de 63 millas náuticas.
+Celeste,Depresión Tropical,36,+36h,centro,13.7,-39.1,13.7,-39.1,76.4,30,Cono de incertidumbre de Celeste en +36 horas con radio aproximado de 76 millas náuticas.
+Celeste,Depresión Tropical,36,+36h,norte,14.973,-39.1,13.7,-39.1,76.4,30,Cono de incertidumbre de Celeste en +36 horas con radio aproximado de 76 millas náuticas.
+Celeste,Depresión Tropical,36,+36h,sur,12.427,-39.1,13.7,-39.1,76.4,30,Cono de incertidumbre de Celeste en +36 horas con radio aproximado de 76 millas náuticas.
+Celeste,Depresión Tropical,36,+36h,este,13.7,-37.789,13.7,-39.1,76.4,30,Cono de incertidumbre de Celeste en +36 horas con radio aproximado de 76 millas náuticas.
+Celeste,Depresión Tropical,36,+36h,oeste,13.7,-40.411,13.7,-39.1,76.4,30,Cono de incertidumbre de Celeste en +36 horas con radio aproximado de 76 millas náuticas.
+Celeste,Depresión Tropical,48,+48h,centro,14.3,-40.8,14.3,-40.8,90.2,28,Cono de incertidumbre de Celeste en +48 horas con radio aproximado de 90 millas náuticas.
+Celeste,Depresión Tropical,48,+48h,norte,15.803,-40.8,14.3,-40.8,90.2,28,Cono de incertidumbre de Celeste en +48 horas con radio aproximado de 90 millas náuticas.
+Celeste,Depresión Tropical,48,+48h,sur,12.797,-40.8,14.3,-40.8,90.2,28,Cono de incertidumbre de Celeste en +48 horas con radio aproximado de 90 millas náuticas.
+Celeste,Depresión Tropical,48,+48h,este,14.3,-39.249,14.3,-40.8,90.2,28,Cono de incertidumbre de Celeste en +48 horas con radio aproximado de 90 millas náuticas.
+Celeste,Depresión Tropical,48,+48h,oeste,14.3,-42.351,14.3,-40.8,90.2,28,Cono de incertidumbre de Celeste en +48 horas con radio aproximado de 90 millas náuticas.
+Celeste,Depresión Tropical,72,+72h,centro,15.5,-44.2,15.5,-44.2,117.8,25,Cono de incertidumbre de Celeste en +72 horas con radio aproximado de 118 millas náuticas.
+Celeste,Depresión Tropical,72,+72h,norte,17.463,-44.2,15.5,-44.2,117.8,25,Cono de incertidumbre de Celeste en +72 horas con radio aproximado de 118 millas náuticas.
+Celeste,Depresión Tropical,72,+72h,sur,13.537,-44.2,15.5,-44.2,117.8,25,Cono de incertidumbre de Celeste en +72 horas con radio aproximado de 118 millas náuticas.
+Celeste,Depresión Tropical,72,+72h,este,15.5,-42.163,15.5,-44.2,117.8,25,Cono de incertidumbre de Celeste en +72 horas con radio aproximado de 118 millas náuticas.
+Celeste,Depresión Tropical,72,+72h,oeste,15.5,-46.237,15.5,-44.2,117.8,25,Cono de incertidumbre de Celeste en +72 horas con radio aproximado de 118 millas náuticas.
+Celeste,Depresión Tropical,96,+96h,centro,16.7,-47.6,16.7,-47.6,145.4,21,Cono de incertidumbre de Celeste en +96 horas con radio aproximado de 145 millas náuticas.
+Celeste,Depresión Tropical,96,+96h,norte,19.123,-47.6,16.7,-47.6,145.4,21,Cono de incertidumbre de Celeste en +96 horas con radio aproximado de 145 millas náuticas.
+Celeste,Depresión Tropical,96,+96h,sur,14.277,-47.6,16.7,-47.6,145.4,21,Cono de incertidumbre de Celeste en +96 horas con radio aproximado de 145 millas náuticas.
+Celeste,Depresión Tropical,96,+96h,este,16.7,-45.07,16.7,-47.6,145.4,21,Cono de incertidumbre de Celeste en +96 horas con radio aproximado de 145 millas náuticas.
+Celeste,Depresión Tropical,96,+96h,oeste,16.7,-50.13,16.7,-47.6,145.4,21,Cono de incertidumbre de Celeste en +96 horas con radio aproximado de 145 millas náuticas.
+Celeste,Depresión Tropical,120,+120h,centro,17.9,-51.0,17.9,-51.0,173.0,20,Cono de incertidumbre de Celeste en +120 horas con radio aproximado de 173 millas náuticas.
+Celeste,Depresión Tropical,120,+120h,norte,20.783,-51.0,17.9,-51.0,173.0,20,Cono de incertidumbre de Celeste en +120 horas con radio aproximado de 173 millas náuticas.
+Celeste,Depresión Tropical,120,+120h,sur,15.017,-51.0,17.9,-51.0,173.0,20,Cono de incertidumbre de Celeste en +120 horas con radio aproximado de 173 millas náuticas.
+Celeste,Depresión Tropical,120,+120h,este,17.9,-47.97,17.9,-51.0,173.0,20,Cono de incertidumbre de Celeste en +120 horas con radio aproximado de 173 millas náuticas.
+Celeste,Depresión Tropical,120,+120h,oeste,17.9,-54.03,17.9,-51.0,173.0,20,Cono de incertidumbre de Celeste en +120 horas con radio aproximado de 173 millas náuticas.

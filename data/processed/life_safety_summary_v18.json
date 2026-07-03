@@ -1,0 +1,17 @@
+{
+  "generated_at_utc": "2026-07-01T19:33:34+00:00",
+  "model_version": "1.8.0",
+  "headline": "Life Safety Board activo: convierte clima, sismos, tsunami y huracanes en acciones claras.",
+  "immediate_municipal_actions": [],
+  "recommended_next_integrations": [
+    "IPAWS/FEMA public alerts feed for all-hazards alerts.",
+    "NOAA Tsunami CAP/RSS bulletin monitoring.",
+    "USGS PAGER-style impact severity for significant earthquakes.",
+    "Shelter status and capacity from municipalities.",
+    "Crowdsourced damage reports with validation and privacy controls.",
+    "Offline PWA cache and SMS gateway for communication outages.",
+    "IoT rain gauges and river sensors near flood-prone roads.",
+    "School/campus emergency mode with one-screen instructions."
+  ],
+  "safety_limitation": "This dashboard supports decisions but does not replace official emergency management orders."
+}

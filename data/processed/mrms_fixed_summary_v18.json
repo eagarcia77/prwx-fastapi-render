@@ -1,0 +1,21 @@
+{
+  "generated_at_utc": "2026-07-01T19:33:34+00:00",
+  "model_version": "1.8.0",
+  "headline": "MRMS corregido: se usa ArcGIS JS en el navegador y se mantiene radar de respaldo.",
+  "why_previous_may_fail": [
+    "Algunos entornos Docker/Streamlit no descargan bien imágenes externas generadas por exportImage.",
+    "El navegador puede cargar el ImageServer con ArcGIS JS aunque el servidor local no pueda bajar la imagen.",
+    "Si no hay precipitación significativa, la capa puede verse transparente aunque esté funcionando."
+  ],
+  "service_test": {
+    "service_url": "https://mapservices.weather.noaa.gov/raster/rest/services/obs/mrms_qpe/ImageServer",
+    "metadata_ok": false,
+    "export_image_ok": false,
+    "notes": [
+      "MRMS may still be available in the browser through ArcGIS JS even if server-side testing fails."
+    ],
+    "metadata_error": "HTTPSConnectionPool(host='mapservices.weather.noaa.gov', port=443): Max retries exceeded with url: /raster/rest/services/obs/mrms_qpe/ImageServer?f=pjson (Caused by NameResolutionError(\"HTTPSConnection(host='mapservices.weather.noaa.gov', p",
+    "export_error": "HTTPSConnectionPool(host='mapservices.weather.noaa.gov', port=443): Max retries exceeded with url: /raster/rest/services/obs/mrms_qpe/ImageServer/exportImage?bbox=%7B%22xmin%22%3A-68.25%2C%22ymin%22%3A17.55%2C%22xmax%22%3A-64.25%2C%22ymax%2"
+  },
+  "life_safety_note": "El radar es apoyo operacional; las decisiones de emergencia deben validarse con NWS/NOAA y manejo de emergencias."
+}

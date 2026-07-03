@@ -1,0 +1,43 @@
+project:
+  name: PR-WX Hybrid Model
+  version: 0.3.0
+  timezone: America/Puerto_Rico
+
+puerto_rico_bounds:
+  min_lat: 17.80
+  max_lat: 18.60
+  min_lon: -67.40
+  max_lon: -65.20
+
+thresholds:
+  heavy_rain_1h_in: 1.0
+  heavy_rain_3h_in: 2.0
+  heavy_rain_24h_in: 4.0
+  heat_index_alert_f: 102.0
+  flood_risk_precip_3h_in: 2.0
+  flood_risk_precip_24h_in: 4.0
+
+regions:
+  north_coast:
+    description: Costa norte húmeda y zona metropolitana.
+  south_coast:
+    description: Costa sur, más seca y sensible a calor extremo.
+  west:
+    description: Oeste y noroeste, con convección de tarde frecuente.
+  east:
+    description: Este, Luquillo, Fajardo, Humacao, Vieques y Culebra.
+  central_mountains:
+    description: Cordillera Central y municipios montañosos.
+
+model:
+  target_variable: observed_precip_24h_in
+  base_forecast_variable: base_precip_24h_in
+  random_state: 42
+  test_size: 0.2
+  algorithm: Ridge
+
+live_mode:
+  provider: NWS API
+  default_limit: 12
+  full_municipality_count: 78
+  qpf_fallback: pop_proxy_no_qpf

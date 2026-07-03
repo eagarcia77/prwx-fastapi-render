@@ -1,0 +1,25 @@
+{
+  "generated_at_utc": "2026-07-01T19:33:34+00:00",
+  "model_version": "1.6.0",
+  "headline": "MRMS real ImageServer preparado para mostrar radar QPE en Puerto Rico.",
+  "service_status": {
+    "ok": false,
+    "status_code": null,
+    "url": "https://mapservices.weather.noaa.gov/raster/rest/services/obs/mrms_qpe/ImageServer",
+    "error": "HTTPSConnectionPool(host='mapservices.weather.noaa.gov', port=443): Max retries exceeded with url: /raster/rest/services/obs/mrms_qpe/ImageServer?f=pjson (Caused by NameResolutionError(\"HTTPSConnectio"
+  },
+  "available_layers": [
+    "QPE 1h",
+    "QPE 3h",
+    "QPE 6h",
+    "QPE 12h",
+    "QPE 24h",
+    "QPE 48h",
+    "QPE 72h"
+  ],
+  "bbox": "-68.25,17.55,-64.25,19.25",
+  "limitations": [
+    "La imagen depende del servicio externo de NOAA/NWS y de la conexión del navegador.",
+    "Debe validarse con fuentes oficiales antes de decisiones operacionales."
+  ]
+}

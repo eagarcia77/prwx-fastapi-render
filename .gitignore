@@ -1,0 +1,22 @@
+.venv/
+__pycache__/
+*.pyc
+.env
+.env.*
+.cache/
+.DS_Store
+Thumbs.db
+*.zip
+*.pkl
+*.joblib
+models/*.joblib
+models/*.pkl
+# Keep sample data; raw archives can become very large.
+data/raw/*
+!data/raw/.gitkeep
+# Processed live outputs may be committed intentionally by GitHub Actions.
+# For private local experiments, uncomment the next line.
+# data/processed/*.csv
+.streamlit/secrets.toml
+src/*.egg-info/
+.pytest_cache/

@@ -1,0 +1,7 @@
+forecast_time,location_id,municipality,region,lat,lon,elevation_m,coastal,month,hour,base_temp_f,base_precip_24h_in,relative_humidity,wind_speed_mph,wind_dir_deg,pw_in,dust_index
+2026-06-25 14:00,SJ,San Juan,north_coast,18.4655,-66.1057,8,1,6,14,91,0.30,76,15,95,2.05,0.35
+2026-06-25 14:00,PONCE,Ponce,south_coast,18.0111,-66.6141,10,1,6,14,94,0.20,68,13,145,1.82,0.45
+2026-06-25 14:00,MAYAGUEZ,Mayaguez,west,18.2011,-67.1396,18,1,6,14,89,0.60,81,8,115,2.20,0.20
+2026-06-25 14:00,CAGUAS,Caguas,east,18.2341,-66.0485,75,0,6,14,90,0.50,79,9,120,2.15,0.20
+2026-06-25 14:00,ADJUNTAS,Adjuntas,central_mountains,18.1635,-66.7237,500,0,6,14,82,0.80,86,7,135,2.25,0.10
+2026-06-25 14:00,YUNQUE,El Yunque,east,18.3000,-65.7900,900,0,6,14,78,1.10,91,18,120,2.40,0.05

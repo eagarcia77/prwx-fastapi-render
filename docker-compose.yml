@@ -1,0 +1,67 @@
+services:
+  prwx-dashboard:
+    build: .
+    image: prwx-hybrid-model:2.0-android-app-bridge
+    container_name: prwx-dashboard
+    ports:
+      - "8501:8501"
+    environment:
+      PRWX_NWS_USER_AGENT: ${PRWX_NWS_USER_AGENT:-PR-WX-Hybrid-Model/2.0 android-bridge@example.com}
+    volumes:
+      - prwx_processed:/app/data/processed
+      - prwx_raw:/app/data/raw
+      - prwx_models:/app/models
+    command: streamlit run dashboard/app.py --server.address=0.0.0.0 --server.port=8501
+
+  prwx-api:
+    build: .
+    image: prwx-hybrid-model:2.0-android-app-bridge
+    container_name: prwx-api
+    ports:
+      - "8000:8000"
+    environment:
+      PRWX_NWS_USER_AGENT: ${PRWX_NWS_USER_AGENT:-PR-WX-Hybrid-Model/2.0 android-bridge@example.com}
+    volumes:
+      - prwx_processed:/app/data/processed
+      - prwx_raw:/app/data/raw
+      - prwx_models:/app/models
+    command: uvicorn api.app:app --host 0.0.0.0 --port 8000
+
+  prwx-update-once:
+    build: .
+    image: prwx-hybrid-model:2.0-android-app-bridge
+    profiles: ["manual"]
+    environment:
+      PRWX_NWS_USER_AGENT: ${PRWX_NWS_USER_AGENT:-PR-WX-Hybrid-Model/2.0 android-bridge@example.com}
+      PRWX_UPDATE_ARGS: ${PRWX_UPDATE_ARGS:-}
+    volumes:
+      - prwx_processed:/app/data/processed
+      - prwx_raw:/app/data/raw
+      - prwx_models:/app/models
+    command: sh -c "python scripts/31_operational_update_v20.py $${PRWX_UPDATE_ARGS:-}"
+
+  prwx-updater:
+    build: .
+    image: prwx-hybrid-model:2.0-android-app-bridge
+    container_name: prwx-updater
+    profiles: ["updater"]
+    environment:
+      PRWX_NWS_USER_AGENT: ${PRWX_NWS_USER_AGENT:-PR-WX-Hybrid-Model/2.0 android-bridge@example.com}
+      UPDATE_INTERVAL_SECONDS: ${UPDATE_INTERVAL_SECONDS:-60}
+      PRWX_UPDATE_ARGS: ${PRWX_UPDATE_ARGS:-}
+    volumes:
+      - prwx_processed:/app/data/processed
+      - prwx_raw:/app/data/raw
+      - prwx_models:/app/models
+    command: >
+      sh -c "while true; do
+      echo 'Running PR-WX v2.0 Android app bridge update every' $${UPDATE_INTERVAL_SECONDS:-60} 'seconds...';
+      python scripts/31_operational_update_v20.py $${PRWX_UPDATE_ARGS:-} || true;
+      echo 'Sleeping for' $${UPDATE_INTERVAL_SECONDS:-60} 'seconds...';
+      sleep $${UPDATE_INTERVAL_SECONDS:-60};
+      done"
+
+volumes:
+  prwx_processed:
+  prwx_raw:
+  prwx_models:

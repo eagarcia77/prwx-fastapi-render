@@ -1,0 +1,49 @@
+{
+  "generated_at_utc": "2026-07-02T13:40:22+00:00",
+  "model_version": "2.0.0",
+  "android_app_starter": true,
+  "overall_status": "ok",
+  "file_status": [
+    {
+      "file": "android_sensor_app/settings.gradle.kts",
+      "exists": true,
+      "size_bytes": 285,
+      "status": "ok"
+    },
+    {
+      "file": "android_sensor_app/build.gradle.kts",
+      "exists": true,
+      "size_bytes": 142,
+      "status": "ok"
+    },
+    {
+      "file": "android_sensor_app/app/build.gradle.kts",
+      "exists": true,
+      "size_bytes": 663,
+      "status": "ok"
+    },
+    {
+      "file": "android_sensor_app/app/src/main/AndroidManifest.xml",
+      "exists": true,
+      "size_bytes": 906,
+      "status": "ok"
+    },
+    {
+      "file": "android_sensor_app/app/src/main/java/edu/prwx/quakebridge/MainActivity.kt",
+      "exists": true,
+      "size_bytes": 9106,
+      "status": "ok"
+    }
+  ],
+  "privacy_ok": true,
+  "endpoint_ok": true,
+  "consent_ok": true,
+  "accelerometer_ok": true,
+  "default_emulator_api_url": "http://10.0.2.2:8000",
+  "real_phone_api_url_note": "Use la IP LAN de la computadora, por ejemplo http://192.168.1.25:8000.",
+  "limitations": [
+    "Starter Android app; no es sistema público de alertas.",
+    "No predice terremotos.",
+    "No conecta directamente con la red privada de Google Android Earthquake Alerts."
+  ]
+}

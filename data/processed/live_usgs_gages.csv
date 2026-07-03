@@ -1,0 +1,2 @@
+site_no,site_name,lat,lon,variable_code,variable_name,value,value_time,usgs_status,error
+,,,,,,,,usgs_error:ConnectionError,"HTTPSConnectionPool(host='waterservices.usgs.gov', port=443): Max retries exceeded with url: /nwis/iv/?format=json&stateCd=PR&parameterCd=00060%2C00065&siteStatus=active&period=PT6H (Caused by NameResolutionError(""HTTPSConnection(host='waterservices.usgs.gov', port=443): Failed to resolve 'waterservices.usgs.gov' ([Errno -3] Temporary failure in name resolution)""))"

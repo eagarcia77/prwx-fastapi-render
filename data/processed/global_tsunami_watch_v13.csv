@@ -1,0 +1,3 @@
+event_id,event_time_utc,place,magnitude,mmi,alert,status,tsunami,felt_reports,lat,lon,depth_km,source,detail_url,screen_reader_label
+sample-global-002,2026-07-02T12:31:01+00:00,Near the coast of Chile,5.8,,,sample_offline,1,40,-29.8,-71.5,25.0,offline educational sample,,Sismo de magnitud 5.8 cerca de la costa de Chile con bandera de tsunami.
+sample-global-004,2026-07-02T12:31:01+00:00,Alaska Peninsula,6.1,,,sample_offline,1,3,55.0,-158.4,19.0,offline educational sample,,Sismo de magnitud 6.1 en Alaska con bandera de tsunami.

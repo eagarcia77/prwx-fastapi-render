@@ -1,0 +1,70 @@
+{
+  "generated_at_utc": "2026-07-02T12:31:01+00:00",
+  "model_version": "1.5.0",
+  "overall_status": "ok",
+  "files_checked": 9,
+  "files_ready": 9,
+  "mrms_qpe_service": {
+    "url": "https://mapservices.weather.noaa.gov/raster/rest/services/obs/mrms_qpe/ImageServer",
+    "ok": false,
+    "status_code": null,
+    "error": "HTTPSConnectionPool(host='mapservices.weather.noaa.gov', port=443): Max retries exceeded with url: /raster/rest/services/obs/mrms_qpe/ImageServer (Caused by NameResolutionError(\"HTTPSConnection(host='"
+  },
+  "recommended_action": "Dashboard can run with fallback data. For operational use, validate official sources and enable live services.",
+  "file_status": [
+    {
+      "file": "live_predictions_v10.csv",
+      "exists": true,
+      "size_bytes": 12646,
+      "empty": false
+    },
+    {
+      "file": "weather_animation_v10.csv",
+      "exists": true,
+      "size_bytes": 38333,
+      "empty": false
+    },
+    {
+      "file": "safety_alerts_v9.csv",
+      "exists": true,
+      "size_bytes": 129,
+      "empty": false
+    },
+    {
+      "file": "global_earthquakes_v13.csv",
+      "exists": true,
+      "size_bytes": 879,
+      "empty": false
+    },
+    {
+      "file": "global_tsunami_watch_v13.csv",
+      "exists": true,
+      "size_bytes": 532,
+      "empty": false
+    },
+    {
+      "file": "atlantic_hurricane_tracks_v13.csv",
+      "exists": true,
+      "size_bytes": 5833,
+      "empty": false
+    },
+    {
+      "file": "radar_layers_v14.csv",
+      "exists": true,
+      "size_bytes": 5918,
+      "empty": false
+    },
+    {
+      "file": "atlantic_hurricane_cone_v14.csv",
+      "exists": true,
+      "size_bytes": 19325,
+      "empty": false
+    },
+    {
+      "file": "hurricane_pr_risk_v14.csv",
+      "exists": true,
+      "size_bytes": 2828,
+      "empty": false
+    }
+  ]
+}

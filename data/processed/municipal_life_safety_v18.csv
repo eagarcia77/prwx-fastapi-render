@@ -1,0 +1,5 @@
+generated_at_utc,municipality,status,operational_risk_score,feels_like_f,rain_24h_in,active_alerts_for_area,priority_action,screen_reader_label
+2026-07-01T19:33:34+00:00,Juana Díaz,normal,0.0,,,0,"Verificar fuentes oficiales, rutas críticas, población vulnerable y comunicación municipal.","Juana Díaz: estado normal, riesgo 0 de 100, alertas activas 0."
+2026-07-01T19:33:34+00:00,Ponce,normal,10.3,100.2,0.6665864699947235,0,"Verificar fuentes oficiales, rutas críticas, población vulnerable y comunicación municipal.","Ponce: estado normal, riesgo 10 de 100, alertas activas 0."
+2026-07-01T19:33:34+00:00,San Juan,normal,10.9,100.2,0.7190418779765744,0,"Verificar fuentes oficiales, rutas críticas, población vulnerable y comunicación municipal.","San Juan: estado normal, riesgo 11 de 100, alertas activas 0."
+2026-07-01T19:33:34+00:00,San Germán,normal,0.0,,,0,"Verificar fuentes oficiales, rutas críticas, población vulnerable y comunicación municipal.","San Germán: estado normal, riesgo 0 de 100, alertas activas 0."

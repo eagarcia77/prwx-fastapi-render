@@ -1,0 +1,25 @@
+storm_name,forecast_hour,forecast_label,distance_to_pr_km,max_wind_mph,pr_watch_level,screen_reader_label
+Ariadna,0,+0h,2069.3,95.0,informativo,Ariadna a 2069 kilómetros de Puerto Rico en +0 horas. Nivel: informativo.
+Ariadna,12,+12h,1819.6,94.0,informativo,Ariadna a 1820 kilómetros de Puerto Rico en +12 horas. Nivel: informativo.
+Ariadna,24,+24h,1572.1,92.0,informativo,Ariadna a 1572 kilómetros de Puerto Rico en +24 horas. Nivel: informativo.
+Ariadna,36,+36h,1327.6,90.0,informativo,Ariadna a 1328 kilómetros de Puerto Rico en +36 horas. Nivel: informativo.
+Ariadna,48,+48h,1087.6,88.0,informativo,Ariadna a 1088 kilómetros de Puerto Rico en +48 horas. Nivel: informativo.
+Ariadna,72,+72h,638.3,85.0,monitoreo,Ariadna a 638 kilómetros de Puerto Rico en +72 horas. Nivel: monitoreo.
+Ariadna,96,+96h,366.2,81.0,vigilancia,Ariadna a 366 kilómetros de Puerto Rico en +96 horas. Nivel: vigilancia.
+Ariadna,120,+120h,592.6,77.0,monitoreo,Ariadna a 593 kilómetros de Puerto Rico en +120 horas. Nivel: monitoreo.
+Boreal,0,+0h,901.9,60.0,informativo,Boreal a 902 kilómetros de Puerto Rico en +0 horas. Nivel: informativo.
+Boreal,12,+12h,808.1,59.0,informativo,Boreal a 808 kilómetros de Puerto Rico en +12 horas. Nivel: informativo.
+Boreal,24,+24h,736.6,57.0,monitoreo,Boreal a 737 kilómetros de Puerto Rico en +24 horas. Nivel: monitoreo.
+Boreal,36,+36h,694.1,55.0,monitoreo,Boreal a 694 kilómetros de Puerto Rico en +36 horas. Nivel: monitoreo.
+Boreal,48,+48h,685.6,53.0,monitoreo,Boreal a 686 kilómetros de Puerto Rico en +48 horas. Nivel: monitoreo.
+Boreal,72,+72h,769.6,50.0,monitoreo,Boreal a 770 kilómetros de Puerto Rico en +72 horas. Nivel: monitoreo.
+Boreal,96,+96h,951.6,46.0,informativo,Boreal a 952 kilómetros de Puerto Rico en +96 horas. Nivel: informativo.
+Boreal,120,+120h,1185.8,42.0,informativo,Boreal a 1186 kilómetros de Puerto Rico en +120 horas. Nivel: informativo.
+Celeste,0,+0h,3563.9,35.0,informativo,Celeste a 3564 kilómetros de Puerto Rico en +0 horas. Nivel: informativo.
+Celeste,12,+12h,3368.1,34.0,informativo,Celeste a 3368 kilómetros de Puerto Rico en +12 horas. Nivel: informativo.
+Celeste,24,+24h,3173.0,32.0,informativo,Celeste a 3173 kilómetros de Puerto Rico en +24 horas. Nivel: informativo.
+Celeste,36,+36h,2978.5,30.0,informativo,Celeste a 2979 kilómetros de Puerto Rico en +36 horas. Nivel: informativo.
+Celeste,48,+48h,2784.8,28.0,informativo,Celeste a 2785 kilómetros de Puerto Rico en +48 horas. Nivel: informativo.
+Celeste,72,+72h,2400.2,25.0,informativo,Celeste a 2400 kilómetros de Puerto Rico en +72 horas. Nivel: informativo.
+Celeste,96,+96h,2020.5,21.0,informativo,Celeste a 2020 kilómetros de Puerto Rico en +96 horas. Nivel: informativo.
+Celeste,120,+120h,1648.0,20.0,informativo,Celeste a 1648 kilómetros de Puerto Rico en +120 horas. Nivel: informativo.

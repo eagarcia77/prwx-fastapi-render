@@ -1,0 +1,13 @@
+{
+  "generated_at_utc": "2026-07-01T19:33:34+00:00",
+  "model_version": "1.7.0",
+  "notifications_default_active": true,
+  "sound_default_active": true,
+  "sticky_alerts_default_active": true,
+  "browser_permission_required": true,
+  "alert_count": 5,
+  "critical_count": 2,
+  "notification_title": "PR-WX Alertas activas",
+  "notification_body": "2 alerta(s) críticas/altas de 5 señal(es) activas. Verifique el panel y fuentes oficiales.",
+  "recommended_user_action": "Mantener la página abierta, conceder permiso de notificaciones y mantener Docker updater activo cada minuto."
+}

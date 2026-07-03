@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="https://js.arcgis.com/4.30/esri/themes/light/main.css">
+<script src="https://js.arcgis.com/4.30/"></script>
+<style>
+html, body, #viewDiv { padding:0; margin:0; height:650px; width:100%; font-family:Arial, sans-serif; }
+#panel { position:absolute; z-index:10; top:12px; left:12px; background:white; border:2px solid #0f172a; border-radius:10px; padding:10px; max-width:460px; }
+#panel label { font-weight:700; color:#0f172a; }
+#status { margin-top:6px; font-size:14px; color:#334155; }
+select, button { padding:6px; margin-top:5px; font-size:14px; }
+</style>
+</head>
+<body>
+<div id="panel">
+<label for="layerSelect">Capa MRMS QPE real</label><br>
+<select id="layerSelect"><option value="rft_1hr" selected>QPE 1h</option>
+<option value="rft_3hr" >QPE 3h</option>
+<option value="rft_6hr" >QPE 6h</option>
+<option value="rft_12hr" >QPE 12h</option>
+<option value="rft_24hr" >QPE 24h</option>
+<option value="rft_48hr" >QPE 48h</option>
+<option value="rft_72hr" >QPE 72h</option></select>
+<button id="reloadBtn">Actualizar capa</button>
+<div id="status">Cargando MRMS ImageServer de NOAA/NWS…</div>
+</div>
+<div id="viewDiv" role="img" aria-label="Mapa MRMS QPE real de Puerto Rico"></div>
+<script>
+require(["esri/Map", "esri/views/MapView", "esri/layers/ImageryLayer", "esri/geometry/Extent"], function(Map, MapView, ImageryLayer, Extent) {
+  const serviceUrl = "https://mapservices.weather.noaa.gov/raster/rest/services/obs/mrms_qpe/ImageServer";
+  const prExtent = new Extent({"xmin": -68.25, "ymin": 17.55, "xmax": -64.25, "ymax": 19.25, "spatialReference": {"wkid": 4326}});
+  let layer = null;
+  const map = new Map({ basemap: "gray-vector" });
+  const view = new MapView({
+    container: "viewDiv",
+    map: map,
+    extent: prExtent,
+    constraints: { minZoom: 5, maxZoom: 14 }
+  });
+
+  function setLayer(fn) {
+    document.getElementById("status").textContent = "Cargando función raster " + fn + "…";
+    if (layer) { map.remove(layer); }
+    layer = new ImageryLayer({
+      url: serviceUrl,
+      opacity: 0.72,
+      renderingRule: { rasterFunction: fn }
+    });
+    layer.when(function() {
+      document.getElementById("status").textContent = "MRMS cargado. Si no se ve precipitación, puede que no haya lluvia significativa o el servicio externo esté lento.";
+    }).catch(function(error) {
+      document.getElementById("status").textContent = "No se pudo cargar MRMS. Use el radar de respaldo o abra el enlace REST.";
+      console.error(error);
+    });
+    map.add(layer);
+  }
+
+  document.getElementById("reloadBtn").addEventListener("click", function() {
+    setLayer(document.getElementById("layerSelect").value);
+  });
+  document.getElementById("layerSelect").addEventListener("change", function() {
+    setLayer(this.value);
+  });
+  setLayer(document.getElementById("layerSelect").value);
+});
+</script>
+</body>
+</html>

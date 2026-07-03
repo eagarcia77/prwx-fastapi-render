@@ -1,0 +1,16 @@
+FROM python:3.11-slim
+
+WORKDIR /app
+
+COPY requirements.txt pyproject.toml ./
+COPY src ./src
+COPY api ./api
+COPY scripts ./scripts
+COPY data ./data
+
+RUN pip install --upgrade pip && pip install -r requirements.txt && pip install -e .
+
+ENV PORT=10000
+EXPOSE 10000
+
+CMD ["bash", "start_render_api.sh"]

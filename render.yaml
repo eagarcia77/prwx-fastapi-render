@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: prwx-fastapi
+    runtime: python
+    plan: free
+    buildCommand: "pip install --upgrade pip && pip install -r requirements.txt && pip install -e ."
+    startCommand: "bash start_render_api.sh"
+    healthCheckPath: /healthz
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.9
+      - key: RUN_OPERATIONAL_UPDATE_ON_START
+        value: "false"
+      - key: PRWX_NWS_USER_AGENT
+        value: "PR-WX-Hybrid-Model/2.1 render@example.com"

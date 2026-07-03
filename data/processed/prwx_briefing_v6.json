@@ -1,0 +1,125 @@
+{
+  "generated_at_utc": "2026-07-02T12:31:01+00:00",
+  "headline": "Vigilancia preventiva: condiciones variables por región.",
+  "executive_summary": "El sistema v0.6 estima una lluvia máxima corregida de 1.84 pulgadas en 24 horas, con nivel de impacto 'vigilancia' para Adjuntas. La lectura combina pronóstico base, corrección local, incertidumbre, señales hidrológicas, MRMS/USGS cuando están disponibles y alertas NWS activas. Este resumen es experimental y debe contrastarse con fuentes oficiales.",
+  "top_municipalities": [
+    {
+      "municipality": "Adjuntas",
+      "region": "central_mountains",
+      "corrected_precip_24h_in": 1.84,
+      "operational_risk_score": 26.3,
+      "impact_level": "vigilancia",
+      "action_priority": 2,
+      "school_ops_signal": "vigilancia normal",
+      "road_flood_signal": "sin señal crítica",
+      "confidence_score": 90.0
+    },
+    {
+      "municipality": "San German",
+      "region": "west",
+      "corrected_precip_24h_in": 1.32,
+      "operational_risk_score": 17.5,
+      "impact_level": "bajo",
+      "action_priority": 1,
+      "school_ops_signal": "operación normal",
+      "road_flood_signal": "sin señal crítica",
+      "confidence_score": 92.0
+    },
+    {
+      "municipality": "Aguadilla",
+      "region": "west",
+      "corrected_precip_24h_in": 1.12,
+      "operational_risk_score": 15.4,
+      "impact_level": "bajo",
+      "action_priority": 1,
+      "school_ops_signal": "operación normal",
+      "road_flood_signal": "sin señal crítica",
+      "confidence_score": 90.0
+    },
+    {
+      "municipality": "Aguada",
+      "region": "west",
+      "corrected_precip_24h_in": 1.12,
+      "operational_risk_score": 15.3,
+      "impact_level": "bajo",
+      "action_priority": 1,
+      "school_ops_signal": "operación normal",
+      "road_flood_signal": "sin señal crítica",
+      "confidence_score": 90.0
+    },
+    {
+      "municipality": "Juana Diaz",
+      "region": "south_coast",
+      "corrected_precip_24h_in": 0.77,
+      "operational_risk_score": 11.4,
+      "impact_level": "bajo",
+      "action_priority": 1,
+      "school_ops_signal": "operación normal",
+      "road_flood_signal": "sin señal crítica",
+      "confidence_score": 93.0
+    },
+    {
+      "municipality": "San Juan",
+      "region": "north_coast",
+      "corrected_precip_24h_in": 0.76,
+      "operational_risk_score": 11.4,
+      "impact_level": "bajo",
+      "action_priority": 1,
+      "school_ops_signal": "operación normal",
+      "road_flood_signal": "sin señal crítica",
+      "confidence_score": 90.0
+    },
+    {
+      "municipality": "Ponce",
+      "region": "south_coast",
+      "corrected_precip_24h_in": 0.71,
+      "operational_risk_score": 10.8,
+      "impact_level": "bajo",
+      "action_priority": 1,
+      "school_ops_signal": "operación normal",
+      "road_flood_signal": "sin señal crítica",
+      "confidence_score": 93.0
+    }
+  ],
+  "regional_summary": [
+    {
+      "region": "central_mountains",
+      "municipalities": 1,
+      "max_risk": 26.28,
+      "avg_risk": 26.28,
+      "max_precip": 1.84,
+      "priority_max": 2
+    },
+    {
+      "region": "west",
+      "municipalities": 3,
+      "max_risk": 17.47,
+      "avg_risk": 16.03,
+      "max_precip": 1.32,
+      "priority_max": 1
+    },
+    {
+      "region": "south_coast",
+      "municipalities": 2,
+      "max_risk": 11.44,
+      "avg_risk": 11.1,
+      "max_precip": 0.77,
+      "priority_max": 1
+    },
+    {
+      "region": "north_coast",
+      "municipalities": 1,
+      "max_risk": 11.4,
+      "avg_risk": 11.4,
+      "max_precip": 0.76,
+      "priority_max": 1
+    }
+  ],
+  "recommended_actions": [
+    "Comparar este panel con avisos oficiales de NWS San Juan antes de tomar decisiones.",
+    "Vigilar municipios con prioridad 4 o 5, especialmente si hay quebradas, ríos urbanos o carreteras inundables.",
+    "Actualizar el flujo cada 30 minutos durante eventos convectivos, ondas tropicales o lluvias orográficas.",
+    "Usar el simulador de escenarios para evaluar sensibilidad ante más lluvia, mayor saturación del suelo o calor extremo."
+  ],
+  "model_version": "0.6.0"
+}

@@ -1,0 +1,45 @@
+{
+  "generated_at_utc": "2026-07-01T19:33:34+00:00",
+  "model_version": "1.7.0",
+  "hardened_mode": true,
+  "docker_update_interval_seconds": 60,
+  "auto_refresh_seconds": 60,
+  "fail_safe_design": "El dashboard debe mostrar tablas, mensajes de estado y fallback cuando una fuente externa no responda.",
+  "checks": [
+    {
+      "file": "active_alerts_v17.csv",
+      "description": "alertas activas consolidadas",
+      "exists": true,
+      "size_bytes": 1589,
+      "status": "ok"
+    },
+    {
+      "file": "notification_state_v17.json",
+      "description": "estado de notificaciones",
+      "exists": true,
+      "size_bytes": 585,
+      "status": "ok"
+    },
+    {
+      "file": "mrms_real_image_urls_v16.csv",
+      "description": "MRMS real",
+      "exists": true,
+      "size_bytes": 3132,
+      "status": "ok"
+    },
+    {
+      "file": "system_health_v15.json",
+      "description": "salud del sistema",
+      "exists": true,
+      "size_bytes": 1827,
+      "status": "ok"
+    },
+    {
+      "file": "latest_run.json",
+      "description": "metadata operacional",
+      "exists": true,
+      "size_bytes": 6472,
+      "status": "ok"
+    }
+  ]
+}

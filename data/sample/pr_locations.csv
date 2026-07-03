@@ -1,0 +1,13 @@
+location_id,municipality,region,lat,lon,elevation_m,coastal
+SJ,San Juan,north_coast,18.4655,-66.1057,8,1
+PONCE,Ponce,south_coast,18.0111,-66.6141,10,1
+MAYAGUEZ,Mayaguez,west,18.2011,-67.1396,18,1
+ARECIBO,Arecibo,north_coast,18.4724,-66.7157,7,1
+CAGUAS,Caguas,east,18.2341,-66.0485,75,0
+HUMACAO,Humacao,east,18.1497,-65.8274,20,1
+FAJARDO,Fajardo,east,18.3258,-65.6524,10,1
+AGUADILLA,Aguadilla,west,18.4275,-67.1541,100,1
+GUAYAMA,Guayama,south_coast,17.9841,-66.1138,15,1
+UTUADO,Utuado,central_mountains,18.2655,-66.7004,130,0
+ADJUNTAS,Adjuntas,central_mountains,18.1635,-66.7237,500,0
+YUNQUE,El Yunque,east,18.3000,-65.7900,900,0

@@ -1,0 +1,4 @@
+municipality,lat,lon,region,mrms_qpe_24h_in,mrms_status
+Juana Diaz,18.053,-66.506,south_coast,,mrms_error:ConnectionError
+Ponce,18.011,-66.614,south_coast,,mrms_error:ConnectionError
+San German,18.082,-67.044,west,,mrms_error:ConnectionError

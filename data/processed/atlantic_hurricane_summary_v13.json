@@ -1,0 +1,35 @@
+{
+  "generated_at_utc": "2026-07-02T12:31:01+00:00",
+  "model_version": "1.3.0",
+  "headline": "Hay 3 sistemas tropicales o muestras visibles en el Atlántico para animación de trayectoria.",
+  "active_storms": [
+    {
+      "storm_name": "Ariadna",
+      "storm_type": "Huracán",
+      "status": "Activo",
+      "lat": 14.8,
+      "lon": -47.5,
+      "max_wind_mph": 95
+    },
+    {
+      "storm_name": "Boreal",
+      "storm_type": "Tormenta Tropical",
+      "status": "Activo",
+      "lat": 22.1,
+      "lon": -59.0,
+      "max_wind_mph": 60
+    },
+    {
+      "storm_name": "Celeste",
+      "storm_type": "Depresión Tropical",
+      "status": "Vigilancia",
+      "lat": 11.9,
+      "lon": -34.0,
+      "max_wind_mph": 35
+    }
+  ],
+  "notes": [
+    "La trayectoria animada es un apoyo visual del prototipo.",
+    "Siempre valide trayectorias oficiales con el National Hurricane Center."
+  ]
+}

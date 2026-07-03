@@ -1,0 +1,14 @@
+service,url,ok,status_code,content_type,message,file,size_bytes
+NWS Alerts API,https://api.weather.gov/alerts/active?area=PR,,,,verificación externa omitida,,
+USGS All Hour Earthquakes,https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_hour.geojson,,,,verificación externa omitida,,
+USGS All Day Earthquakes,https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_day.geojson,,,,verificación externa omitida,,
+NOAA/NWS MRMS QPE,https://mapservices.weather.noaa.gov/raster/rest/services/obs/mrms_qpe/ImageServer?f=pjson,,,,verificación externa omitida,,
+NHC Current Storms,https://www.nhc.noaa.gov/CurrentStorms.json,,,,verificación externa omitida,,
+Predicciones,,True,,,archivo generado,live_predictions_v10.csv,12646.0
+Alertas activas,,True,,,archivo generado,active_alerts_v17.csv,1589.0
+Android triggers sample,,True,,,archivo generado,android_triggers_sample_v7.csv,378.0
+Matriz EEW,,False,,,pendiente o vacío,seismic_eew_v7.csv,0.0
+Terremotos PR,,False,,,pendiente o vacío,live_earthquakes_v7.csv,0.0
+Terremotos mundo,,True,,,archivo generado,global_earthquakes_v13.csv,879.0
+MRMS fix,,True,,,archivo generado,mrms_fixed_urls_v18.csv,7879.0
+Life Safety,,True,,,archivo generado,life_safety_actions_v18.csv,3051.0
