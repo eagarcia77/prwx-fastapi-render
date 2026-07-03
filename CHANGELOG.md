@@ -1,5 +1,22 @@
 # CHANGELOG
 
+## v2.2.1 - Mobile folder fixed
+
+- Añadida carpeta real `mobile/` en la raíz del proyecto.
+- FastAPI monta `/mobile/` desde la carpeta `mobile/`.
+- Se conserva `web_mobile_bridge/` como respaldo.
+
+# CHANGELOG
+
+## v2.2.0 - Web Mobile Sensor Bridge
+
+- Añadida página web móvil `/mobile/`.
+- Añadido endpoint `/seismic/web-trigger`.
+- Añadido endpoint `/seismic/mobile-cluster`.
+- Añadido manifest y service worker para PWA básica.
+
+# CHANGELOG
+
 ## v2.1.0 - Render + GitHub + FastAPI
 
 - Añadido `render.yaml` para deploy en Render.

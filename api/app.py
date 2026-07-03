@@ -7,6 +7,8 @@ from typing import Any
 
 import pandas as pd
 from fastapi import FastAPI, HTTPException
+from fastapi.responses import RedirectResponse
+from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
 from prwx.immersive import build_briefing, predictions_to_geojson, simulate_scenario
@@ -17,6 +19,8 @@ from prwx.temperature_v10 import add_temperature_columns, build_weather_animatio
 
 ROOT = Path(__file__).resolve().parents[1]
 PROCESSED = ROOT / "data" / "processed"
+WEB_CLIENT = ROOT / "mobile"
+LEGACY_WEB_CLIENT = ROOT / "web_mobile_bridge"
 PRED_PATHS = [PROCESSED / "live_predictions_v10.csv",
     PROCESSED / "live_predictions_v9.csv", PROCESSED / "live_predictions_v8.csv", PROCESSED / "live_predictions_v6.csv", PROCESSED / "live_predictions_v5.csv", PROCESSED / "live_predictions.csv"]
 META_PATH = PROCESSED / "latest_run.json"
@@ -34,7 +38,7 @@ SEISMIC_EEW_PATH = PROCESSED / "seismic_eew_v7.csv"
 SEISMIC_BRIEFING_PATH = PROCESSED / "seismic_briefing_v7.json"
 ANDROID_TRIGGERS_PATH = PROCESSED / "android_triggers_sample_v7.csv"
 
-app = FastAPI(title="PR-WX v2.1 Render FastAPI Service", version="2.1.0")
+app = FastAPI(title="PR-WX v2.2.1 Web Mobile Sensor Bridge", version="2.2.1")
 
 
 class AndroidTrigger(BaseModel):
@@ -97,7 +101,7 @@ def healthz():
     return {
         "status": "ok",
         "service": "PR-WX FastAPI",
-        "version": "2.1.0",
+        "version": "2.2.1",
         "platform": "render",
         "timestamp_utc": utc_now_iso(),
     }
@@ -121,8 +125,8 @@ def render_status_v21():
 @app.get("/")
 def root():
     return {
-        "name": "PR-WX Render FastAPI Service",
-        "version": "2.1.0",
+        "name": "PR-WX Web Mobile Sensor Bridge",
+        "version": "2.2.1",
         "status": "experimental",
         "note": "Accessible weather risk + earthquake early warning visualization. Not official emergency guidance.",
     }
@@ -296,6 +300,49 @@ def ingest_android_trigger(trigger: AndroidTrigger):
     }
 
 
+
+@app.post("/seismic/web-trigger")
+def ingest_web_trigger(trigger: AndroidTrigger):
+    """Experimental endpoint for the browser-based Web Sensor Bridge.
+
+    Stores coarse, anonymized trigger rows only. It does not issue public alerts.
+    Requires validation against official sources before any public action.
+    """
+    row = trigger.model_dump()
+    row["trigger_time_utc"] = row.get("trigger_time_utc") or utc_now_iso()
+    if not row.get("source") or row.get("source") == "android_sensor_bridge":
+        row["source"] = "web_sensor_bridge"
+    existing = _safe_read_csv(ANDROID_TRIGGERS_PATH)
+    updated = pd.concat([existing, pd.DataFrame([row])], ignore_index=True)
+    if len(updated) > 500:
+        updated = updated.tail(500).copy()
+    _write_csv(ANDROID_TRIGGERS_PATH, updated)
+    return {
+        "status": "stored_experimental_web_trigger",
+        "privacy": "No names, phone numbers, exact addresses or device IDs are stored by this prototype endpoint.",
+        "cluster": evaluate_android_trigger_cluster(updated),
+    }
+
+
+@app.get("/seismic/mobile-cluster")
+def mobile_cluster():
+    """Combined mobile cluster view for Android app and Web Sensor Bridge triggers."""
+    triggers = _safe_read_csv(ANDROID_TRIGGERS_PATH)
+    return evaluate_android_trigger_cluster(triggers)
+
+
+@app.get("/web-bridge/status")
+def web_bridge_status():
+    return {
+        "status": "ok",
+        "version": "2.2.1",
+        "web_app_path": "/mobile/",
+        "trigger_endpoint": "/seismic/web-trigger",
+        "cluster_endpoint": "/seismic/mobile-cluster",
+        "privacy": "coarse location only; no device ID required",
+    }
+
+
 @app.get("/seismic/android-cluster")
 def android_cluster():
     triggers = _safe_read_csv(ANDROID_TRIGGERS_PATH)
@@ -391,3 +438,15 @@ def verification_summary_v19():
 @app.get("/services/android-app-status")
 def android_app_status_v20():
     return _json_file(PROCESSED / "android_app_bridge_status_v20.json")
+
+
+@app.get("/mobile-app", include_in_schema=False)
+def mobile_app_redirect():
+    return RedirectResponse(url="/mobile/")
+
+
+if WEB_CLIENT.exists():
+    app.mount("/mobile", StaticFiles(directory=str(WEB_CLIENT), html=True), name="mobile-web-bridge")
+elif LEGACY_WEB_CLIENT.exists():
+    app.mount("/mobile", StaticFiles(directory=str(LEGACY_WEB_CLIENT), html=True), name="mobile-web-bridge")
+
