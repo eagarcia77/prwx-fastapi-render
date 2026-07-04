@@ -1,0 +1,36 @@
+name: Update PR-WX v0.5 operational data
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "17 */3 * * *"
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install -e .
+      - name: Run operational update
+        run: |
+          python scripts/12_operational_update_v5.py --no-history
+      - name: Validate outputs
+        run: |
+          python scripts/13_validate_v5_outputs.py
+      - name: Commit updated data
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "Update PR-WX v0.5 operational data"
+          file_pattern: data/processed/*.csv data/processed/*.json
