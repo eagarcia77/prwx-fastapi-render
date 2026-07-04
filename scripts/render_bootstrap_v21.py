@@ -34,7 +34,7 @@ def main() -> None:
 
     ensure_json(PROCESSED / "latest_run.json", {
         "status": "ok",
-        "model_version": "2.2.1",
+        "model_version": "2.3.0",
         "generated_at_utc": now,
         "runtime": "render-fastapi",
         "message": "Render bootstrap completed. Run operational updater for live data.",
@@ -69,29 +69,33 @@ def main() -> None:
 
     ensure_json(PROCESSED / "android_app_bridge_status_v20.json", {
         "generated_at_utc": now,
-        "model_version": "2.2.1",
+        "model_version": "2.3.0",
         "overall_status": "ok",
         "render_ready": True,
         "endpoint": "/seismic/android-trigger",
+        "web_endpoint": "/seismic/web-trigger",
+        "mobile_page": "/mobile/",
         "note": "Android app can post to the public Render API URL.",
     })
 
     ensure_json(PROCESSED / "verification_summary_v19.json", {
         "generated_at_utc": now,
-        "model_version": "2.2.1",
+        "model_version": "2.3.0",
         "overall_status": "ok",
         "summary": "Render API bootstrap ready.",
     })
 
     ensure_json(PROCESSED / "render_status_v21.json", {
         "generated_at_utc": now,
-        "model_version": "2.2.1",
+        "model_version": "2.3.0",
         "platform": "Render",
         "fastapi": True,
         "github_ready": True,
         "health_endpoint": "/healthz",
         "web_mobile_bridge": "/mobile/",
         "web_trigger_endpoint": "/seismic/web-trigger",
+        "github_pages_ready": True,
+        "cors_ready": True,
     })
 
     ensure_csv(
