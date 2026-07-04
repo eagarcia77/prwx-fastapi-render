@@ -4,46 +4,52 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#0f766e">
-  <meta name="description" content="PR-WX Mobile Web Sensor Bridge">
+  <meta name="description" content="PR-WX Mobile Web Sensor Bridge para Android y iPhone">
   <link rel="manifest" href="./manifest.webmanifest">
   <link rel="stylesheet" href="./styles.css">
-  <title>PR-WX Web Sensor Bridge</title>
+  <title>PR-WX Mobile Web Bridge</title>
 </head>
 <body>
   <main class="shell">
-    <section class="hero">
-      <p class="eyebrow">PR-WX v2.2</p>
-      <h1>Web Sensor Bridge</h1>
-      <p>Funciona desde una página web segura para enviar señales experimentales de movimiento al dashboard PR-WX.</p>
-      <div class="badges">
-        <span>HTTPS</span><span>Sin device ID</span><span>Ubicación aproximada</span><span>Validación oficial</span>
+    <section class="hero" aria-labelledby="main-title">
+      <p class="eyebrow">PR-WX v2.3</p>
+      <h1 id="main-title">Mobile Web Bridge</h1>
+      <p>Prueba móvil desde navegador para enviar señales experimentales al sistema PR-WX usando HTTPS, consentimiento y ubicación aproximada.</p>
+      <div class="badges" aria-label="Características">
+        <span>Android Chrome</span><span>iPhone Safari</span><span>Render API</span><span>GitHub Pages</span>
       </div>
     </section>
 
     <section class="card warning">
-      <h2>Uso seguro</h2>
-      <p>Esta página no predice terremotos y no emite alertas públicas. Solo envía señales experimentales que deben validarse contra USGS, Red Sísmica y manejo de emergencias.</p>
+      <h2>Advertencia operacional</h2>
+      <p>Esta herramienta no predice terremotos ni emite alertas públicas. Toda señal móvil debe validarse con fuentes oficiales y personal autorizado.</p>
     </section>
 
     <section class="card">
-      <h2>1. Servidor PR-WX</h2>
-      <label for="apiBase">URL de la API</label>
-      <input id="apiBase" type="url" placeholder="https://tu-servicio.onrender.com" autocomplete="url">
-      <p class="hint">Si abres esta página desde Render, se usa automáticamente la misma URL.</p>
+      <h2>1. Conexión</h2>
+      <label for="apiBase">URL de la API en Render</label>
+      <input id="apiBase" type="url" autocomplete="url" placeholder="https://prwx-fastapi-render.onrender.com">
+      <div class="grid three">
+        <button id="statusBtn" type="button">Verificar API</button>
+        <button id="clusterBtn" type="button">Ver cluster</button>
+        <button id="installBtn" type="button">Instalar acceso</button>
+      </div>
+      <p class="hint">Desde GitHub Pages se usa automáticamente Render como API. Desde Render se usa la misma URL del servicio.</p>
     </section>
 
     <section class="card">
-      <h2>2. Consentimiento y ubicación</h2>
-      <label class="check"><input id="consent" type="checkbox"> Acepto enviar señales aproximadas del sensor, sin nombre, teléfono ni identificador del equipo.</label>
+      <h2>2. Consentimiento y ubicación aproximada</h2>
+      <label class="check"><input id="consent" type="checkbox"> Acepto enviar una señal experimental anónima, sin nombre, teléfono, correo, Apple ID, IMEI ni identificador del equipo.</label>
       <div class="grid">
         <div><label for="lat">Latitud aproximada</label><input id="lat" inputmode="decimal" placeholder="18.02"></div>
         <div><label for="lon">Longitud aproximada</label><input id="lon" inputmode="decimal" placeholder="-66.61"></div>
       </div>
       <button id="geoBtn" type="button">Usar ubicación aproximada</button>
+      <p class="hint">La página redondea la ubicación para evitar guardar una dirección exacta.</p>
     </section>
 
     <section class="card">
-      <h2>3. Sensores y monitoreo</h2>
+      <h2>3. Sensores</h2>
       <div class="grid">
         <button id="sensorBtn" type="button">Permitir sensores</button>
         <button id="notifyBtn" type="button">Permitir notificaciones</button>
@@ -52,7 +58,7 @@
         <button id="startBtn" type="button" class="primary">Iniciar monitoreo</button>
         <button id="testBtn" type="button">Enviar prueba segura</button>
       </div>
-      <div class="metrics">
+      <div class="metrics" role="status" aria-live="polite">
         <div><span>Estado</span><strong id="state">detenido</strong></div>
         <div><span>Pico g</span><strong id="peak">0.000</strong></div>
         <div><span>Enviados</span><strong id="sent">0</strong></div>
@@ -61,10 +67,11 @@
     </section>
 
     <section class="card">
-      <h2>Registro</h2>
+      <h2>Diagnóstico</h2>
       <pre id="log" aria-live="polite"></pre>
     </section>
   </main>
+  <script src="./api-config.js"></script>
   <script src="./app.js"></script>
 </body>
 </html>

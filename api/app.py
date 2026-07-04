@@ -1,12 +1,14 @@
 from __future__ import annotations
 
 import json
+import os
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
 import pandas as pd
 from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
@@ -38,7 +40,25 @@ SEISMIC_EEW_PATH = PROCESSED / "seismic_eew_v7.csv"
 SEISMIC_BRIEFING_PATH = PROCESSED / "seismic_briefing_v7.json"
 ANDROID_TRIGGERS_PATH = PROCESSED / "android_triggers_sample_v7.csv"
 
-app = FastAPI(title="PR-WX v2.2.1 Web Mobile Sensor Bridge", version="2.2.1")
+app = FastAPI(title="PR-WX v2.3 Web Ready Hardened", version="2.3.0")
+
+
+def _allowed_origins() -> list[str]:
+    raw = os.getenv(
+        "PRWX_ALLOWED_ORIGINS",
+        "https://eagarcia77.github.io,https://prwx-fastapi-render.onrender.com,http://localhost:8000,http://127.0.0.1:8000,http://localhost:8501,http://127.0.0.1:8501",
+    )
+    origins = [item.strip().rstrip("/") for item in raw.split(",") if item.strip()]
+    return origins or ["*"]
+
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=_allowed_origins(),
+    allow_methods=["GET", "POST", "OPTIONS"],
+    allow_headers=["*"],
+    allow_credentials=False,
+)
 
 
 class AndroidTrigger(BaseModel):
@@ -101,7 +121,7 @@ def healthz():
     return {
         "status": "ok",
         "service": "PR-WX FastAPI",
-        "version": "2.2.1",
+        "version": "2.3.0",
         "platform": "render",
         "timestamp_utc": utc_now_iso(),
     }
@@ -126,9 +146,11 @@ def render_status_v21():
 def root():
     return {
         "name": "PR-WX Web Mobile Sensor Bridge",
-        "version": "2.2.1",
+        "version": "2.3.0",
         "status": "experimental",
         "note": "Accessible weather risk + earthquake early warning visualization. Not official emergency guidance.",
+        "mobile_web": "/mobile/",
+        "web_bridge_status": "/web-bridge/status",
     }
 
 
@@ -335,11 +357,27 @@ def mobile_cluster():
 def web_bridge_status():
     return {
         "status": "ok",
-        "version": "2.2.1",
+        "version": "2.3.0",
         "web_app_path": "/mobile/",
         "trigger_endpoint": "/seismic/web-trigger",
         "cluster_endpoint": "/seismic/mobile-cluster",
+        "mobile_folder_exists": WEB_CLIENT.exists(),
+        "mobile_index_exists": (WEB_CLIENT / "index.html").exists(),
+        "cors_origins": _allowed_origins(),
+        "github_pages_url": "https://eagarcia77.github.io/prwx-fastapi-render/",
+        "render_url": os.getenv("PRWX_PUBLIC_RENDER_URL", "https://prwx-fastapi-render.onrender.com"),
         "privacy": "coarse location only; no device ID required",
+    }
+
+
+@app.get("/mobile/config.json")
+def mobile_config_json():
+    return {
+        "version": "2.3.0",
+        "default_api_base": os.getenv("PRWX_PUBLIC_RENDER_URL", "https://prwx-fastapi-render.onrender.com"),
+        "trigger_endpoint": "/seismic/web-trigger",
+        "cluster_endpoint": "/seismic/mobile-cluster",
+        "health_endpoint": "/healthz",
     }
 
 

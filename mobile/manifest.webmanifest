@@ -1,9 +1,11 @@
 {
-  "name": "PR-WX Web Sensor Bridge",
+  "name": "PR-WX Mobile Web Bridge",
   "short_name": "PR-WX Bridge",
   "start_url": "./",
+  "scope": "./",
   "display": "standalone",
   "background_color": "#f8fafc",
   "theme_color": "#0f766e",
+  "description": "PR-WX mobile web bridge for experimental sensor validation.",
   "icons": []
 }
