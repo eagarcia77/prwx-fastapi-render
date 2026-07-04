@@ -1,4 +1,4 @@
-# PR-WX v2.2.1 - Web Mobile Sensor Bridge
+# PR-WX v2.3 - Web Mobile Sensor Bridge
 
 ## Objetivo
 
@@ -37,7 +37,7 @@ https://TU-SERVICIO.onrender.com/mobile-app
 - Toda señal debe validarse contra USGS, Red Sísmica, NOAA/NWS o manejo de emergencias.
 
 
-## Corrección v2.2.1
+## Corrección v2.3
 
 - Ahora existe una carpeta real llamada `mobile/` en la raíz del proyecto.
 - La ruta pública sigue siendo `/mobile/`.

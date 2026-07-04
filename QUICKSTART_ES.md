@@ -1,4 +1,4 @@
-# Guía rápida - PR-WX v2.2.1
+# Guía rápida - PR-WX v2.3
 
 ## 1. Abrir la carpeta
 
@@ -57,7 +57,7 @@ docker compose down
 - `REALTIME_V10_ES.md`
 
 
-## Ejecución recomendada v2.2.1
+## Ejecución recomendada v2.3
 
 ```powershell
 docker compose build --no-cache
@@ -68,7 +68,7 @@ docker compose up prwx-dashboard
 Luego abra `http://localhost:8501`.
 
 
-## Novedades v2.2.1
+## Novedades v2.3
 
 - Sonido opcional para alertas críticas.
 - Notificaciones locales del navegador mientras la página está abierta.
@@ -77,14 +77,14 @@ Luego abra `http://localhost:8501`.
 - Panel temporal: ahora, próximas 6 horas y próximas 24 horas.
 
 
-## Novedades v2.2.1
+## Novedades v2.3
 
 - Mapa animado de trayectoria de huracanes en el Atlántico.
 - Mapa mundial de terremotos en tiempo real (o muestra offline).
 - Información más completa en terremotos y tsunami.
 
 
-## Novedades v2.2.1
+## Novedades v2.3
 
 - Radar por capas: 1h, 3h, 6h y 24h.
 - Cono de incertidumbre para trayectorias de huracanes.
@@ -93,7 +93,7 @@ Luego abra `http://localhost:8501`.
 - Alertas más fuertes para tsunami y terremotos.
 
 
-## Novedades v2.2.1
+## Novedades v2.3
 
 - Panel de salud del sistema.
 - Manifest MRMS QPE para integración real de radar.
@@ -101,7 +101,7 @@ Luego abra `http://localhost:8501`.
 - Pestaña Sistema/MRMS en el dashboard.
 
 
-## Novedades v2.2.1
+## Novedades v2.3
 
 - MRMS real en el mapa usando `exportImage` del ImageServer.
 - Capas QPE 1h, 3h, 6h, 12h, 24h, 48h y 72h.
@@ -109,7 +109,7 @@ Luego abra `http://localhost:8501`.
 - Endpoint `/radar/mrms-real`.
 
 
-## Novedades v2.2.1
+## Novedades v2.3
 
 - Alertas activas por defecto.
 - Sonido y notificaciones locales activos por defecto.
@@ -118,7 +118,7 @@ Luego abra `http://localhost:8501`.
 - Dashboard con más fallbacks para evitar fallas por fuentes externas.
 
 
-## Novedades v2.2.1
+## Novedades v2.3
 
 - Corrección MRMS con visor ArcGIS JS en navegador.
 - Nuevas alternativas de URL `exportImage` y tabla de diagnóstico MRMS.
@@ -126,7 +126,7 @@ Luego abra `http://localhost:8501`.
 - Nueva pestaña MRMS Fix y Vida/Seguridad.
 
 
-## Novedades v2.2.1
+## Novedades v2.3
 
 - Verificación de servicios externos y artefactos locales.
 - Verificación específica del Android Sensor Bridge para terremotos.
@@ -134,7 +134,7 @@ Luego abra `http://localhost:8501`.
 - Nuevos endpoints de diagnóstico.
 
 
-## Novedades v2.2.1
+## Novedades v2.3
 
 - Proyecto Android inicial en `android_sensor_app/`.
 - App Kotlin para leer acelerómetro y enviar señales a `/seismic/android-trigger`.
@@ -142,7 +142,7 @@ Luego abra `http://localhost:8501`.
 - Estado de Android App Bridge.
 
 
-## Novedades v2.2.1
+## Novedades v2.3
 
 - Preparado para Render + GitHub + FastAPI.
 - `render.yaml`, `Procfile` y `start_render_api.sh`.
@@ -150,7 +150,7 @@ Luego abra `http://localhost:8501`.
 - Workflow de GitHub Actions para instalar, probar e importar la API.
 
 
-## Novedades v2.2.1
+## Novedades v2.3
 
 - Página web móvil en `/mobile/`.
 - Endpoint `/seismic/web-trigger`.
@@ -159,7 +159,7 @@ Luego abra `http://localhost:8501`.
 - Funciona desde Render usando HTTPS.
 
 
-## Corrección v2.2.1
+## Corrección v2.3
 
 - Ahora existe una carpeta real llamada `mobile/` en la raíz del proyecto.
 - La ruta pública sigue siendo `/mobile/`.

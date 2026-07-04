@@ -1,4 +1,4 @@
-# PR-WX v2.2.1 - Render + GitHub + Python FastAPI
+# PR-WX v2.3 - Render + GitHub + Python FastAPI
 
 ## Objetivo
 
@@ -67,7 +67,7 @@ El endpoint para señales Android es:
 Render usa almacenamiento efímero en servicios web. Esta versión incluye `render_bootstrap_v21.py` para crear archivos mínimos si el servicio inicia sin datos procesados.
 
 
-## Novedades v2.2.1
+## Novedades v2.3
 
 - Página web móvil en `/mobile/`.
 - Endpoint `/seismic/web-trigger`.
@@ -76,7 +76,7 @@ Render usa almacenamiento efímero en servicios web. Esta versión incluye `rend
 - Funciona desde Render usando HTTPS.
 
 
-## Corrección v2.2.1
+## Corrección v2.3
 
 - Ahora existe una carpeta real llamada `mobile/` en la raíz del proyecto.
 - La ruta pública sigue siendo `/mobile/`.

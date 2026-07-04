@@ -12,4 +12,8 @@ services:
       - key: RUN_OPERATIONAL_UPDATE_ON_START
         value: "false"
       - key: PRWX_NWS_USER_AGENT
-        value: "PR-WX-Hybrid-Model/2.1 render@example.com"
+        value: "PR-WX-Hybrid-Model/2.3 render@example.com"
+      - key: PRWX_PUBLIC_RENDER_URL
+        value: "https://prwx-fastapi-render.onrender.com"
+      - key: PRWX_ALLOWED_ORIGINS
+        value: "https://eagarcia77.github.io,https://prwx-fastapi-render.onrender.com,http://localhost:8000,http://127.0.0.1:8000"

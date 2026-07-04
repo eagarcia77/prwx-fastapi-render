@@ -1,6 +1,16 @@
 # CHANGELOG
 
-## v2.2.1 - Mobile folder fixed
+## v2.3.0 - Web Ready Hardened
+
+- Endurecimiento para Render + GitHub Pages + Android Chrome.
+- CORS para GitHub Pages.
+- Carpeta `mobile/` real y raíz `index.html`.
+- Workflows de actualización de datos movidos a `workflows_disabled` para evitar conflictos.
+- Script de verificación `scripts/verify_web_mobile_v23.py`.
+
+# CHANGELOG
+
+## v2.3 - Mobile folder fixed
 
 - Añadida carpeta real `mobile/` en la raíz del proyecto.
 - FastAPI monta `/mobile/` desde la carpeta `mobile/`.
@@ -8,7 +18,7 @@
 
 # CHANGELOG
 
-## v2.2.0 - Web Mobile Sensor Bridge
+## v2.3.0 - Web Mobile Sensor Bridge
 
 - Añadida página web móvil `/mobile/`.
 - Añadido endpoint `/seismic/web-trigger`.
