@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0f766e">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="stylesheet" href="./styles.css">
+  <title>PR-WX Desktop</title>
+</head>
+<body>
+  <header class="hero">
+    <div>
+      <p class="eyebrow">PR-WX v2.4.1</p>
+      <h1>Centro Operacional Desktop</h1>
+      <p>Panel para computadora conectado a la API FastAPI en Render.</p>
+    </div>
+    <nav class="links">
+      <a id="mobileLink" href="/mobile/">Mobile</a>
+      <a id="docsLink" href="/docs">API Docs</a>
+      <a id="healthLink" href="/desktop-health">Desktop Health</a>
+    </nav>
+  </header>
+
+  <main class="layout">
+    <section class="card wide">
+      <h2>Conexión</h2>
+      <label for="apiBase">URL de la API</label>
+      <input id="apiBase" type="url" placeholder="https://prwx-fastapi-render.onrender.com">
+      <div class="actions">
+        <button id="refreshBtn" class="primary">Actualizar panel</button>
+        <button id="clearBtn">Limpiar cache visual</button>
+      </div>
+      <p class="note">En Render se usa la misma URL. En GitHub Pages se usa la URL pública de Render.</p>
+    </section>
+
+    <section class="grid" id="cards" aria-live="polite"></section>
+
+    <section class="card wide">
+      <h2>Datos recientes</h2>
+      <div class="tableWrap"><table id="dataTable"><thead></thead><tbody></tbody></table></div>
+    </section>
+
+    <section class="card wide">
+      <h2>Diagnóstico</h2>
+      <pre id="log"></pre>
+    </section>
+  </main>
+
+  <script src="./api-config.js"></script>
+  <script src="./app.js?v=2.4.1"></script>
+</body>
+</html>
