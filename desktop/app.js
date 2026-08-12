@@ -18,8 +18,22 @@ async function getJSON(path) {
   return response.json();
 }
 
+function esc(value) {
+  return String(value ?? "")
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
+}
+
+function fmt(value, digits = 1) {
+  const n = Number(value);
+  return Number.isFinite(n) ? n.toFixed(digits) : "N/D";
+}
+
 function card(title, value, detail, cls = "ok") {
-  return `<article class="card metric ${cls}"><span>${title}</span><strong>${value}</strong><p>${detail || ""}</p></article>`;
+  return `<article class="card metric ${cls}"><span>${esc(title)}</span><strong>${esc(value)}</strong><p>${esc(detail || "")}</p></article>`;
 }
 
 function renderTable(rows) {
@@ -34,8 +48,52 @@ function renderTable(rows) {
   }
   const priority = ["municipality", "risk_level", "risk_score", "temp_f", "feels_like_f", "rain_in", "wind_mph", "headline", "severity", "cluster_status"];
   const columns = [...priority.filter((c) => c in rows[0]), ...Object.keys(rows[0]).filter((c) => !priority.includes(c))].slice(0, 9);
-  thead.innerHTML = `<tr>${columns.map((c) => `<th>${c}</th>`).join("")}</tr>`;
-  tbody.innerHTML = rows.slice(0, 20).map((r) => `<tr>${columns.map((c) => `<td>${r[c] ?? ""}</td>`).join("")}</tr>`).join("");
+  thead.innerHTML = `<tr>${columns.map((c) => `<th>${esc(c)}</th>`).join("")}</tr>`;
+  tbody.innerHTML = rows.slice(0, 20).map((r) => `<tr>${columns.map((c) => `<td>${esc(r[c] ?? "")}</td>`).join("")}</tr>`).join("");
+}
+
+function renderWeatherReport(report) {
+  const target = $("weatherReport");
+  if (!report || report.error) {
+    target.innerHTML = `<p class="note">No se pudo generar el informe: ${esc(report?.error || "sin datos")}</p>`;
+    return;
+  }
+  const c = report.conditions || {};
+  const p = report.precipitation || {};
+  const h = report.hazards || {};
+  const m = report.model || {};
+  const alerts = Array.isArray(h.alerts) ? h.alerts : [];
+  target.innerHTML = `
+    <div class="grid">
+      ${card("Temperatura", `${fmt(c.temperature_f)} °F`, `Sensación: ${fmt(c.feels_like_f)} °F`)}
+      ${card("Humedad", `${fmt(c.relative_humidity_pct, 0)}%`, "Humedad relativa")}
+      ${card("Viento", `${fmt(c.wind_mph)} mph`, `Ráfaga: ${fmt(c.wind_gust_mph)} mph`)}
+      ${card("Lluvia 24 h", `${fmt(p.forecast_24h_in, 2)} in`, `Rango P10–P90: ${fmt(p.p10_in, 2)}–${fmt(p.p90_in, 2)} in`)}
+      ${card("Impacto", h.risk_level || "N/D", `${alerts.length} alerta(s) asociada(s)`, alerts.length ? "warn" : "ok")}
+      ${card("PR-CARIBE v2", m.status || "training_required", m.production_validated ? "Validado" : "Aún no validado para producción", m.production_validated ? "ok" : "warn")}
+    </div>
+    <p><strong>Resumen:</strong> ${esc(report.summary_es || "")}</p>
+    <p class="note">${esc(report.disclaimer || "")}</p>
+  `;
+}
+
+async function loadWeatherReport() {
+  const municipality = ($("municipalityInput").value || "").trim();
+  if (!municipality) {
+    $("weatherReport").innerHTML = `<p class="note">Escriba un municipio.</p>`;
+    return;
+  }
+  $("weatherReport").innerHTML = `<p class="note">Generando informe para ${esc(municipality)}...</p>`;
+  const template = paths.weatherReport || "/weather/report/{municipality}";
+  const path = template.replace("{municipality}", encodeURIComponent(municipality));
+  try {
+    const report = await getJSON(path);
+    renderWeatherReport(report);
+    log(`Informe meteorológico generado para ${municipality}.`);
+  } catch (err) {
+    renderWeatherReport({ error: err.message });
+    log(`Error de informe: ${err.message}`);
+  }
 }
 
 async function refresh() {
@@ -49,23 +107,28 @@ async function refresh() {
     getJSON(paths.webBridge || "/web-bridge/status"),
     getJSON(paths.alerts || "/alerts/active"),
     getJSON(paths.temperatureFocus || "/temperature/focus"),
-    getJSON(paths.mobileCluster || "/seismic/mobile-cluster")
+    getJSON(paths.mobileCluster || "/seismic/mobile-cluster"),
+    getJSON(paths.caribbeanModelStatus || "/caribbean/model/status"),
+    getJSON(paths.caribbeanModelReadiness || "/caribbean/model/readiness")
   ]);
-  const [health, desktopHealth, apiStatus, webBridge, alerts, focus, cluster] = results.map((r) => r.status === "fulfilled" ? r.value : { error: r.reason.message });
+  const [health, desktopHealth, apiStatus, webBridge, alerts, focus, cluster, modelStatus, readiness] = results.map((r) => r.status === "fulfilled" ? r.value : { error: r.reason.message });
   const alertsCount = Array.isArray(alerts) ? alerts.length : 0;
   const focusCount = Array.isArray(focus) ? focus.length : 0;
   const clusterStatus = cluster.cluster_status || cluster.status || "sin cluster";
+  const modelState = modelStatus.status || "training_required";
+  const candidate = readiness.operational_candidate === true;
   cards.innerHTML = [
     card("API", health.status || "error", health.service || health.error || "healthz"),
     card("Desktop", desktopHealth.status || "error", `index: ${desktopHealth.desktop_index_exists === true}`),
     card("Versión", apiStatus.version || webBridge.version || cfg.version || "N/D", "Render + GitHub"),
     card("Alertas", alertsCount, "Registros de alertas activas"),
     card("Municipios foco", focusCount, "Temperatura y riesgo"),
+    card("PR-CARIBE WX", modelState, candidate ? "Dataset candidato operacional" : "Entrenamiento histórico pendiente", candidate ? "ok" : "warn"),
     card("Mobile cluster", clusterStatus, "Señales web/móvil experimentales")
   ].join("");
   if (Array.isArray(alerts) && alerts.length) renderTable(alerts);
   else if (Array.isArray(focus) && focus.length) renderTable(focus);
-  else renderTable([health, desktopHealth, apiStatus, webBridge, cluster]);
+  else renderTable([health, desktopHealth, apiStatus, webBridge, cluster, modelStatus, readiness]);
   log("Panel actualizado correctamente.");
 }
 
@@ -80,6 +143,10 @@ function init() {
     $("mobileLink").href = `${apiBase()}/mobile/`;
   });
   $("refreshBtn").addEventListener("click", () => refresh().catch((err) => log(`Error: ${err.message}`)));
+  $("weatherReportBtn").addEventListener("click", loadWeatherReport);
+  $("municipalityInput").addEventListener("keydown", (event) => {
+    if (event.key === "Enter") loadWeatherReport();
+  });
   $("clearBtn").addEventListener("click", async () => {
     if ("caches" in window) {
       const keys = await caches.keys();
@@ -87,8 +154,9 @@ function init() {
     }
     log("Cache visual limpiado. Recargue la página si todavía ve una versión vieja.");
   });
-  if ("serviceWorker" in navigator) navigator.serviceWorker.register("./service-worker.js?v=2.4.1").catch(() => {});
+  if ("serviceWorker" in navigator) navigator.serviceWorker.register("./service-worker.js?v=2.5.0").catch(() => {});
   refresh().catch((err) => log(`Error inicial: ${err.message}`));
+  loadWeatherReport();
 }
 
 document.addEventListener("DOMContentLoaded", init);
