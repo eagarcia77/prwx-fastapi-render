@@ -1,6 +1,6 @@
-# PR-WX Hybrid Model v1.0
+# PR-WX Hybrid Model / PR-CARIBE WX v2
 
-**PR-WX Hybrid Model v1.0** es un prototipo experimental para Puerto Rico con temperatura, sensación térmica, lluvia, viento, riesgo operacional y alertas en un dashboard accesible.
+**PR-WX** es una plataforma meteorológica experimental para Puerto Rico con temperatura, sensación térmica, lluvia, viento, riesgo operacional, radar, ciclones y alertas. La nueva línea **PR-CARIBE WX Hybrid v2.0** añade una arquitectura entrenable específica para Puerto Rico y el Caribe sin asumir que los modelos de Estados Unidos continental tienen cobertura válida para la región.
 
 ## Pueblos prioritarios
 
@@ -13,13 +13,67 @@ La interfaz destaca primero:
 
 ## Componentes principales
 
-- Dashboard Streamlit accesible.
-- Actualización visual cada minuto.
-- Mapa animado de lluvia, viento y temperatura.
-- Tabla de temperatura por municipio.
+- Desktop web accesible.
+- Mobile/PWA.
+- Dashboard Streamlit.
+- API FastAPI.
+- Mapa de lluvia, viento y temperatura.
+- Temperatura y riesgo por municipio.
+- Radar/MRMS y productos tropicales.
 - Panel de terremotos, tsunami y Android Sensor Bridge experimental.
-- API local FastAPI.
-- Docker y Docker Compose.
+- PR-CARIBE WX Hybrid v2.0: ensemble entrenable para temperatura, lluvia, viento, ráfagas, humedad y presión.
+
+## PR-CARIBE WX Hybrid v2.0
+
+El nuevo modelo utiliza solamente fuentes cuyo dominio documentado cubre Puerto Rico o el Caribe. El registro inicial contempla NWS San Juan, NAM Puerto Rico Nest, GFS, GEFS, MRMS Caribbean, TJUA/NEXRAD, GOES-East/GOES-19, NHC, HAFS, GFS-Wave/WAVEWATCH III, NDBC y NCEI Integrated Surface Database.
+
+El modelo v2.0 está creado y el pipeline de entrenamiento está disponible, pero **no se marca como entrenado ni validado para producción hasta disponer de un dataset histórico real y completar backtesting independiente**. El pequeño `data/sample/training_sample.csv` heredado sigue siendo solamente un dataset de demostración y no se usa para declarar el nuevo modelo operacional.
+
+Documentación completa:
+
+```text
+docs/PR_CARIBE_WX_V2.md
+```
+
+Entrenamiento con el dataset histórico canónico:
+
+```bash
+python scripts/22_train_pr_caribbean_v20.py
+```
+
+Estado y preparación:
+
+```text
+GET /caribbean/model/status
+GET /caribbean/model/readiness
+GET /caribbean/model/sources
+```
+
+Informe meteorológico municipal:
+
+```text
+GET /weather/report/{municipality}
+```
+
+Ejemplo:
+
+```text
+GET /weather/report/San Juan
+```
+
+## Desktop en Render
+
+Rutas principales:
+
+```text
+/desktop/
+/mobile/
+/desktop-health
+/api/status
+/docs
+```
+
+La interfaz Desktop v2.5 incluye un generador de informe del tiempo por municipio y muestra separadamente el estado del modelo PR-CARIBE WX para evitar presentar como validado un modelo que todavía está en fase de entrenamiento.
 
 ## Ejecutar con Docker
 
@@ -29,7 +83,7 @@ docker compose run --rm prwx-update-once
 docker compose up prwx-dashboard
 ```
 
-Abrir:
+Dashboard local:
 
 ```text
 http://localhost:8501
@@ -47,126 +101,41 @@ docker compose --profile updater up -d prwx-updater
 docker compose up prwx-api
 ```
 
-Abrir:
+Documentación:
 
 ```text
 http://localhost:8000/docs
 ```
 
-Endpoints nuevos:
+Endpoints operacionales existentes incluyen:
 
+- `/predictions`
 - `/temperature`
 - `/temperature/focus`
 - `/weather-animation`
 - `/safety-alerts`
 - `/realtime-summary`
+- `/radar/mrms-real`
+- `/hurricanes/cone`
+- `/hurricanes/pr-risk`
+- endpoints sísmicos y de diagnóstico.
+
+## Evolución existente
+
+PR-WX ya incluye:
+
+- Emergency Display tipo centro de mando.
+- Sonido y notificaciones locales para alertas críticas.
+- Modos claro, oscuro, alto contraste y kiosco.
+- Panel temporal de ahora, 6 horas y 24 horas.
+- Trayectorias y cono de incertidumbre para ciclones tropicales.
+- Capas MRMS/QPE.
+- Mapa mundial de terremotos y panel de tsunami.
+- Life Safety Board.
+- Android Sensor Bridge y Web Sensor Bridge experimentales con ubicación aproximada.
+- Render + GitHub + FastAPI.
+- Desktop y Mobile servidos desde el mismo backend.
 
 ## Advertencia
 
-Este sistema es experimental y educativo. No sustituye a NWS San Juan, NOAA, USGS, Red Sísmica de Puerto Rico ni agencias de manejo de emergencias.
-
-
-## Novedades v2.3
-
-- Vista **Emergency Display** en el dashboard.
-- Enfoque tipo centro de mando con semáforo y acciones rápidas.
-- Mayor claridad para temperatura, lluvia, viento y seguridad.
-- Prioridad visual reforzada para Juana Díaz, Ponce, San Juan y San Germán.
-
-
-## Novedades v2.3
-
-- Sonido opcional para alertas críticas.
-- Notificaciones locales del navegador mientras la página está abierta.
-- Modo claro, oscuro y alto contraste.
-- Modo pantalla gigante/kiosco.
-- Panel temporal: ahora, próximas 6 horas y próximas 24 horas.
-
-
-## Novedades v2.3
-
-- Mapa animado de trayectoria de huracanes en el Atlántico.
-- Mapa mundial de terremotos en tiempo real (o muestra offline).
-- Información más completa en terremotos y tsunami.
-
-
-## Novedades v2.3
-
-- Radar por capas: 1h, 3h, 6h y 24h.
-- Cono de incertidumbre para trayectorias de huracanes.
-- Riesgo de huracán para Puerto Rico.
-- Filtros mundiales de terremotos por magnitud, tsunami y cantidad.
-- Alertas más fuertes para tsunami y terremotos.
-
-
-## Novedades v2.3
-
-- Panel de salud del sistema.
-- Manifest MRMS QPE para integración real de radar.
-- Mejor manejo de fuentes externas y archivos vacíos.
-- Pestaña Sistema/MRMS en el dashboard.
-
-
-## Novedades v2.3
-
-- MRMS real en el mapa usando `exportImage` del ImageServer.
-- Capas QPE 1h, 3h, 6h, 12h, 24h, 48h y 72h.
-- Nueva pestaña MRMS Real.
-- Endpoint `/radar/mrms-real`.
-
-
-## Novedades v2.3
-
-- Alertas activas por defecto.
-- Sonido y notificaciones locales activos por defecto.
-- Alertas persistentes hasta revisión.
-- Reporte de endurecimiento y revisión del sistema.
-- Dashboard con más fallbacks para evitar fallas por fuentes externas.
-
-
-## Novedades v2.3
-
-- Corrección MRMS con visor ArcGIS JS en navegador.
-- Nuevas alternativas de URL `exportImage` y tabla de diagnóstico MRMS.
-- Life Safety Board con acciones para inundación, calor, huracán, terremoto, tsunami, comunicaciones, energía y accesibilidad.
-- Nueva pestaña MRMS Fix y Vida/Seguridad.
-
-
-## Novedades v2.3
-
-- Verificación de servicios externos y artefactos locales.
-- Verificación específica del Android Sensor Bridge para terremotos.
-- Nueva pestaña Servicios/Android.
-- Nuevos endpoints de diagnóstico.
-
-
-## Novedades v2.3
-
-- Proyecto Android inicial en `android_sensor_app/`.
-- App Kotlin para leer acelerómetro y enviar señales a `/seismic/android-trigger`.
-- Consentimiento explícito, ubicación aproximada y sin identificadores personales.
-- Estado de Android App Bridge.
-
-
-## Novedades v2.3
-
-- Preparado para Render + GitHub + FastAPI.
-- `render.yaml`, `Procfile` y `start_render_api.sh`.
-- Endpoints `/healthz`, `/readyz` y `/render/status`.
-- Workflow de GitHub Actions para instalar, probar e importar la API.
-
-
-## Novedades v2.3
-
-- Página web móvil en `/mobile/`.
-- Endpoint `/seismic/web-trigger`.
-- Cluster combinado `/seismic/mobile-cluster`.
-- PWA básica con manifest y service worker.
-- Funciona desde Render usando HTTPS.
-
-
-## Corrección v2.3
-
-- Ahora existe una carpeta real llamada `mobile/` en la raíz del proyecto.
-- La ruta pública sigue siendo `/mobile/`.
-- Se mantiene `web_mobile_bridge/` como respaldo heredado.
+Este sistema es experimental y educativo. No sustituye las advertencias, vigilancias, pronósticos ni instrucciones oficiales de NOAA/NWS San Juan, National Hurricane Center, USGS, Red Sísmica de Puerto Rico o las agencias de manejo de emergencias. PR-CARIBE WX nunca debe cancelar ni reducir automáticamente la severidad de una alerta oficial.
