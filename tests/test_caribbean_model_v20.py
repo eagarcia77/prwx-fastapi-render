@@ -7,6 +7,7 @@ from prwx.caribbean_model_v20 import MODEL_NAME, MODEL_VERSION, predict_caribbea
 from prwx.caribbean_sources import source_ids
 
 
+# Validation branch marker: the assertions below are identical to main and exist only to trigger the PR workflow.
 def sample_frame(rows: int = 80) -> pd.DataFrame:
     rng = np.random.default_rng(42)
     dates = pd.date_range("2025-06-01", periods=rows, freq="6h", tz="UTC")
