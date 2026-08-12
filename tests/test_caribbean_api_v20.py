@@ -5,6 +5,7 @@ from fastapi.testclient import TestClient
 from api.desktop_app import app
 
 
+# Validation branch marker; assertions are identical to main.
 client = TestClient(app)
 
 
