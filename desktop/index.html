@@ -11,9 +11,9 @@
 <body>
   <header class="hero">
     <div>
-      <p class="eyebrow">PR-WX v2.4.1</p>
-      <h1>Centro Operacional Desktop</h1>
-      <p>Panel para computadora conectado a la API FastAPI en Render.</p>
+      <p class="eyebrow">PR-WX v2.5 · PR-CARIBE WX Hybrid v2.0</p>
+      <h1>Centro Meteorológico Puerto Rico y Caribe</h1>
+      <p>Pronóstico experimental, comparación de fuentes, riesgo, incertidumbre y monitoreo operacional para Puerto Rico.</p>
     </div>
     <nav class="links">
       <a id="mobileLink" href="/mobile/">Mobile</a>
@@ -36,6 +36,23 @@
 
     <section class="grid" id="cards" aria-live="polite"></section>
 
+    <section class="card wide" aria-labelledby="weatherReportTitle">
+      <h2 id="weatherReportTitle">Informe del tiempo PR-CARIBE</h2>
+      <p>Escriba un municipio de Puerto Rico. El sistema combina el producto operacional disponible con el estado del nuevo modelo y sus fuentes aplicables.</p>
+      <label for="municipalityInput">Municipio</label>
+      <input id="municipalityInput" list="priorityMunicipalities" value="San Juan" autocomplete="off">
+      <datalist id="priorityMunicipalities">
+        <option value="Juana Díaz"></option>
+        <option value="Ponce"></option>
+        <option value="San Juan"></option>
+        <option value="San Germán"></option>
+      </datalist>
+      <div class="actions">
+        <button id="weatherReportBtn" class="primary">Generar informe</button>
+      </div>
+      <div id="weatherReport" aria-live="polite"><p class="note">Seleccione un municipio para consultar el informe.</p></div>
+    </section>
+
     <section class="card wide">
       <h2>Datos recientes</h2>
       <div class="tableWrap"><table id="dataTable"><thead></thead><tbody></tbody></table></div>
@@ -48,6 +65,6 @@
   </main>
 
   <script src="./api-config.js"></script>
-  <script src="./app.js?v=2.4.1"></script>
+  <script src="./app.js?v=2.5.0"></script>
 </body>
 </html>
