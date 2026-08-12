@@ -1,5 +1,5 @@
 window.PRWX_CONFIG = {
-  version: "2.4.1",
+  version: "2.5.0",
   renderApiBase: "https://prwx-fastapi-render.onrender.com",
   defaultApiBase: window.location.hostname.includes("github.io")
     ? "https://prwx-fastapi-render.onrender.com"
@@ -12,6 +12,10 @@ window.PRWX_CONFIG = {
     predictions: "/predictions",
     alerts: "/alerts/active",
     temperatureFocus: "/temperature/focus",
-    mobileCluster: "/seismic/mobile-cluster"
+    mobileCluster: "/seismic/mobile-cluster",
+    caribbeanModelStatus: "/caribbean/model/status",
+    caribbeanModelReadiness: "/caribbean/model/readiness",
+    caribbeanModelSources: "/caribbean/model/sources",
+    weatherReport: "/weather/report/{municipality}"
   }
 };
