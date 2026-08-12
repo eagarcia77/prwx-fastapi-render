@@ -1,0 +1,91 @@
+name: PR-CARIBE WX v2
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'src/prwx/caribbean_*.py'
+      - 'api/caribbean_router.py'
+      - 'api/desktop_app.py'
+      - 'scripts/22_train_pr_caribbean_v20.py'
+      - 'tests/test_caribbean_model_v20.py'
+      - 'desktop/**'
+      - '.github/workflows/pr-caribe-wx-v20.yml'
+  pull_request:
+    paths:
+      - 'src/prwx/caribbean_*.py'
+      - 'api/caribbean_router.py'
+      - 'api/desktop_app.py'
+      - 'scripts/22_train_pr_caribbean_v20.py'
+      - 'tests/test_caribbean_model_v20.py'
+      - 'desktop/**'
+      - '.github/workflows/pr-caribe-wx-v20.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    name: Validate model, API and Desktop
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: pip
+      - name: Install
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements.txt
+          python -m pip install -e .
+      - name: Model tests
+        run: python -m pytest -q tests/test_caribbean_model_v20.py
+      - name: Existing regression tests
+        run: python -m pytest -q
+      - name: Import API
+        run: python -c "from api.desktop_app import app; print(app.title); assert any(getattr(r,'path',None) == '/weather/report/{municipality}' for r in app.routes)"
+      - name: Start API
+        env:
+          PRWX_PUBLIC_RENDER_URL: http://127.0.0.1:8250
+        run: |
+          python -m uvicorn api.desktop_app:app --host 127.0.0.1 --port 8250 > /tmp/prwx-v20.log 2>&1 &
+          echo $! > /tmp/prwx-v20.pid
+          for attempt in $(seq 1 60); do
+            if curl -fsS http://127.0.0.1:8250/desktop-health > /tmp/health.json; then exit 0; fi
+            sleep 0.5
+          done
+          cat /tmp/prwx-v20.log
+          exit 1
+      - name: Verify model endpoints
+        run: |
+          curl -fsS http://127.0.0.1:8250/caribbean/model/status > /tmp/model.json
+          curl -fsS http://127.0.0.1:8250/caribbean/model/sources > /tmp/sources.json
+          curl -fsS http://127.0.0.1:8250/caribbean/model/readiness > /tmp/readiness.json
+          python - <<'PY'
+          import json
+          model=json.load(open('/tmp/model.json'))
+          sources=json.load(open('/tmp/sources.json'))
+          ready=json.load(open('/tmp/readiness.json'))
+          assert model['name'] == 'PR-CARIBE WX Hybrid'
+          assert model['version'] == '2.0.0'
+          assert model['production_validated'] is False
+          ids={s['id'] for s in sources['sources']}
+          for expected in ['nws_sju_grid','nam_pr_nest','gfs','gefs','mrms_caribbean','goes19','nhc','hafs']:
+              assert expected in ids
+          assert ready['production_validated'] is False
+          PY
+      - name: Verify Desktop integration
+        run: |
+          curl -fsS http://127.0.0.1:8250/desktop/ > /tmp/desktop.html
+          grep -q 'PR-CARIBE WX Hybrid v2.0' /tmp/desktop.html
+          grep -q 'weatherReportBtn' /tmp/desktop.html
+          curl -fsS http://127.0.0.1:8250/desktop/config.json > /tmp/config.json
+          grep -q 'weather_report_endpoint_template' /tmp/config.json
+      - name: Stop API
+        if: always()
+        run: |
+          if [ -f /tmp/prwx-v20.pid ]; then kill "$(cat /tmp/prwx-v20.pid)" 2>/dev/null || true; fi
+          tail -n 120 /tmp/prwx-v20.log 2>/dev/null || true
