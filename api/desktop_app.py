@@ -8,8 +8,9 @@ from fastapi.routing import APIRoute
 from fastapi.staticfiles import StaticFiles
 
 from api.app import ROOT, app, utc_now_iso
+from api.caribbean_router import router as caribbean_router
 
-VERSION = "2.4.1"
+VERSION = "2.5.0"
 DESKTOP_CLIENT = ROOT / "desktop"
 MOBILE_CLIENT = ROOT / "mobile"
 
@@ -24,6 +25,11 @@ def _route_exists(path: str) -> bool:
 
 def _root_desktop_redirect():
     return RedirectResponse(url="/desktop/")
+
+
+if not getattr(app.state, "caribbean_router_installed", False):
+    app.include_router(caribbean_router)
+    app.state.caribbean_router_installed = True
 
 
 # Put the desktop redirect before the original API root route from api.app.
@@ -53,8 +59,12 @@ def api_status():
         "desktop_health": "/desktop-health",
         "web_bridge_status": "/web-bridge/status",
         "api_docs": "/docs",
+        "caribbean_model_status": "/caribbean/model/status",
+        "caribbean_model_sources": "/caribbean/model/sources",
+        "caribbean_model_readiness": "/caribbean/model/readiness",
+        "weather_report_example": "/weather/report/San Juan",
         "render_url": _public_render_url(),
-        "note": "Experimental operational dashboard. Not official emergency guidance.",
+        "note": "Experimental operational dashboard. Official warnings must come from NOAA/NWS/NHC and emergency-management agencies.",
     }
 
 
@@ -69,6 +79,7 @@ def desktop_health():
         "desktop_config_exists": (DESKTOP_CLIENT / "api-config.js").exists(),
         "mobile_folder_exists": MOBILE_CLIENT.exists(),
         "mobile_index_exists": (MOBILE_CLIENT / "index.html").exists(),
+        "caribbean_router_installed": bool(getattr(app.state, "caribbean_router_installed", False)),
         "root_redirects_to": "/desktop/",
     }
 
@@ -84,6 +95,10 @@ def desktop_config_json():
         "alerts_endpoint": "/alerts/active",
         "temperature_endpoint": "/temperature/focus",
         "mobile_cluster_endpoint": "/seismic/mobile-cluster",
+        "caribbean_model_status_endpoint": "/caribbean/model/status",
+        "caribbean_model_sources_endpoint": "/caribbean/model/sources",
+        "caribbean_model_readiness_endpoint": "/caribbean/model/readiness",
+        "weather_report_endpoint_template": "/weather/report/{municipality}",
     }
 
 
