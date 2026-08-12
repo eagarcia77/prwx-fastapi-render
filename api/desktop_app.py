@@ -23,13 +23,30 @@ def _route_exists(path: str) -> bool:
     return any(getattr(route, "path", None) == path for route in app.router.routes)
 
 
+def _ensure_caribbean_router() -> None:
+    expected = [getattr(route, "path", None) for route in caribbean_router.routes]
+    if not all(path and _route_exists(path) for path in expected):
+        app.include_router(caribbean_router)
+
+    # Defensive fallback for wrappers/reloaders that may leave the state flag set
+    # without actually carrying the APIRouter routes into the shared FastAPI app.
+    for route in caribbean_router.routes:
+        path = getattr(route, "path", None)
+        if path and not _route_exists(path):
+            app.router.routes.append(route)
+
+    missing = [path for path in expected if path and not _route_exists(path)]
+    if missing:
+        raise RuntimeError(f"PR-CARIBE routes were not registered: {missing}")
+    app.state.caribbean_router_installed = True
+    app.state.caribbean_router_paths = expected
+
+
 def _root_desktop_redirect():
     return RedirectResponse(url="/desktop/")
 
 
-if not getattr(app.state, "caribbean_router_installed", False):
-    app.include_router(caribbean_router)
-    app.state.caribbean_router_installed = True
+_ensure_caribbean_router()
 
 
 # Put the desktop redirect before the original API root route from api.app.
@@ -80,6 +97,7 @@ def desktop_health():
         "mobile_folder_exists": MOBILE_CLIENT.exists(),
         "mobile_index_exists": (MOBILE_CLIENT / "index.html").exists(),
         "caribbean_router_installed": bool(getattr(app.state, "caribbean_router_installed", False)),
+        "caribbean_router_paths": list(getattr(app.state, "caribbean_router_paths", [])),
         "root_redirects_to": "/desktop/",
     }
 
