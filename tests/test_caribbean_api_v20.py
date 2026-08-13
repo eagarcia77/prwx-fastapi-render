@@ -5,6 +5,7 @@ from fastapi.testclient import TestClient
 from api.desktop_app import app
 
 
+# Validation marker for PR-CARIBE historical pipeline v2.1.
 client = TestClient(app)
 
 
