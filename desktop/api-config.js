@@ -1,5 +1,5 @@
 window.PRWX_CONFIG = {
-  version: "2.5.0",
+  version: "2.5.1",
   renderApiBase: "https://prwx-fastapi-render.onrender.com",
   defaultApiBase: window.location.hostname.includes("github.io")
     ? "https://prwx-fastapi-render.onrender.com"
@@ -16,6 +16,7 @@ window.PRWX_CONFIG = {
     caribbeanModelStatus: "/caribbean/model/status",
     caribbeanModelReadiness: "/caribbean/model/readiness",
     caribbeanModelSources: "/caribbean/model/sources",
+    caribbeanTrainingStatus: "/caribbean/training/status",
     weatherReport: "/weather/report/{municipality}"
   }
 };
