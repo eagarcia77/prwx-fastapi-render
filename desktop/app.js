@@ -32,6 +32,11 @@ function fmt(value, digits = 1) {
   return Number.isFinite(n) ? n.toFixed(digits) : "N/D";
 }
 
+function fmtInt(value) {
+  const n = Number(value);
+  return Number.isFinite(n) ? Math.round(n).toLocaleString("es-PR") : "0";
+}
+
 function card(title, value, detail, cls = "ok") {
   return `<article class="card metric ${cls}"><span>${esc(title)}</span><strong>${esc(value)}</strong><p>${esc(detail || "")}</p></article>`;
 }
@@ -109,26 +114,38 @@ async function refresh() {
     getJSON(paths.temperatureFocus || "/temperature/focus"),
     getJSON(paths.mobileCluster || "/seismic/mobile-cluster"),
     getJSON(paths.caribbeanModelStatus || "/caribbean/model/status"),
-    getJSON(paths.caribbeanModelReadiness || "/caribbean/model/readiness")
+    getJSON(paths.caribbeanModelReadiness || "/caribbean/model/readiness"),
+    getJSON(paths.caribbeanTrainingStatus || "/caribbean/training/status")
   ]);
-  const [health, desktopHealth, apiStatus, webBridge, alerts, focus, cluster, modelStatus, readiness] = results.map((r) => r.status === "fulfilled" ? r.value : { error: r.reason.message });
+  const [health, desktopHealth, apiStatus, webBridge, alerts, focus, cluster, modelStatus, readiness, trainingStatus] = results.map((r) => r.status === "fulfilled" ? r.value : { error: r.reason.message });
   const alertsCount = Array.isArray(alerts) ? alerts.length : 0;
   const focusCount = Array.isArray(focus) ? focus.length : 0;
   const clusterStatus = cluster.cluster_status || cluster.status || "sin cluster";
   const modelState = modelStatus.status || "training_required";
   const candidate = readiness.operational_candidate === true;
+  const observations = trainingStatus.observations || {};
+  const trainingTable = trainingStatus.training_table || {};
+  const historicalDetail = observations.available
+    ? `${fmtInt(observations.rows)} observaciones · ${fmtInt(observations.stations)} estaciones`
+    : "Backfill histórico aún no disponible en este servidor";
+  const tableDetail = trainingTable.available
+    ? `${fmtInt(trainingTable.rows)} filas ensambladas`
+    : "Tabla de entrenamiento pendiente";
+
   cards.innerHTML = [
     card("API", health.status || "error", health.service || health.error || "healthz"),
     card("Desktop", desktopHealth.status || "error", `index: ${desktopHealth.desktop_index_exists === true}`),
     card("Versión", apiStatus.version || webBridge.version || cfg.version || "N/D", "Render + GitHub"),
     card("Alertas", alertsCount, "Registros de alertas activas"),
     card("Municipios foco", focusCount, "Temperatura y riesgo"),
-    card("PR-CARIBE WX", modelState, candidate ? "Dataset candidato operacional" : "Entrenamiento histórico pendiente", candidate ? "ok" : "warn"),
+    card("Datos históricos", observations.available ? fmtInt(observations.rows) : "Pendiente", historicalDetail, observations.available ? "ok" : "warn"),
+    card("Dataset PR-CARIBE", trainingTable.available ? fmtInt(trainingTable.rows) : "Pendiente", tableDetail, candidate ? "ok" : "warn"),
+    card("PR-CARIBE WX", modelState, candidate ? "Dataset candidato operacional; validación independiente todavía requerida" : "Entrenamiento histórico pendiente", modelStatus.production_validated ? "ok" : "warn"),
     card("Mobile cluster", clusterStatus, "Señales web/móvil experimentales")
   ].join("");
   if (Array.isArray(alerts) && alerts.length) renderTable(alerts);
   else if (Array.isArray(focus) && focus.length) renderTable(focus);
-  else renderTable([health, desktopHealth, apiStatus, webBridge, cluster, modelStatus, readiness]);
+  else renderTable([health, desktopHealth, apiStatus, webBridge, cluster, modelStatus, readiness, trainingStatus]);
   log("Panel actualizado correctamente.");
 }
 
@@ -154,7 +171,7 @@ function init() {
     }
     log("Cache visual limpiado. Recargue la página si todavía ve una versión vieja.");
   });
-  if ("serviceWorker" in navigator) navigator.serviceWorker.register("./service-worker.js?v=2.5.0").catch(() => {});
+  if ("serviceWorker" in navigator) navigator.serviceWorker.register("./service-worker.js?v=2.5.1").catch(() => {});
   refresh().catch((err) => log(`Error inicial: ${err.message}`));
   loadWeatherReport();
 }
