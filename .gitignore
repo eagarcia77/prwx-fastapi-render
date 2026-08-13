@@ -14,6 +14,14 @@ models/*.pkl
 # Keep sample data; raw archives can become very large.
 data/raw/*
 !data/raw/.gitkeep
+# Historical PR-CARIBE training tables are generated locally/externally and can be very large.
+data/training/*.parquet
+data/training/observations_*.csv
+data/training/gfs_*.csv
+data/training/gefs_*.csv
+data/training/nam_pr_*.csv
+data/training/pr_caribbean_training.csv
+# Small JSON manifests may be committed intentionally for provenance.
 # Processed live outputs may be committed intentionally by GitHub Actions.
 # For private local experiments, uncomment the next line.
 # data/processed/*.csv
