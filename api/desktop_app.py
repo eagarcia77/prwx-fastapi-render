@@ -10,7 +10,7 @@ from fastapi.staticfiles import StaticFiles
 from api.app import ROOT, app, utc_now_iso
 from api.caribbean_router import router as caribbean_router
 
-VERSION = "2.5.0"
+VERSION = "2.5.1"
 DESKTOP_CLIENT = ROOT / "desktop"
 MOBILE_CLIENT = ROOT / "mobile"
 
@@ -27,14 +27,10 @@ def _ensure_caribbean_router() -> None:
     expected = [getattr(route, "path", None) for route in caribbean_router.routes]
     if not all(path and _route_exists(path) for path in expected):
         app.include_router(caribbean_router)
-
-    # Defensive fallback for wrappers/reloaders that may leave the state flag set
-    # without actually carrying the APIRouter routes into the shared FastAPI app.
     for route in caribbean_router.routes:
         path = getattr(route, "path", None)
         if path and not _route_exists(path):
             app.router.routes.append(route)
-
     missing = [path for path in expected if path and not _route_exists(path)]
     if missing:
         raise RuntimeError(f"PR-CARIBE routes were not registered: {missing}")
@@ -48,8 +44,6 @@ def _root_desktop_redirect():
 
 _ensure_caribbean_router()
 
-
-# Put the desktop redirect before the original API root route from api.app.
 if not getattr(app.state, "desktop_wrapper_installed", False):
     app.router.routes.insert(
         0,
@@ -79,6 +73,7 @@ def api_status():
         "caribbean_model_status": "/caribbean/model/status",
         "caribbean_model_sources": "/caribbean/model/sources",
         "caribbean_model_readiness": "/caribbean/model/readiness",
+        "caribbean_training_status": "/caribbean/training/status",
         "weather_report_example": "/weather/report/San Juan",
         "render_url": _public_render_url(),
         "note": "Experimental operational dashboard. Official warnings must come from NOAA/NWS/NHC and emergency-management agencies.",
@@ -116,6 +111,7 @@ def desktop_config_json():
         "caribbean_model_status_endpoint": "/caribbean/model/status",
         "caribbean_model_sources_endpoint": "/caribbean/model/sources",
         "caribbean_model_readiness_endpoint": "/caribbean/model/readiness",
+        "caribbean_training_status_endpoint": "/caribbean/training/status",
         "weather_report_endpoint_template": "/weather/report/{municipality}",
     }
 
