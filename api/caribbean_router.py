@@ -9,14 +9,21 @@ from fastapi import APIRouter, HTTPException
 
 from prwx.caribbean_model_v20 import MODEL_NAME, MODEL_VERSION, bundle_summary, load_caribbean_model, training_readiness
 from prwx.caribbean_sources import EXCLUDED_CORE_MODELS, source_registry, sources_for_area
+from prwx.training_data_v21 import manifest_summary
 
 ROOT = Path(__file__).resolve().parents[1]
 PROCESSED = ROOT / "data" / "processed"
+TRAINING_ROOT = ROOT / "data" / "training"
+MANIFEST_ROOT = TRAINING_ROOT / "manifests"
 MODEL_PATH = ROOT / "models" / "pr_caribe_wx_v20.joblib"
 MODEL_META_PATH = PROCESSED / "pr_caribe_wx_v20_training.json"
 TRAINING_CANDIDATES = (
-    ROOT / "data" / "training" / "pr_caribbean_training.parquet",
-    ROOT / "data" / "training" / "pr_caribbean_training.csv",
+    TRAINING_ROOT / "pr_caribbean_training.parquet",
+    TRAINING_ROOT / "pr_caribbean_training.csv",
+)
+OBSERVATION_CANDIDATES = (
+    TRAINING_ROOT / "observations_ncei_pr.parquet",
+    TRAINING_ROOT / "observations_ncei_pr.csv",
 )
 PREDICTION_CANDIDATES = (
     PROCESSED / "live_predictions_v10.csv",
@@ -103,6 +110,49 @@ def _model_status_payload() -> dict[str, Any]:
     return payload
 
 
+def _training_status_payload() -> dict[str, Any]:
+    observations, observation_path = _first_table(OBSERVATION_CANDIDATES)
+    training, training_path = _first_table(TRAINING_CANDIDATES)
+    manifest_paths = sorted(MANIFEST_ROOT.glob("*.json")) if MANIFEST_ROOT.exists() else []
+    manifests = manifest_summary(manifest_paths)
+
+    observation_status: dict[str, Any] = {
+        "available": not observations.empty,
+        "path": observation_path,
+        "rows": int(len(observations)),
+        "stations": int(observations["station_id"].nunique()) if not observations.empty and "station_id" in observations.columns else 0,
+    }
+    if not observations.empty and "valid_time_utc" in observations.columns:
+        dates = pd.to_datetime(observations["valid_time_utc"], errors="coerce", utc=True).dropna()
+        if not dates.empty:
+            observation_status["start_utc"] = dates.min().isoformat()
+            observation_status["end_utc"] = dates.max().isoformat()
+
+    readiness = training_readiness(training) if not training.empty else {
+        "research_ready": False,
+        "operational_candidate": False,
+        "production_validated": False,
+    }
+    return {
+        "pipeline": "PR-CARIBE historical training data v2.1",
+        "observations": observation_status,
+        "training_table": {
+            "available": not training.empty,
+            "path": training_path,
+            "rows": int(len(training)),
+            "readiness": readiness,
+        },
+        "manifests": manifests,
+        "commands": {
+            "observations": "python scripts/23_collect_ncei_pr.py --start 2023-01-01",
+            "model_archive": "python scripts/24_collect_model_archive_pr.py --source gfs --date YYYY-MM-DD --cycle 00",
+            "assemble": "python scripts/25_build_pr_caribbean_training.py",
+            "train": "python scripts/22_train_pr_caribbean_v20.py",
+        },
+        "production_validated": False,
+    }
+
+
 @router.get("/caribbean/model/sources")
 def caribbean_model_sources():
     return {
@@ -137,6 +187,11 @@ def caribbean_model_readiness():
     readiness["model"] = MODEL_NAME
     readiness["version"] = MODEL_VERSION
     return readiness
+
+
+@router.get("/caribbean/training/status")
+def caribbean_training_status():
+    return _training_status_payload()
 
 
 @router.get("/weather/report/{municipality}")
