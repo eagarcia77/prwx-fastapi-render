@@ -4,8 +4,8 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "prwx-hybrid-model"
-version = "2.5.0"
-description = "PR-WX v2.5 con PR-CARIBE WX Hybrid v2.0 para Puerto Rico y el Caribe"
+version = "2.5.1"
+description = "PR-WX v2.5.1 con pipeline histórico PR-CARIBE WX para Puerto Rico y el Caribe"
 requires-python = ">=3.10"
 dependencies = [
   "pandas>=2.2",
