@@ -1,5 +1,5 @@
 window.PRWX_CONFIG = {
-  version: "2.8.0",
+  version: "2.9.0",
   renderApiBase: "https://prwx-fastapi-render.onrender.com",
   defaultApiBase: window.location.hostname.includes("github.io")
     ? "https://prwx-fastapi-render.onrender.com"
@@ -26,6 +26,12 @@ window.PRWX_CONFIG = {
     aiMapsPR: "/ai/maps/pr-municipalities",
     aiMapsGeoJSON: "/ai/maps/pr-municipalities.geojson",
     aiMapsMunicipality: "/ai/maps/municipality/{municipality}",
+    aiStormTracksStatus: "/ai/storm-tracks/status",
+    aiStormTracksAnalysis: "/ai/storm-tracks/analysis",
+    aiStormTracksMap: "/ai/storm-tracks/map",
+    aiStormTracksGeoJSON: "/ai/storm-tracks/map.geojson",
+    aiStormTracksTrainingStatus: "/ai/storm-tracks/training/status",
+    aiStormTracksTrainingPlan: "/ai/storm-tracks/training/plan",
     caribbeanModelStatus: "/caribbean/model/status",
     caribbeanModelReadiness: "/caribbean/model/readiness",
     caribbeanModelSources: "/caribbean/model/sources",
