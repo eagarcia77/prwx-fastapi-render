@@ -1,4 +1,4 @@
-const CACHE = "prwx-desktop-v300-historical-storm-ai";
+const CACHE = "prwx-desktop-v310-storm-ai-training-action";
 const ASSETS = ["./", "./index.html", "./styles.css", "./app.js", "./api-config.js", "./real-map.js", "./storm-map.js", "./storm-history-panel.js", "./manifest.webmanifest"];
 self.addEventListener("install", (event) => {
   event.waitUntil(caches.open(CACHE).then((cache) => cache.addAll(ASSETS)));
