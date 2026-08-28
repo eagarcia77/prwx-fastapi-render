@@ -6,16 +6,17 @@
   <meta name="theme-color" content="#0f766e">
   <link rel="manifest" href="./manifest.webmanifest">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
-  <link rel="stylesheet" href="./styles.css?v=3.2.0">
+  <link rel="stylesheet" href="./styles.css?v=3.3.0">
   <link rel="stylesheet" href="./storm-cinematic.css?v=3.2.0">
+  <link rel="stylesheet" href="./map-enhancements-v33.css?v=3.3.0">
   <title>PR-WX Desktop</title>
 </head>
 <body>
   <header class="hero">
     <div>
-      <p class="eyebrow">PR-WX v3.2.0 · Mapa IA cinemático de trayectorias</p>
+      <p class="eyebrow">PR-WX v3.3.0 · Mapas IA avanzados</p>
       <h1>Centro Meteorológico Puerto Rico, Caribe y Atlántico</h1>
-      <p>Pronóstico experimental, mapas reales, inteligencia artificial, datos históricos oficiales, GitHub Actions y visualización cinemática de trayectorias hacia Puerto Rico.</p>
+      <p>Pronóstico experimental, mapas reales, inteligencia artificial, datos históricos oficiales, capas de impacto, radar visual y entrenamiento de trayectorias hacia Puerto Rico.</p>
     </div>
     <nav class="links">
       <a id="mobileLink" href="/mobile/">Mobile</a>
@@ -48,14 +49,17 @@
         <button id="stormEventBtn">Analizar sistema</button>
         <a id="stormTrackGeoJsonLink" href="/ai/storm-tracks/map.geojson" target="_blank" rel="noopener">GeoJSON trayectoria</a>
       </div>
-      <div class="stormCinematicControls" aria-label="Controles cinemáticos de trayectoria">
+      <div class="opsStrip" aria-label="Controles avanzados del mapa de trayectoria">
         <button id="stormPlayBtn" class="primary" type="button">▶ Reproducir</button>
         <button id="stormPauseBtn" type="button">Pausar</button>
         <button id="stormResetBtn" type="button">Reiniciar</button>
-        <label class="inlineLabel" for="stormTimelineRange">Tiempo</label>
-        <input id="stormTimelineRange" type="range" min="0" max="0" value="0" step="1" aria-label="Línea de tiempo de trayectoria">
-        <span id="stormTimeBadge" class="stormTimeBadge">+0h</span>
-        <span class="stormModeBadge">Modo Centro de Operaciones</span>
+        <button id="stormImpactBtn" type="button">Impacto por pueblo</button>
+        <button id="stormRadarBtn" type="button">Radar visual</button>
+        <div class="timelineWrap">
+          <label class="inlineLabel" for="stormTimeline">Tiempo</label>
+          <input id="stormTimeline" type="range" min="0" max="0" value="0" step="1" aria-label="Línea de tiempo de trayectoria">
+          <span id="stormTimelineLabel" class="timelineLabel">+0h</span>
+        </div>
       </div>
       <div class="stormCommandShell">
         <div class="mapLayout stormMapLayout">
@@ -92,6 +96,9 @@
         <label class="inlineLabel" for="mapMunicipalitySelect">Municipio</label>
         <select id="mapMunicipalitySelect" aria-label="Seleccionar municipio para análisis IA"></select>
         <button id="mapMunicipalityBtn">Analizar municipio</button>
+        <button id="municipalHeatBtn" type="button">Calor IA</button>
+        <button id="municipalWindBtn" type="button">Viento</button>
+        <button id="municipalResetBtn" type="button">Vista PR</button>
         <a id="aiMapGeoJsonLink" href="/ai/maps/pr-municipalities.geojson" target="_blank" rel="noopener">GeoJSON</a>
       </div>
       <div class="mapLayout">
@@ -104,7 +111,7 @@
         <span><b class="legendDot low"></b> Bajo</span>
         <span><b class="legendDot moderate"></b> Moderado</span>
         <span><b class="legendDot high"></b> Alto</span>
-        <span class="note">Use el control del mapa para cambiar entre calles, satélite y topográfico.</span>
+        <span class="note">Use los controles para activar calor IA, viento y vista general.</span>
       </div>
     </section>
 
@@ -157,10 +164,10 @@
   </main>
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  <script src="./api-config.js?v=3.2.0"></script>
-  <script src="./app.js?v=3.2.0"></script>
-  <script src="./real-map.js?v=3.2.0"></script>
-  <script src="./storm-map.js?v=3.2.0"></script>
-  <script src="./storm-history-panel.js?v=3.2.0"></script>
+  <script src="./api-config.js?v=3.3.0"></script>
+  <script src="./app.js?v=3.3.0"></script>
+  <script src="./real-map.js?v=3.3.0"></script>
+  <script src="./storm-map.js?v=3.3.0"></script>
+  <script src="./storm-history-panel.js?v=3.3.0"></script>
 </body>
 </html>
