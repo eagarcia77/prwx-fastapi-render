@@ -8,9 +8,10 @@ from fastapi.routing import APIRoute
 from fastapi.staticfiles import StaticFiles
 
 from api.app import ROOT, app, utc_now_iso
+from api.meteorological_report_router import router as meteorological_report_router
 from api.caribbean_router import router as caribbean_router
 
-VERSION = "2.5.1"
+VERSION = "2.6.0"
 DESKTOP_CLIENT = ROOT / "desktop"
 MOBILE_CLIENT = ROOT / "mobile"
 
@@ -23,26 +24,29 @@ def _route_exists(path: str) -> bool:
     return any(getattr(route, "path", None) == path for route in app.router.routes)
 
 
-def _ensure_caribbean_router() -> None:
-    expected = [getattr(route, "path", None) for route in caribbean_router.routes]
-    if not all(path and _route_exists(path) for path in expected):
-        app.include_router(caribbean_router)
-    for route in caribbean_router.routes:
+def _ensure_router(router, state_flag: str, paths_attr: str) -> None:
+    expected = [getattr(route, "path", None) for route in router.routes]
+    if not getattr(app.state, state_flag, False):
+        app.include_router(router)
+    for route in router.routes:
         path = getattr(route, "path", None)
         if path and not _route_exists(path):
             app.router.routes.append(route)
     missing = [path for path in expected if path and not _route_exists(path)]
     if missing:
-        raise RuntimeError(f"PR-CARIBE routes were not registered: {missing}")
-    app.state.caribbean_router_installed = True
-    app.state.caribbean_router_paths = expected
+        raise RuntimeError(f"PR-WX routes were not registered: {missing}")
+    setattr(app.state, state_flag, True)
+    setattr(app.state, paths_attr, expected)
 
 
 def _root_desktop_redirect():
     return RedirectResponse(url="/desktop/")
 
 
-_ensure_caribbean_router()
+# Register exact meteorological report routes before the municipal wildcard
+# route /weather/report/{municipality}.
+_ensure_router(meteorological_report_router, "meteorological_report_router_installed", "meteorological_report_router_paths")
+_ensure_router(caribbean_router, "caribbean_router_installed", "caribbean_router_paths")
 
 if not getattr(app.state, "desktop_wrapper_installed", False):
     app.router.routes.insert(
@@ -74,7 +78,11 @@ def api_status():
         "caribbean_model_sources": "/caribbean/model/sources",
         "caribbean_model_readiness": "/caribbean/model/readiness",
         "caribbean_training_status": "/caribbean/training/status",
+        "caribbean_training_plan": "/caribbean/model/training-plan",
+        "caribbean_feature_matrix": "/caribbean/model/feature-matrix",
         "weather_report_example": "/weather/report/San Juan",
+        "caribbean_atlantic_report": "/weather/report/caribbean-atlantic",
+        "caribbean_atlantic_report_markdown": "/weather/report/caribbean-atlantic.md",
         "render_url": _public_render_url(),
         "note": "Experimental operational dashboard. Official warnings must come from NOAA/NWS/NHC and emergency-management agencies.",
     }
@@ -93,6 +101,8 @@ def desktop_health():
         "mobile_index_exists": (MOBILE_CLIENT / "index.html").exists(),
         "caribbean_router_installed": bool(getattr(app.state, "caribbean_router_installed", False)),
         "caribbean_router_paths": list(getattr(app.state, "caribbean_router_paths", [])),
+        "meteorological_report_router_installed": bool(getattr(app.state, "meteorological_report_router_installed", False)),
+        "meteorological_report_router_paths": list(getattr(app.state, "meteorological_report_router_paths", [])),
         "root_redirects_to": "/desktop/",
     }
 
@@ -112,6 +122,10 @@ def desktop_config_json():
         "caribbean_model_sources_endpoint": "/caribbean/model/sources",
         "caribbean_model_readiness_endpoint": "/caribbean/model/readiness",
         "caribbean_training_status_endpoint": "/caribbean/training/status",
+        "caribbean_training_plan_endpoint": "/caribbean/model/training-plan",
+        "caribbean_feature_matrix_endpoint": "/caribbean/model/feature-matrix",
+        "caribbean_atlantic_report_endpoint": "/weather/report/caribbean-atlantic",
+        "caribbean_atlantic_report_markdown_endpoint": "/weather/report/caribbean-atlantic.md",
         "weather_report_endpoint_template": "/weather/report/{municipality}",
     }
 
