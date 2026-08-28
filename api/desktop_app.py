@@ -15,7 +15,7 @@ from api.ai_training_router import router as ai_training_router
 from api.meteorological_report_router import router as meteorological_report_router
 from api.caribbean_router import router as caribbean_router
 
-VERSION = "3.0.0"
+VERSION = "3.1.0"
 DESKTOP_CLIENT = ROOT / "desktop"
 MOBILE_CLIENT = ROOT / "mobile"
 
@@ -82,6 +82,8 @@ def api_status():
         "desktop_health": "/desktop-health",
         "web_bridge_status": "/web-bridge/status",
         "api_docs": "/docs",
+        "github_action_storm_ai_training": ".github/workflows/train-storm-historical-ai-v31.yml",
+        "github_action_artifact_name": "prwx-storm-ai-training-v31",
         "ai_model_status": "/ai/model/status",
         "ai_model_analyze": "/ai/model/analyze",
         "ai_training_plan": "/ai/model/training-plan",
@@ -133,6 +135,7 @@ def desktop_health():
         "desktop_real_map_exists": (DESKTOP_CLIENT / "real-map.js").exists(),
         "desktop_storm_map_exists": (DESKTOP_CLIENT / "storm-map.js").exists(),
         "desktop_storm_history_panel_exists": (DESKTOP_CLIENT / "storm-history-panel.js").exists(),
+        "github_action_storm_ai_training": ".github/workflows/train-storm-historical-ai-v31.yml",
         "mobile_folder_exists": MOBILE_CLIENT.exists(),
         "mobile_index_exists": (MOBILE_CLIENT / "index.html").exists(),
         "caribbean_router_installed": bool(getattr(app.state, "caribbean_router_installed", False)),
@@ -177,6 +180,8 @@ def desktop_config_json():
         "ai_storm_historical_schema_endpoint": "/ai/storm-tracks/historical/schema",
         "ai_storm_historical_model_status_endpoint": "/ai/storm-tracks/historical/model-status",
         "ai_storm_historical_download_plan_endpoint": "/ai/storm-tracks/historical/download-plan",
+        "github_action_storm_ai_training": ".github/workflows/train-storm-historical-ai-v31.yml",
+        "github_action_artifact_name": "prwx-storm-ai-training-v31",
         "caribbean_model_status_endpoint": "/caribbean/model/status",
         "caribbean_atlantic_report_endpoint": "/weather/report/caribbean-atlantic",
         "weather_report_endpoint_template": "/weather/report/{municipality}",
