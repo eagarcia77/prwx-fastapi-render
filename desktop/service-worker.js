@@ -1,5 +1,5 @@
-const CACHE = "prwx-desktop-v320-cinematic-storm-map";
-const ASSETS = ["./", "./index.html", "./styles.css", "./storm-cinematic.css", "./app.js", "./api-config.js", "./real-map.js", "./storm-map.js", "./storm-history-panel.js", "./manifest.webmanifest"];
+const CACHE = "prwx-desktop-v330-advanced-ai-map-layers";
+const ASSETS = ["./", "./index.html", "./styles.css", "./storm-cinematic.css", "./map-enhancements-v33.css", "./app.js", "./api-config.js", "./real-map.js", "./storm-map.js", "./storm-history-panel.js", "./manifest.webmanifest"];
 self.addEventListener("install", (event) => {
   event.waitUntil(caches.open(CACHE).then((cache) => cache.addAll(ASSETS)));
   self.skipWaiting();
