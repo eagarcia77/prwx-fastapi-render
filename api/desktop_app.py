@@ -8,12 +8,13 @@ from fastapi.routing import APIRoute
 from fastapi.staticfiles import StaticFiles
 
 from api.app import ROOT, app, utc_now_iso
+from api.ai_storm_tracks_router import router as ai_storm_tracks_router
 from api.ai_maps_router import router as ai_maps_router
 from api.ai_training_router import router as ai_training_router
 from api.meteorological_report_router import router as meteorological_report_router
 from api.caribbean_router import router as caribbean_router
 
-VERSION = "2.8.0"
+VERSION = "2.9.0"
 DESKTOP_CLIENT = ROOT / "desktop"
 MOBILE_CLIENT = ROOT / "mobile"
 
@@ -45,11 +46,12 @@ def _root_desktop_redirect():
     return RedirectResponse(url="/desktop/")
 
 
-# Register exact report, AI and map routes before the municipal wildcard route
-# /weather/report/{municipality}.
+# Register exact report, AI, municipal maps and storm-track map routes before
+# the municipal wildcard route /weather/report/{municipality}.
 _ensure_router(meteorological_report_router, "meteorological_report_router_installed", "meteorological_report_router_paths")
 _ensure_router(ai_training_router, "ai_training_router_installed", "ai_training_router_paths")
 _ensure_router(ai_maps_router, "ai_maps_router_installed", "ai_maps_router_paths")
+_ensure_router(ai_storm_tracks_router, "ai_storm_tracks_router_installed", "ai_storm_tracks_router_paths")
 _ensure_router(caribbean_router, "caribbean_router_installed", "caribbean_router_paths")
 
 if not getattr(app.state, "desktop_wrapper_installed", False):
@@ -91,6 +93,12 @@ def api_status():
         "ai_maps_pr_municipalities": "/ai/maps/pr-municipalities",
         "ai_maps_geojson": "/ai/maps/pr-municipalities.geojson",
         "ai_maps_municipality": "/ai/maps/municipality/{municipality}",
+        "ai_storm_tracks_status": "/ai/storm-tracks/status",
+        "ai_storm_tracks_analysis": "/ai/storm-tracks/analysis",
+        "ai_storm_tracks_map": "/ai/storm-tracks/map",
+        "ai_storm_tracks_geojson": "/ai/storm-tracks/map.geojson",
+        "ai_storm_tracks_training_status": "/ai/storm-tracks/training/status",
+        "ai_storm_tracks_training_plan": "/ai/storm-tracks/training/plan",
         "caribbean_model_status": "/caribbean/model/status",
         "caribbean_model_sources": "/caribbean/model/sources",
         "caribbean_model_readiness": "/caribbean/model/readiness",
@@ -101,7 +109,7 @@ def api_status():
         "caribbean_atlantic_report": "/weather/report/caribbean-atlantic",
         "caribbean_atlantic_report_markdown": "/weather/report/caribbean-atlantic.md",
         "render_url": _public_render_url(),
-        "note": "Experimental operational dashboard. Official warnings must come from NOAA/NWS/NHC and emergency-management agencies.",
+        "note": "Experimental operational dashboard. Official storm tracks and public warnings must come from NOAA/NWS/NHC and emergency-management agencies.",
     }
 
 
@@ -114,6 +122,8 @@ def desktop_health():
         "desktop_index_exists": (DESKTOP_CLIENT / "index.html").exists(),
         "desktop_app_js_exists": (DESKTOP_CLIENT / "app.js").exists(),
         "desktop_config_exists": (DESKTOP_CLIENT / "api-config.js").exists(),
+        "desktop_real_map_exists": (DESKTOP_CLIENT / "real-map.js").exists(),
+        "desktop_storm_map_exists": (DESKTOP_CLIENT / "storm-map.js").exists(),
         "mobile_folder_exists": MOBILE_CLIENT.exists(),
         "mobile_index_exists": (MOBILE_CLIENT / "index.html").exists(),
         "caribbean_router_installed": bool(getattr(app.state, "caribbean_router_installed", False)),
@@ -124,6 +134,8 @@ def desktop_health():
         "ai_training_router_paths": list(getattr(app.state, "ai_training_router_paths", [])),
         "ai_maps_router_installed": bool(getattr(app.state, "ai_maps_router_installed", False)),
         "ai_maps_router_paths": list(getattr(app.state, "ai_maps_router_paths", [])),
+        "ai_storm_tracks_router_installed": bool(getattr(app.state, "ai_storm_tracks_router_installed", False)),
+        "ai_storm_tracks_router_paths": list(getattr(app.state, "ai_storm_tracks_router_paths", [])),
         "root_redirects_to": "/desktop/",
     }
 
@@ -151,6 +163,12 @@ def desktop_config_json():
         "ai_maps_pr_endpoint": "/ai/maps/pr-municipalities",
         "ai_maps_geojson_endpoint": "/ai/maps/pr-municipalities.geojson",
         "ai_maps_municipality_endpoint_template": "/ai/maps/municipality/{municipality}",
+        "ai_storm_tracks_status_endpoint": "/ai/storm-tracks/status",
+        "ai_storm_tracks_analysis_endpoint": "/ai/storm-tracks/analysis",
+        "ai_storm_tracks_map_endpoint": "/ai/storm-tracks/map",
+        "ai_storm_tracks_geojson_endpoint": "/ai/storm-tracks/map.geojson",
+        "ai_storm_tracks_training_status_endpoint": "/ai/storm-tracks/training/status",
+        "ai_storm_tracks_training_plan_endpoint": "/ai/storm-tracks/training/plan",
         "caribbean_model_status_endpoint": "/caribbean/model/status",
         "caribbean_model_sources_endpoint": "/caribbean/model/sources",
         "caribbean_model_readiness_endpoint": "/caribbean/model/readiness",
