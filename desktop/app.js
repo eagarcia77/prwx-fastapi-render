@@ -4,7 +4,7 @@ const paths = cfg.paths || {};
 
 function log(message) {
   const line = `[${new Date().toLocaleTimeString()}] ${message}`;
-  $("log").textContent = `${line}\n${$("log").textContent}`.slice(0, 6000);
+  $("log").textContent = `${line}\n${$("log").textContent}`.slice(0, 7000);
 }
 
 function apiBase() {
@@ -51,7 +51,7 @@ function renderTable(rows) {
     tbody.innerHTML = `<tr><td>No hay datos para mostrar.</td></tr>`;
     return;
   }
-  const priority = ["municipality", "risk_level", "risk_score", "temp_f", "feels_like_f", "rain_in", "wind_mph", "headline", "severity", "cluster_status"];
+  const priority = ["municipality", "risk_level", "risk_score", "temp_f", "feels_like_f", "rain_in", "wind_mph", "headline", "severity", "cluster_status", "rows", "research_ready", "operational_candidate"];
   const columns = [...priority.filter((c) => c in rows[0]), ...Object.keys(rows[0]).filter((c) => !priority.includes(c))].slice(0, 9);
   thead.innerHTML = `<tr>${columns.map((c) => `<th>${esc(c)}</th>`).join("")}</tr>`;
   tbody.innerHTML = rows.slice(0, 20).map((r) => `<tr>${columns.map((c) => `<td>${esc(r[c] ?? "")}</td>`).join("")}</tr>`).join("");
@@ -79,6 +79,30 @@ function renderWeatherReport(report) {
     </div>
     <p><strong>Resumen:</strong> ${esc(report.summary_es || "")}</p>
     <p class="note">${esc(report.disclaimer || "")}</p>
+  `;
+}
+
+function renderAITrainingPanel(aiStatus, aiAnalysis, aiTrainStatus) {
+  const target = $("aiTrainingPanel");
+  if (!target) return;
+  if (!aiStatus || aiStatus.error) {
+    target.innerHTML = `<p class="note">No se pudo cargar el módulo IA: ${esc(aiStatus?.error || "sin datos")}</p>`;
+    return;
+  }
+  const readiness = aiAnalysis?.readiness || aiStatus.readiness || {};
+  const train = aiTrainStatus || {};
+  const readyClass = readiness.operational_candidate ? "ok" : (readiness.research_ready ? "warn" : "bad");
+  target.innerHTML = `
+    <div class="grid">
+      ${card("Motor IA", aiStatus.version || "2.7.0", aiStatus.engine || "PR-WX AI Trainer")}
+      ${card("Filas", fmtInt(readiness.rows), `${fmtInt(readiness.columns)} columnas · ${fmtInt(readiness.usable_features)} variables útiles`, readyClass)}
+      ${card("Cobertura", `${fmtInt(readiness.span_days)} días`, `${fmtInt(readiness.stations)} puntos · ${fmtInt(readiness.territories)} territorios`, readyClass)}
+      ${card("Objetivos", fmtInt(readiness.trainable_targets), "temperatura · lluvia · viento · humedad · presión", readyClass)}
+      ${card("Entrenamiento", train.status || aiStatus.training_status || "not_trained", train.model_file_exists ? "modelo disponible" : "modelo pendiente", train.model_file_exists ? "ok" : "warn")}
+      ${card("Producción", aiStatus.production_validated ? "validado" : "no validado", "requiere revisión meteorológica independiente", aiStatus.production_validated ? "ok" : "warn")}
+    </div>
+    <p><strong>Recomendación IA:</strong> ${esc(readiness.recommendation || "Completar el dataset histórico antes del entrenamiento operacional.")}</p>
+    <p class="note">El entrenamiento desde Render está ${aiStatus.runtime_training_enabled ? "activo" : "desactivado"}. Recomendado: entrenar con el script local y luego subir el modelo validado.</p>
   `;
 }
 
@@ -139,6 +163,27 @@ async function loadCaribbeanAtlanticReport() {
   }
 }
 
+async function loadAITrainingPanel(runAnalysis = false) {
+  const panel = $("aiTrainingPanel");
+  if (panel) panel.innerHTML = `<p class="note">Analizando datos con IA...</p>`;
+  try {
+    const statusPath = paths.aiModelStatus || "/ai/model/status";
+    const analysisPath = runAnalysis ? (paths.aiModelAnalyze || "/ai/model/analyze") : (paths.aiModelReport || "/ai/model/report");
+    const trainPath = paths.aiTrainStatus || "/ai/model/train-status";
+    const [status, analysisOrReport, trainStatus] = await Promise.all([
+      getJSON(statusPath),
+      getJSON(analysisPath),
+      getJSON(trainPath)
+    ]);
+    const analysis = analysisOrReport.analysis || analysisOrReport;
+    renderAITrainingPanel(status, analysis, trainStatus);
+    log(runAnalysis ? "Análisis IA ejecutado y guardado." : "Estado IA cargado.");
+  } catch (err) {
+    renderAITrainingPanel({ error: err.message });
+    log(`Error IA: ${err.message}`);
+  }
+}
+
 async function refresh() {
   const cards = $("cards");
   cards.innerHTML = card("Estado", "Cargando", "Consultando Render...", "warn");
@@ -151,12 +196,14 @@ async function refresh() {
     getJSON(paths.alerts || "/alerts/active"),
     getJSON(paths.temperatureFocus || "/temperature/focus"),
     getJSON(paths.mobileCluster || "/seismic/mobile-cluster"),
+    getJSON(paths.aiModelStatus || "/ai/model/status"),
+    getJSON(paths.aiModelReport || "/ai/model/report"),
     getJSON(paths.caribbeanModelStatus || "/caribbean/model/status"),
     getJSON(paths.caribbeanModelReadiness || "/caribbean/model/readiness"),
     getJSON(paths.caribbeanTrainingStatus || "/caribbean/training/status"),
     getJSON(paths.caribbeanTrainingPlan || "/caribbean/model/training-plan")
   ]);
-  const [health, desktopHealth, apiStatus, webBridge, alerts, focus, cluster, modelStatus, readiness, trainingStatus, trainingPlan] = results.map((r) => r.status === "fulfilled" ? r.value : { error: r.reason.message });
+  const [health, desktopHealth, apiStatus, webBridge, alerts, focus, cluster, aiStatus, aiReport, modelStatus, readiness, trainingStatus, trainingPlan] = results.map((r) => r.status === "fulfilled" ? r.value : { error: r.reason.message });
   const alertsCount = Array.isArray(alerts) ? alerts.length : 0;
   const focusCount = Array.isArray(focus) ? focus.length : 0;
   const clusterStatus = cluster.cluster_status || cluster.status || "sin cluster";
@@ -165,6 +212,8 @@ async function refresh() {
   const observations = trainingStatus.observations || {};
   const trainingTable = trainingStatus.training_table || {};
   const minData = trainingPlan.minimum_real_training_dataset || {};
+  const aiReadiness = aiReport.analysis?.readiness || aiStatus.readiness || {};
+  const aiState = aiStatus.training_status || "not_trained";
   const historicalDetail = observations.available
     ? `${fmtInt(observations.rows)} observaciones · ${fmtInt(observations.stations)} estaciones`
     : "Backfill histórico aún no disponible en este servidor";
@@ -178,14 +227,17 @@ async function refresh() {
     card("Versión", apiStatus.version || webBridge.version || cfg.version || "N/D", "Render + GitHub"),
     card("Alertas", alertsCount, "Registros de alertas activas"),
     card("Municipios foco", focusCount, "Temperatura y riesgo"),
+    card("IA Dataset", fmtInt(aiReadiness.rows), `${fmtInt(aiReadiness.usable_features)} variables · ${fmtInt(aiReadiness.trainable_targets)} objetivos`, aiReadiness.research_ready ? "ok" : "warn"),
+    card("IA Training", aiState, aiStatus.runtime_training_enabled ? "runtime activo" : "runtime protegido", aiState.includes("trained") ? "ok" : "warn"),
     card("Datos históricos", observations.available ? fmtInt(observations.rows) : "Pendiente", historicalDetail, observations.available ? "ok" : "warn"),
     card("Dataset PR-CARIBE", trainingTable.available ? fmtInt(trainingTable.rows) : "Pendiente", tableDetail, candidate ? "ok" : "warn"),
     card("Modelo Atlántico", modelState, `Mínimo operacional: ${fmtInt(minData.rows_operational_candidate)} filas`, modelStatus.production_validated ? "ok" : "warn"),
     card("Mobile cluster", clusterStatus, "Señales web/móvil experimentales")
   ].join("");
+  renderAITrainingPanel(aiStatus, aiReport.analysis, aiReport.training);
   if (Array.isArray(alerts) && alerts.length) renderTable(alerts);
   else if (Array.isArray(focus) && focus.length) renderTable(focus);
-  else renderTable([health, desktopHealth, apiStatus, webBridge, cluster, modelStatus, readiness, trainingStatus, trainingPlan]);
+  else renderTable([health, desktopHealth, apiStatus, webBridge, cluster, aiStatus, aiReadiness, modelStatus, readiness, trainingStatus, trainingPlan]);
   log("Panel actualizado correctamente.");
 }
 
@@ -194,6 +246,8 @@ function updateLinks() {
   $("healthLink").href = `${apiBase()}/desktop-health`;
   $("mobileLink").href = `${apiBase()}/mobile/`;
   $("caribbeanReportMdLink").href = `${apiBase()}${paths.caribbeanAtlanticReportMarkdown || "/weather/report/caribbean-atlantic.md"}`;
+  const aiPlan = $("aiPlanMdLink");
+  if (aiPlan) aiPlan.href = `${apiBase()}${paths.aiTrainingPlanMarkdown || "/ai/model/training-plan.md"}`;
 }
 
 function init() {
@@ -203,6 +257,8 @@ function init() {
   $("refreshBtn").addEventListener("click", () => refresh().catch((err) => log(`Error: ${err.message}`)));
   $("weatherReportBtn").addEventListener("click", loadWeatherReport);
   $("caribbeanReportBtn").addEventListener("click", loadCaribbeanAtlanticReport);
+  const aiBtn = $("aiAnalyzeBtn");
+  if (aiBtn) aiBtn.addEventListener("click", () => loadAITrainingPanel(true));
   $("municipalityInput").addEventListener("keydown", (event) => {
     if (event.key === "Enter") loadWeatherReport();
   });
@@ -213,10 +269,11 @@ function init() {
     }
     log("Cache visual limpiado. Recargue la página si todavía ve una versión vieja.");
   });
-  if ("serviceWorker" in navigator) navigator.serviceWorker.register("./service-worker.js?v=2.6.0").catch(() => {});
+  if ("serviceWorker" in navigator) navigator.serviceWorker.register("./service-worker.js?v=2.7.0").catch(() => {});
   refresh().catch((err) => log(`Error inicial: ${err.message}`));
   loadWeatherReport();
   loadCaribbeanAtlanticReport();
+  loadAITrainingPanel();
 }
 
 document.addEventListener("DOMContentLoaded", init);
