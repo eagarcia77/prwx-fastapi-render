@@ -5,15 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#0f766e">
   <link rel="manifest" href="./manifest.webmanifest">
-  <link rel="stylesheet" href="./styles.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <link rel="stylesheet" href="./styles.css?v=2.8.1">
   <title>PR-WX Desktop</title>
 </head>
 <body>
   <header class="hero">
     <div>
-      <p class="eyebrow">PR-WX v2.8.0 · Mapas IA por municipio</p>
+      <p class="eyebrow">PR-WX v2.8.1 · Mapa real IA por municipio</p>
       <h1>Centro Meteorológico Puerto Rico, Caribe y Atlántico</h1>
-      <p>Pronóstico experimental, informe meteorológico, inteligencia artificial, mapas interactivos por pueblo y ruta de entrenamiento del modelo PR-CARIBE WX.</p>
+      <p>Pronóstico experimental, informe meteorológico, inteligencia artificial, mapas reales interactivos por pueblo y ruta de entrenamiento del modelo PR-CARIBE WX.</p>
     </div>
     <nav class="links">
       <a id="mobileLink" href="/mobile/">Mobile</a>
@@ -37,8 +38,8 @@
     <section class="grid" id="cards" aria-live="polite"></section>
 
     <section class="card wide" aria-labelledby="aiMapTitle">
-      <h2 id="aiMapTitle">Mapa interactivo con IA por pueblo</h2>
-      <p>El mapa presenta los 78 municipios con una puntuación IA de riesgo meteorológico, nivel de confianza, resumen por pueblo y recomendación práctica. Los puntos son centroides aproximados para visualización.</p>
+      <h2 id="aiMapTitle">Mapa real interactivo con IA por pueblo</h2>
+      <p>El mapa usa una base cartográfica real con capas de calles, satélite y topografía. Cada marcador municipal presenta puntuación IA de riesgo meteorológico, nivel de confianza, condiciones principales, resumen y recomendación práctica por pueblo.</p>
       <div class="actions mapControls">
         <button id="aiMapRefreshBtn" class="primary">Actualizar mapa IA</button>
         <label class="inlineLabel" for="mapMunicipalitySelect">Municipio</label>
@@ -47,7 +48,7 @@
         <a id="aiMapGeoJsonLink" href="/ai/maps/pr-municipalities.geojson" target="_blank" rel="noopener">GeoJSON</a>
       </div>
       <div class="mapLayout">
-        <div id="aiMapCanvas" class="mapCanvas" role="img" aria-label="Mapa interactivo experimental de Puerto Rico por municipio"></div>
+        <div id="aiMapCanvas" class="mapCanvas realMapShell" role="img" aria-label="Mapa real interactivo experimental de Puerto Rico por municipio"></div>
         <aside id="mapDetails" class="mapDetails" aria-live="polite">
           <p class="note">Seleccione un pueblo en el mapa para ver el análisis IA.</p>
         </aside>
@@ -56,6 +57,7 @@
         <span><b class="legendDot low"></b> Bajo</span>
         <span><b class="legendDot moderate"></b> Moderado</span>
         <span><b class="legendDot high"></b> Alto</span>
+        <span class="note">Use el control del mapa para cambiar entre calles, satélite y topográfico.</span>
       </div>
     </section>
 
@@ -107,7 +109,9 @@
     </section>
   </main>
 
-  <script src="./api-config.js?v=2.8.0"></script>
-  <script src="./app.js?v=2.8.0"></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="./api-config.js?v=2.8.1"></script>
+  <script src="./app.js?v=2.8.1"></script>
+  <script src="./real-map.js?v=2.8.1"></script>
 </body>
 </html>
