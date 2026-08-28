@@ -1,5 +1,5 @@
-const CACHE = "prwx-desktop-v281-real-map";
-const ASSETS = ["./", "./index.html", "./styles.css", "./app.js", "./api-config.js", "./real-map.js", "./manifest.webmanifest"];
+const CACHE = "prwx-desktop-v290-storm-track-map";
+const ASSETS = ["./", "./index.html", "./styles.css", "./app.js", "./api-config.js", "./real-map.js", "./storm-map.js", "./manifest.webmanifest"];
 self.addEventListener("install", (event) => {
   event.waitUntil(caches.open(CACHE).then((cache) => cache.addAll(ASSETS)));
   self.skipWaiting();
