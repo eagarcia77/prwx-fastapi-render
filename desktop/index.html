@@ -11,9 +11,9 @@
 <body>
   <header class="hero">
     <div>
-      <p class="eyebrow">PR-WX v2.5.1 · PR-CARIBE WX Hybrid v2.0</p>
-      <h1>Centro Meteorológico Puerto Rico y Caribe</h1>
-      <p>Pronóstico experimental, comparación de fuentes, riesgo, incertidumbre y monitoreo operacional para Puerto Rico.</p>
+      <p class="eyebrow">PR-WX v2.6.0 · Informe meteorológico Caribe-Atlántico</p>
+      <h1>Centro Meteorológico Puerto Rico, Caribe y Atlántico</h1>
+      <p>Pronóstico experimental, comparación de fuentes, riesgo, incertidumbre, informe meteorológico y ruta de entrenamiento del modelo PR-CARIBE WX.</p>
     </div>
     <nav class="links">
       <a id="mobileLink" href="/mobile/">Mobile</a>
@@ -36,8 +36,18 @@
 
     <section class="grid" id="cards" aria-live="polite"></section>
 
+    <section class="card wide" aria-labelledby="caribbeanAtlanticTitle">
+      <h2 id="caribbeanAtlanticTitle">Informe meteorológico Caribe-Atlántico</h2>
+      <p>Analiza el estado del modelo PR-CARIBE WX, la preparación de datos históricos, la matriz de fuentes y la ruta para entrenar un nuevo ciclo meteorológico del Caribe y Atlántico.</p>
+      <div class="actions">
+        <button id="caribbeanReportBtn" class="primary">Generar informe Caribe-Atlántico</button>
+        <a id="caribbeanReportMdLink" href="/weather/report/caribbean-atlantic.md" target="_blank" rel="noopener">Ver Markdown</a>
+      </div>
+      <div id="caribbeanReport" aria-live="polite"><p class="note">El informe se cargará automáticamente.</p></div>
+    </section>
+
     <section class="card wide" aria-labelledby="weatherReportTitle">
-      <h2 id="weatherReportTitle">Informe del tiempo PR-CARIBE</h2>
+      <h2 id="weatherReportTitle">Informe del tiempo municipal PR-CARIBE</h2>
       <p>Escriba un municipio de Puerto Rico. El sistema combina el producto operacional disponible con el estado del nuevo modelo y sus fuentes aplicables.</p>
       <label for="municipalityInput">Municipio</label>
       <input id="municipalityInput" list="priorityMunicipalities" value="San Juan" autocomplete="off">
@@ -48,7 +58,7 @@
         <option value="San Germán"></option>
       </datalist>
       <div class="actions">
-        <button id="weatherReportBtn" class="primary">Generar informe</button>
+        <button id="weatherReportBtn" class="primary">Generar informe municipal</button>
       </div>
       <div id="weatherReport" aria-live="polite"><p class="note">Seleccione un municipio para consultar el informe.</p></div>
     </section>
@@ -64,7 +74,7 @@
     </section>
   </main>
 
-  <script src="./api-config.js?v=2.5.1"></script>
-  <script src="./app.js?v=2.5.1"></script>
+  <script src="./api-config.js?v=2.6.0"></script>
+  <script src="./app.js?v=2.6.0"></script>
 </body>
 </html>
