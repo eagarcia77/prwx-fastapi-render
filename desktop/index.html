@@ -11,9 +11,9 @@
 <body>
   <header class="hero">
     <div>
-      <p class="eyebrow">PR-WX v2.7.0 · IA Caribe-Atlántico</p>
+      <p class="eyebrow">PR-WX v2.8.0 · Mapas IA por municipio</p>
       <h1>Centro Meteorológico Puerto Rico, Caribe y Atlántico</h1>
-      <p>Pronóstico experimental, informe meteorológico, inteligencia artificial, análisis de datos y ruta de entrenamiento del modelo PR-CARIBE WX.</p>
+      <p>Pronóstico experimental, informe meteorológico, inteligencia artificial, mapas interactivos por pueblo y ruta de entrenamiento del modelo PR-CARIBE WX.</p>
     </div>
     <nav class="links">
       <a id="mobileLink" href="/mobile/">Mobile</a>
@@ -35,6 +35,29 @@
     </section>
 
     <section class="grid" id="cards" aria-live="polite"></section>
+
+    <section class="card wide" aria-labelledby="aiMapTitle">
+      <h2 id="aiMapTitle">Mapa interactivo con IA por pueblo</h2>
+      <p>El mapa presenta los 78 municipios con una puntuación IA de riesgo meteorológico, nivel de confianza, resumen por pueblo y recomendación práctica. Los puntos son centroides aproximados para visualización.</p>
+      <div class="actions mapControls">
+        <button id="aiMapRefreshBtn" class="primary">Actualizar mapa IA</button>
+        <label class="inlineLabel" for="mapMunicipalitySelect">Municipio</label>
+        <select id="mapMunicipalitySelect" aria-label="Seleccionar municipio para análisis IA"></select>
+        <button id="mapMunicipalityBtn">Analizar municipio</button>
+        <a id="aiMapGeoJsonLink" href="/ai/maps/pr-municipalities.geojson" target="_blank" rel="noopener">GeoJSON</a>
+      </div>
+      <div class="mapLayout">
+        <div id="aiMapCanvas" class="mapCanvas" role="img" aria-label="Mapa interactivo experimental de Puerto Rico por municipio"></div>
+        <aside id="mapDetails" class="mapDetails" aria-live="polite">
+          <p class="note">Seleccione un pueblo en el mapa para ver el análisis IA.</p>
+        </aside>
+      </div>
+      <div id="mapLegend" class="legend" aria-label="Leyenda del mapa">
+        <span><b class="legendDot low"></b> Bajo</span>
+        <span><b class="legendDot moderate"></b> Moderado</span>
+        <span><b class="legendDot high"></b> Alto</span>
+      </div>
+    </section>
 
     <section class="card wide" aria-labelledby="aiTrainingTitle">
       <h2 id="aiTrainingTitle">Inteligencia Artificial para análisis y entrenamiento</h2>
@@ -84,7 +107,7 @@
     </section>
   </main>
 
-  <script src="./api-config.js?v=2.7.0"></script>
-  <script src="./app.js?v=2.7.0"></script>
+  <script src="./api-config.js?v=2.8.0"></script>
+  <script src="./app.js?v=2.8.0"></script>
 </body>
 </html>
