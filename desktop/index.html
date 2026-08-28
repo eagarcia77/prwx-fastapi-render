@@ -6,15 +6,16 @@
   <meta name="theme-color" content="#0f766e">
   <link rel="manifest" href="./manifest.webmanifest">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
-  <link rel="stylesheet" href="./styles.css?v=3.1.0">
+  <link rel="stylesheet" href="./styles.css?v=3.2.0">
+  <link rel="stylesheet" href="./storm-cinematic.css?v=3.2.0">
   <title>PR-WX Desktop</title>
 </head>
 <body>
   <header class="hero">
     <div>
-      <p class="eyebrow">PR-WX v3.1.0 · Entrenamiento IA histórico</p>
+      <p class="eyebrow">PR-WX v3.2.0 · Mapa IA cinemático de trayectorias</p>
       <h1>Centro Meteorológico Puerto Rico, Caribe y Atlántico</h1>
-      <p>Pronóstico experimental, mapas reales, inteligencia artificial, datos históricos oficiales, GitHub Actions y entrenamiento de trayectorias hacia Puerto Rico.</p>
+      <p>Pronóstico experimental, mapas reales, inteligencia artificial, datos históricos oficiales, GitHub Actions y visualización cinemática de trayectorias hacia Puerto Rico.</p>
     </div>
     <nav class="links">
       <a id="mobileLink" href="/mobile/">Mobile</a>
@@ -47,11 +48,22 @@
         <button id="stormEventBtn">Analizar sistema</button>
         <a id="stormTrackGeoJsonLink" href="/ai/storm-tracks/map.geojson" target="_blank" rel="noopener">GeoJSON trayectoria</a>
       </div>
-      <div class="mapLayout stormMapLayout">
-        <div id="stormTrackMapCanvas" class="mapCanvas realMapShell stormMapShell" role="img" aria-label="Mapa interactivo IA de trayectoria de tormentas hacia Puerto Rico"></div>
-        <aside id="stormTrackDetails" class="mapDetails stormDetails" aria-live="polite">
-          <p class="note">Seleccione una trayectoria, sistema o corredor para ver el análisis IA.</p>
-        </aside>
+      <div class="stormCinematicControls" aria-label="Controles cinemáticos de trayectoria">
+        <button id="stormPlayBtn" class="primary" type="button">▶ Reproducir</button>
+        <button id="stormPauseBtn" type="button">Pausar</button>
+        <button id="stormResetBtn" type="button">Reiniciar</button>
+        <label class="inlineLabel" for="stormTimelineRange">Tiempo</label>
+        <input id="stormTimelineRange" type="range" min="0" max="0" value="0" step="1" aria-label="Línea de tiempo de trayectoria">
+        <span id="stormTimeBadge" class="stormTimeBadge">+0h</span>
+        <span class="stormModeBadge">Modo Centro de Operaciones</span>
+      </div>
+      <div class="stormCommandShell">
+        <div class="mapLayout stormMapLayout">
+          <div id="stormTrackMapCanvas" class="mapCanvas realMapShell stormMapShell cinematic" role="img" aria-label="Mapa interactivo IA de trayectoria de tormentas hacia Puerto Rico"></div>
+          <aside id="stormTrackDetails" class="mapDetails stormDetails" aria-live="polite">
+            <p class="note">Seleccione una trayectoria, sistema o corredor para ver el análisis IA.</p>
+          </aside>
+        </div>
       </div>
       <div class="legend" aria-label="Leyenda del mapa de trayectoria">
         <span><b class="legendDot low"></b> Riesgo bajo</span>
@@ -145,10 +157,10 @@
   </main>
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  <script src="./api-config.js?v=3.1.0"></script>
-  <script src="./app.js?v=3.1.0"></script>
-  <script src="./real-map.js?v=3.1.0"></script>
-  <script src="./storm-map.js?v=3.1.0"></script>
-  <script src="./storm-history-panel.js?v=3.1.0"></script>
+  <script src="./api-config.js?v=3.2.0"></script>
+  <script src="./app.js?v=3.2.0"></script>
+  <script src="./real-map.js?v=3.2.0"></script>
+  <script src="./storm-map.js?v=3.2.0"></script>
+  <script src="./storm-history-panel.js?v=3.2.0"></script>
 </body>
 </html>
