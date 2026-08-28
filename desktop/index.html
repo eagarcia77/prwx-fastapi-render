@@ -6,15 +6,15 @@
   <meta name="theme-color" content="#0f766e">
   <link rel="manifest" href="./manifest.webmanifest">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
-  <link rel="stylesheet" href="./styles.css?v=2.8.1">
+  <link rel="stylesheet" href="./styles.css?v=2.9.0">
   <title>PR-WX Desktop</title>
 </head>
 <body>
   <header class="hero">
     <div>
-      <p class="eyebrow">PR-WX v2.8.1 · Mapa real IA por municipio</p>
+      <p class="eyebrow">PR-WX v2.9.0 · Trayectoria IA de tormentas hacia PR</p>
       <h1>Centro Meteorológico Puerto Rico, Caribe y Atlántico</h1>
-      <p>Pronóstico experimental, informe meteorológico, inteligencia artificial, mapas reales interactivos por pueblo y ruta de entrenamiento del modelo PR-CARIBE WX.</p>
+      <p>Pronóstico experimental, informe meteorológico, mapas reales por pueblo, trayectoria IA de tormentas, ondas tropicales, vaguadas y huracanes hacia Puerto Rico.</p>
     </div>
     <nav class="links">
       <a id="mobileLink" href="/mobile/">Mobile</a>
@@ -36,6 +36,30 @@
     </section>
 
     <section class="grid" id="cards" aria-live="polite"></section>
+
+    <section class="card wide" aria-labelledby="stormTrackTitle">
+      <h2 id="stormTrackTitle">Mapa IA de trayectoria hacia Puerto Rico</h2>
+      <p>Este segundo mapa analiza trayectorias de huracanes, tormentas, ondas tropicales y vaguadas hacia PR. Presenta corredores de acercamiento, trayectoria disponible, probabilidad IA de impacto, distancia a Puerto Rico, confianza y recomendación operacional.</p>
+      <div class="actions mapControls">
+        <button id="stormTrackRefreshBtn" class="primary">Actualizar trayectoria IA</button>
+        <label class="inlineLabel" for="stormEventSelect">Sistema</label>
+        <select id="stormEventSelect" aria-label="Seleccionar sistema tropical para análisis IA"></select>
+        <button id="stormEventBtn">Analizar sistema</button>
+        <a id="stormTrackGeoJsonLink" href="/ai/storm-tracks/map.geojson" target="_blank" rel="noopener">GeoJSON trayectoria</a>
+      </div>
+      <div class="mapLayout stormMapLayout">
+        <div id="stormTrackMapCanvas" class="mapCanvas realMapShell stormMapShell" role="img" aria-label="Mapa interactivo IA de trayectoria de tormentas hacia Puerto Rico"></div>
+        <aside id="stormTrackDetails" class="mapDetails stormDetails" aria-live="polite">
+          <p class="note">Seleccione una trayectoria, sistema o corredor para ver el análisis IA.</p>
+        </aside>
+      </div>
+      <div class="legend" aria-label="Leyenda del mapa de trayectoria">
+        <span><b class="legendDot low"></b> Riesgo bajo</span>
+        <span><b class="legendDot moderate"></b> Riesgo moderado</span>
+        <span><b class="legendDot high"></b> Riesgo alto</span>
+        <span class="note">Validar siempre con NHC/NWS. El modelo no emite avisos oficiales.</span>
+      </div>
+    </section>
 
     <section class="card wide" aria-labelledby="aiMapTitle">
       <h2 id="aiMapTitle">Mapa real interactivo con IA por pueblo</h2>
@@ -110,8 +134,9 @@
   </main>
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  <script src="./api-config.js?v=2.8.1"></script>
-  <script src="./app.js?v=2.8.1"></script>
+  <script src="./api-config.js?v=2.9.0"></script>
+  <script src="./app.js?v=2.9.0"></script>
   <script src="./real-map.js?v=2.8.1"></script>
+  <script src="./storm-map.js?v=2.9.0"></script>
 </body>
 </html>
