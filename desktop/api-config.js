@@ -1,5 +1,5 @@
 window.PRWX_CONFIG = {
-  version: "2.5.1",
+  version: "2.6.0",
   renderApiBase: "https://prwx-fastapi-render.onrender.com",
   defaultApiBase: window.location.hostname.includes("github.io")
     ? "https://prwx-fastapi-render.onrender.com"
@@ -17,6 +17,10 @@ window.PRWX_CONFIG = {
     caribbeanModelReadiness: "/caribbean/model/readiness",
     caribbeanModelSources: "/caribbean/model/sources",
     caribbeanTrainingStatus: "/caribbean/training/status",
+    caribbeanTrainingPlan: "/caribbean/model/training-plan",
+    caribbeanFeatureMatrix: "/caribbean/model/feature-matrix",
+    caribbeanAtlanticReport: "/weather/report/caribbean-atlantic",
+    caribbeanAtlanticReportMarkdown: "/weather/report/caribbean-atlantic.md",
     weatherReport: "/weather/report/{municipality}"
   }
 };
