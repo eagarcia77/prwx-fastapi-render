@@ -82,6 +82,32 @@ function renderWeatherReport(report) {
   `;
 }
 
+function renderCaribbeanAtlanticReport(report) {
+  const target = $("caribbeanReport");
+  if (!report || report.error) {
+    target.innerHTML = `<p class="note">No se pudo cargar el informe Caribe-Atlántico: ${esc(report?.error || "sin datos")}</p>`;
+    return;
+  }
+  const analysis = report.model_analysis || {};
+  const decision = analysis.decision || {};
+  const matrix = Array.isArray(report.feature_matrix) ? report.feature_matrix : [];
+  const plan = report.training_plan || {};
+  const minimum = plan.minimum_real_training_dataset || {};
+  target.innerHTML = `
+    <div class="grid">
+      ${card("Informe", report.report_version || "2.6.0", "Caribe · Atlántico · Puerto Rico")}
+      ${card("Modelo", analysis.current_model_name || "PR-CARIBE WX", analysis.current_model_version || "v2", "Modelo híbrido experimental")}
+      ${card("Preparación", analysis.readiness_label || "entrenamiento requerido", decision.recommendation || "train_new_caribbean_atlantic_model", "warn")}
+      ${card("Mínimo operacional", `${fmtInt(minimum.rows_operational_candidate)} filas`, `${fmtInt(minimum.minimum_days_operational_candidate)} días · ${fmtInt(minimum.minimum_stations_operational_candidate)} estaciones`, "warn")}
+    </div>
+    <h3>Matriz de fuentes</h3>
+    <ul>
+      ${matrix.map((item) => `<li><strong>${esc(item.domain)}</strong>: ${esc((item.sources || []).join(", "))}. ${esc(item.training_role || "")}</li>`).join("")}
+    </ul>
+    <p class="note">${esc(report.disclaimer || "")}</p>
+  `;
+}
+
 async function loadWeatherReport() {
   const municipality = ($("municipalityInput").value || "").trim();
   if (!municipality) {
@@ -101,6 +127,18 @@ async function loadWeatherReport() {
   }
 }
 
+async function loadCaribbeanAtlanticReport() {
+  $("caribbeanReport").innerHTML = `<p class="note">Generando informe meteorológico Caribe-Atlántico...</p>`;
+  try {
+    const report = await getJSON(paths.caribbeanAtlanticReport || "/weather/report/caribbean-atlantic");
+    renderCaribbeanAtlanticReport(report);
+    log("Informe Caribe-Atlántico actualizado.");
+  } catch (err) {
+    renderCaribbeanAtlanticReport({ error: err.message });
+    log(`Error en informe Caribe-Atlántico: ${err.message}`);
+  }
+}
+
 async function refresh() {
   const cards = $("cards");
   cards.innerHTML = card("Estado", "Cargando", "Consultando Render...", "warn");
@@ -115,9 +153,10 @@ async function refresh() {
     getJSON(paths.mobileCluster || "/seismic/mobile-cluster"),
     getJSON(paths.caribbeanModelStatus || "/caribbean/model/status"),
     getJSON(paths.caribbeanModelReadiness || "/caribbean/model/readiness"),
-    getJSON(paths.caribbeanTrainingStatus || "/caribbean/training/status")
+    getJSON(paths.caribbeanTrainingStatus || "/caribbean/training/status"),
+    getJSON(paths.caribbeanTrainingPlan || "/caribbean/model/training-plan")
   ]);
-  const [health, desktopHealth, apiStatus, webBridge, alerts, focus, cluster, modelStatus, readiness, trainingStatus] = results.map((r) => r.status === "fulfilled" ? r.value : { error: r.reason.message });
+  const [health, desktopHealth, apiStatus, webBridge, alerts, focus, cluster, modelStatus, readiness, trainingStatus, trainingPlan] = results.map((r) => r.status === "fulfilled" ? r.value : { error: r.reason.message });
   const alertsCount = Array.isArray(alerts) ? alerts.length : 0;
   const focusCount = Array.isArray(focus) ? focus.length : 0;
   const clusterStatus = cluster.cluster_status || cluster.status || "sin cluster";
@@ -125,6 +164,7 @@ async function refresh() {
   const candidate = readiness.operational_candidate === true;
   const observations = trainingStatus.observations || {};
   const trainingTable = trainingStatus.training_table || {};
+  const minData = trainingPlan.minimum_real_training_dataset || {};
   const historicalDetail = observations.available
     ? `${fmtInt(observations.rows)} observaciones · ${fmtInt(observations.stations)} estaciones`
     : "Backfill histórico aún no disponible en este servidor";
@@ -140,27 +180,29 @@ async function refresh() {
     card("Municipios foco", focusCount, "Temperatura y riesgo"),
     card("Datos históricos", observations.available ? fmtInt(observations.rows) : "Pendiente", historicalDetail, observations.available ? "ok" : "warn"),
     card("Dataset PR-CARIBE", trainingTable.available ? fmtInt(trainingTable.rows) : "Pendiente", tableDetail, candidate ? "ok" : "warn"),
-    card("PR-CARIBE WX", modelState, candidate ? "Dataset candidato operacional; validación independiente todavía requerida" : "Entrenamiento histórico pendiente", modelStatus.production_validated ? "ok" : "warn"),
+    card("Modelo Atlántico", modelState, `Mínimo operacional: ${fmtInt(minData.rows_operational_candidate)} filas`, modelStatus.production_validated ? "ok" : "warn"),
     card("Mobile cluster", clusterStatus, "Señales web/móvil experimentales")
   ].join("");
   if (Array.isArray(alerts) && alerts.length) renderTable(alerts);
   else if (Array.isArray(focus) && focus.length) renderTable(focus);
-  else renderTable([health, desktopHealth, apiStatus, webBridge, cluster, modelStatus, readiness, trainingStatus]);
+  else renderTable([health, desktopHealth, apiStatus, webBridge, cluster, modelStatus, readiness, trainingStatus, trainingPlan]);
   log("Panel actualizado correctamente.");
+}
+
+function updateLinks() {
+  $("docsLink").href = `${apiBase()}/docs`;
+  $("healthLink").href = `${apiBase()}/desktop-health`;
+  $("mobileLink").href = `${apiBase()}/mobile/`;
+  $("caribbeanReportMdLink").href = `${apiBase()}${paths.caribbeanAtlanticReportMarkdown || "/weather/report/caribbean-atlantic.md"}`;
 }
 
 function init() {
   $("apiBase").value = cfg.defaultApiBase || window.location.origin;
-  $("docsLink").href = `${apiBase()}/docs`;
-  $("healthLink").href = `${apiBase()}/desktop-health`;
-  $("mobileLink").href = `${apiBase()}/mobile/`;
-  $("apiBase").addEventListener("change", () => {
-    $("docsLink").href = `${apiBase()}/docs`;
-    $("healthLink").href = `${apiBase()}/desktop-health`;
-    $("mobileLink").href = `${apiBase()}/mobile/`;
-  });
+  updateLinks();
+  $("apiBase").addEventListener("change", updateLinks);
   $("refreshBtn").addEventListener("click", () => refresh().catch((err) => log(`Error: ${err.message}`)));
   $("weatherReportBtn").addEventListener("click", loadWeatherReport);
+  $("caribbeanReportBtn").addEventListener("click", loadCaribbeanAtlanticReport);
   $("municipalityInput").addEventListener("keydown", (event) => {
     if (event.key === "Enter") loadWeatherReport();
   });
@@ -171,9 +213,10 @@ function init() {
     }
     log("Cache visual limpiado. Recargue la página si todavía ve una versión vieja.");
   });
-  if ("serviceWorker" in navigator) navigator.serviceWorker.register("./service-worker.js?v=2.5.1").catch(() => {});
+  if ("serviceWorker" in navigator) navigator.serviceWorker.register("./service-worker.js?v=2.6.0").catch(() => {});
   refresh().catch((err) => log(`Error inicial: ${err.message}`));
   loadWeatherReport();
+  loadCaribbeanAtlanticReport();
 }
 
 document.addEventListener("DOMContentLoaded", init);
