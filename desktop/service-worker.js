@@ -1,4 +1,4 @@
-const CACHE = "prwx-desktop-v270";
+const CACHE = "prwx-desktop-v280";
 const ASSETS = ["./", "./index.html", "./styles.css", "./app.js", "./api-config.js", "./manifest.webmanifest"];
 self.addEventListener("install", (event) => {
   event.waitUntil(caches.open(CACHE).then((cache) => cache.addAll(ASSETS)));
