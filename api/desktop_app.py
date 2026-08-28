@@ -8,11 +8,12 @@ from fastapi.routing import APIRoute
 from fastapi.staticfiles import StaticFiles
 
 from api.app import ROOT, app, utc_now_iso
+from api.ai_maps_router import router as ai_maps_router
 from api.ai_training_router import router as ai_training_router
 from api.meteorological_report_router import router as meteorological_report_router
 from api.caribbean_router import router as caribbean_router
 
-VERSION = "2.7.0"
+VERSION = "2.8.0"
 DESKTOP_CLIENT = ROOT / "desktop"
 MOBILE_CLIENT = ROOT / "mobile"
 
@@ -44,10 +45,11 @@ def _root_desktop_redirect():
     return RedirectResponse(url="/desktop/")
 
 
-# Register exact report and AI routes before the municipal wildcard route
+# Register exact report, AI and map routes before the municipal wildcard route
 # /weather/report/{municipality}.
 _ensure_router(meteorological_report_router, "meteorological_report_router_installed", "meteorological_report_router_paths")
 _ensure_router(ai_training_router, "ai_training_router_installed", "ai_training_router_paths")
+_ensure_router(ai_maps_router, "ai_maps_router_installed", "ai_maps_router_paths")
 _ensure_router(caribbean_router, "caribbean_router_installed", "caribbean_router_paths")
 
 if not getattr(app.state, "desktop_wrapper_installed", False):
@@ -83,6 +85,12 @@ def api_status():
         "ai_feature_matrix": "/ai/model/feature-matrix",
         "ai_train_status": "/ai/model/train-status",
         "ai_model_report": "/ai/model/report",
+        "ai_maps_status": "/ai/maps/status",
+        "ai_maps_layers": "/ai/maps/layers",
+        "ai_maps_summary": "/ai/maps/summary",
+        "ai_maps_pr_municipalities": "/ai/maps/pr-municipalities",
+        "ai_maps_geojson": "/ai/maps/pr-municipalities.geojson",
+        "ai_maps_municipality": "/ai/maps/municipality/{municipality}",
         "caribbean_model_status": "/caribbean/model/status",
         "caribbean_model_sources": "/caribbean/model/sources",
         "caribbean_model_readiness": "/caribbean/model/readiness",
@@ -114,6 +122,8 @@ def desktop_health():
         "meteorological_report_router_paths": list(getattr(app.state, "meteorological_report_router_paths", [])),
         "ai_training_router_installed": bool(getattr(app.state, "ai_training_router_installed", False)),
         "ai_training_router_paths": list(getattr(app.state, "ai_training_router_paths", [])),
+        "ai_maps_router_installed": bool(getattr(app.state, "ai_maps_router_installed", False)),
+        "ai_maps_router_paths": list(getattr(app.state, "ai_maps_router_paths", [])),
         "root_redirects_to": "/desktop/",
     }
 
@@ -135,6 +145,12 @@ def desktop_config_json():
         "ai_training_plan_markdown_endpoint": "/ai/model/training-plan.md",
         "ai_feature_matrix_endpoint": "/ai/model/feature-matrix",
         "ai_train_status_endpoint": "/ai/model/train-status",
+        "ai_maps_status_endpoint": "/ai/maps/status",
+        "ai_maps_layers_endpoint": "/ai/maps/layers",
+        "ai_maps_summary_endpoint": "/ai/maps/summary",
+        "ai_maps_pr_endpoint": "/ai/maps/pr-municipalities",
+        "ai_maps_geojson_endpoint": "/ai/maps/pr-municipalities.geojson",
+        "ai_maps_municipality_endpoint_template": "/ai/maps/municipality/{municipality}",
         "caribbean_model_status_endpoint": "/caribbean/model/status",
         "caribbean_model_sources_endpoint": "/caribbean/model/sources",
         "caribbean_model_readiness_endpoint": "/caribbean/model/readiness",
