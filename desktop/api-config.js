@@ -1,5 +1,5 @@
 window.PRWX_CONFIG = {
-  version: "3.2.0",
+  version: "3.3.0",
   renderApiBase: "https://prwx-fastapi-render.onrender.com",
   defaultApiBase: window.location.hostname.includes("github.io")
     ? "https://prwx-fastapi-render.onrender.com"
