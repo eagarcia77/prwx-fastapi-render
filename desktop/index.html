@@ -11,9 +11,9 @@
 <body>
   <header class="hero">
     <div>
-      <p class="eyebrow">PR-WX v2.6.0 · Informe meteorológico Caribe-Atlántico</p>
+      <p class="eyebrow">PR-WX v2.7.0 · IA Caribe-Atlántico</p>
       <h1>Centro Meteorológico Puerto Rico, Caribe y Atlántico</h1>
-      <p>Pronóstico experimental, comparación de fuentes, riesgo, incertidumbre, informe meteorológico y ruta de entrenamiento del modelo PR-CARIBE WX.</p>
+      <p>Pronóstico experimental, informe meteorológico, inteligencia artificial, análisis de datos y ruta de entrenamiento del modelo PR-CARIBE WX.</p>
     </div>
     <nav class="links">
       <a id="mobileLink" href="/mobile/">Mobile</a>
@@ -35,6 +35,16 @@
     </section>
 
     <section class="grid" id="cards" aria-live="polite"></section>
+
+    <section class="card wide" aria-labelledby="aiTrainingTitle">
+      <h2 id="aiTrainingTitle">Inteligencia Artificial para análisis y entrenamiento</h2>
+      <p>Evalúa la calidad del dataset histórico, detecta variables útiles, identifica riesgos de fuga de información y prepara el entrenamiento IA para Caribe y Atlántico.</p>
+      <div class="actions">
+        <button id="aiAnalyzeBtn" class="primary">Analizar dataset con IA</button>
+        <a id="aiPlanMdLink" href="/ai/model/training-plan.md" target="_blank" rel="noopener">Plan IA Markdown</a>
+      </div>
+      <div id="aiTrainingPanel" aria-live="polite"><p class="note">El estado IA se cargará automáticamente.</p></div>
+    </section>
 
     <section class="card wide" aria-labelledby="caribbeanAtlanticTitle">
       <h2 id="caribbeanAtlanticTitle">Informe meteorológico Caribe-Atlántico</h2>
@@ -74,7 +84,7 @@
     </section>
   </main>
 
-  <script src="./api-config.js?v=2.6.0"></script>
-  <script src="./app.js?v=2.6.0"></script>
+  <script src="./api-config.js?v=2.7.0"></script>
+  <script src="./app.js?v=2.7.0"></script>
 </body>
 </html>
