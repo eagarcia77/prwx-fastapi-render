@@ -6,17 +6,17 @@
   <meta name="theme-color" content="#0f766e">
   <link rel="manifest" href="./manifest.webmanifest">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
-  <link rel="stylesheet" href="./styles.css?v=3.3.0">
+  <link rel="stylesheet" href="./styles.css?v=3.4.0">
   <link rel="stylesheet" href="./storm-cinematic.css?v=3.2.0">
-  <link rel="stylesheet" href="./map-enhancements-v33.css?v=3.3.0">
+  <link rel="stylesheet" href="./map-enhancements-v33.css?v=3.4.0">
   <title>PR-WX Desktop</title>
 </head>
 <body>
   <header class="hero">
     <div>
-      <p class="eyebrow">PR-WX v3.3.0 · Mapas IA avanzados</p>
+      <p class="eyebrow">PR-WX v3.4.0 · AURORA Caribe-Atlántico</p>
       <h1>Centro Meteorológico Puerto Rico, Caribe y Atlántico</h1>
-      <p>Pronóstico experimental, mapas reales, inteligencia artificial, datos históricos oficiales, capas de impacto, radar visual y entrenamiento de trayectorias hacia Puerto Rico.</p>
+      <p>Pronóstico experimental, mapas reales, inteligencia artificial, predicciones, entrenamiento continuo y el nuevo modelo AURORA Caribe-Atlántico para Puerto Rico, Caribe y Atlántico tropical.</p>
     </div>
     <nav class="links">
       <a id="mobileLink" href="/mobile/">Mobile</a>
@@ -38,6 +38,18 @@
     </section>
 
     <section class="grid" id="cards" aria-live="polite"></section>
+
+    <section class="card wide" aria-labelledby="auroraTitle">
+      <h2 id="auroraTitle">Modelo AURORA Caribe-Atlántico</h2>
+      <p><strong>AURORA-CARIBE</strong> es el nuevo nombre del modelo IA experimental. Integra mapas, predicciones, capas de riesgo municipal, trayectorias tropicales y entrenamiento continuo para el Caribe y Atlántico.</p>
+      <div class="actions">
+        <button id="auroraRefreshBtn" class="primary">Actualizar AURORA-CARIBE</button>
+        <a href="https://github.com/eagarcia77/prwx-fastapi-render/actions/workflows/aurora-caribe-continuous-training-v34.yml" target="_blank" rel="noopener">Entrenamiento continuo</a>
+        <a href="/aurora-caribe/status" target="_blank" rel="noopener">Estado del modelo</a>
+        <a href="/aurora-caribe/predictions/summary" target="_blank" rel="noopener">Predicciones AURORA</a>
+      </div>
+      <div id="auroraCaribePanel" aria-live="polite"><p class="note">Cargando estado del modelo AURORA Caribe-Atlántico...</p></div>
+    </section>
 
     <section class="card wide" aria-labelledby="stormTrackTitle">
       <h2 id="stormTrackTitle">Mapa IA de trayectoria hacia Puerto Rico</h2>
@@ -83,7 +95,7 @@
       <div class="actions">
         <button id="stormHistoricalRefreshBtn" class="primary">Verificar datos históricos</button>
         <a id="stormHistoricalPlanLink" href="/ai/storm-tracks/historical/download-plan" target="_blank" rel="noopener">Plan de descarga</a>
-        <a href="https://github.com/eagarcia77/prwx-fastapi-render/actions/workflows/train-storm-historical-ai-v31.yml" target="_blank" rel="noopener">Entrenar con GitHub Actions</a>
+        <a href="https://github.com/eagarcia77/prwx-fastapi-render/actions/workflows/train-storm-historical-ai-v31.yml" target="_blank" rel="noopener">Entrenar trayectorias</a>
       </div>
       <div id="stormHistoricalPanel" aria-live="polite"><p class="note">Consultando disponibilidad histórica...</p></div>
     </section>
@@ -146,9 +158,7 @@
         <option value="San Juan"></option>
         <option value="San Germán"></option>
       </datalist>
-      <div class="actions">
-        <button id="weatherReportBtn" class="primary">Generar informe municipal</button>
-      </div>
+      <div class="actions"><button id="weatherReportBtn" class="primary">Generar informe municipal</button></div>
       <div id="weatherReport" aria-live="polite"><p class="note">Seleccione un municipio para consultar el informe.</p></div>
     </section>
 
@@ -164,10 +174,11 @@
   </main>
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  <script src="./api-config.js?v=3.3.0"></script>
-  <script src="./app.js?v=3.3.0"></script>
-  <script src="./real-map.js?v=3.3.0"></script>
-  <script src="./storm-map.js?v=3.3.0"></script>
-  <script src="./storm-history-panel.js?v=3.3.0"></script>
+  <script src="./api-config.js?v=3.4.0"></script>
+  <script src="./app.js?v=3.4.0"></script>
+  <script src="./aurora-caribe-panel.js?v=3.4.0"></script>
+  <script src="./real-map.js?v=3.4.0"></script>
+  <script src="./storm-map.js?v=3.4.0"></script>
+  <script src="./storm-history-panel.js?v=3.4.0"></script>
 </body>
 </html>
