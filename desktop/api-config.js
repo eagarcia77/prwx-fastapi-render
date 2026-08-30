@@ -1,5 +1,5 @@
 window.PRWX_CONFIG = {
-  version: "3.4.0",
+  version: "3.5.0",
   renderApiBase: "https://prwx-fastapi-render.onrender.com",
   defaultApiBase: window.location.hostname.includes("github.io")
     ? "https://prwx-fastapi-render.onrender.com"
@@ -23,6 +23,16 @@ window.PRWX_CONFIG = {
     auroraCaribeReport: "/aurora-caribe/report",
     auroraCaribeTrainingAction: ".github/workflows/aurora-caribe-continuous-training-v34.yml",
     auroraCaribeArtifact: "aurora-caribe-ai-training-v34",
+    auroraDustModel: "/aurora-caribe/dust/model",
+    auroraDustStatus: "/aurora-caribe/dust/status",
+    auroraDustSources: "/aurora-caribe/dust/sources",
+    auroraDustAnalysis: "/aurora-caribe/dust/analysis",
+    auroraDustMap: "/aurora-caribe/dust/map.geojson",
+    auroraDustTrainingStatus: "/aurora-caribe/dust/training/status",
+    auroraDustTrainingPlan: "/aurora-caribe/dust/training/plan",
+    auroraDustHealthGuidance: "/aurora-caribe/dust/health-guidance",
+    auroraDustTrainingAction: ".github/workflows/aurora-sahara-dust-continuous-training-v35.yml",
+    auroraDustArtifact: "aurora-sahara-dust-training-v35",
     aiModelStatus: "/ai/model/status",
     aiModelAnalyze: "/ai/model/analyze",
     aiTrainingPlan: "/ai/model/training-plan",
