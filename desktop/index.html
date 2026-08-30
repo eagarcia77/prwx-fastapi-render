@@ -6,18 +6,19 @@
   <meta name="theme-color" content="#0f766e">
   <link rel="manifest" href="./manifest.webmanifest">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
-  <link rel="stylesheet" href="./styles.css?v=3.5.0">
+  <link rel="stylesheet" href="./styles.css?v=3.6.0">
   <link rel="stylesheet" href="./storm-cinematic.css?v=3.2.0">
-  <link rel="stylesheet" href="./map-enhancements-v33.css?v=3.5.0">
-  <link rel="stylesheet" href="./dust-layer-v35.css?v=3.5.0">
+  <link rel="stylesheet" href="./map-enhancements-v33.css?v=3.6.0">
+  <link rel="stylesheet" href="./dust-layer-v35.css?v=3.6.0">
+  <link rel="stylesheet" href="./aurora-3d.css?v=3.6.0">
   <title>PR-WX Desktop</title>
 </head>
 <body>
   <header class="hero">
     <div>
-      <p class="eyebrow">PR-WX v3.5.0 · AURORA Sahara-Caribe</p>
+      <p class="eyebrow">PR-WX v3.6.0 · AURORA 3D Command Center</p>
       <h1>Centro Meteorológico Puerto Rico, Caribe y Atlántico</h1>
-      <p>Pronóstico experimental, mapas reales, IA, predicciones, entrenamiento continuo, polvo del Sahara, aerosoles, PM2.5, visibilidad y riesgo meteorológico para Puerto Rico.</p>
+      <p>Experiencia 3D holográfica: mapas reales, IA, predicciones, polvo del Sahara, trayectorias tropicales, nodos municipales, domo de riesgo y entrenamiento continuo AURORA.</p>
     </div>
     <nav class="links">
       <a id="mobileLink" href="/mobile/">Mobile</a>
@@ -39,6 +40,25 @@
     </section>
 
     <section class="grid" id="cards" aria-live="polite"></section>
+
+    <section class="card wide aurora3dCard" aria-labelledby="aurora3dTitle">
+      <h2 id="aurora3dTitle">AURORA 3D Command Center</h2>
+      <p>Vista 3D totalmente diferente a un mapa tradicional. Integra el Caribe y Atlántico en una escena holográfica con flujos de polvo del Sahara, trayectorias tropicales, torres municipales de riesgo y domo AURORA sobre Puerto Rico.</p>
+      <div class="aurora3dControls" aria-label="Controles de la escena 3D">
+        <button id="aurora3dRefreshBtn" class="primary" type="button">Actualizar escena 3D</button>
+        <button id="aurora3dRotateBtn" type="button">Pausar rotación</button>
+        <button id="aurora3dResetBtn" type="button">Reiniciar cámara</button>
+        <a href="/aurora-caribe/3d/scene" target="_blank" rel="noopener">Escena JSON</a>
+        <a href="/aurora-caribe/3d/report" target="_blank" rel="noopener">Reporte 3D</a>
+      </div>
+      <div class="aurora3dStage">
+        <div id="aurora3dViewport" class="aurora3dViewport" role="img" aria-label="Escena 3D holográfica AURORA Caribe-Atlántico con polvo del Sahara, trayectorias tropicales y Puerto Rico"></div>
+        <aside id="aurora3dPanel" class="aurora3dPanel" aria-live="polite">
+          <h3>Cargando AURORA 3D...</h3>
+          <p>Preparando escena holográfica del Caribe, Atlántico y Puerto Rico.</p>
+        </aside>
+      </div>
+    </section>
 
     <section class="card wide" aria-labelledby="auroraTitle">
       <h2 id="auroraTitle">Modelo AURORA Caribe-Atlántico</h2>
@@ -193,12 +213,14 @@
   </main>
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  <script src="./api-config.js?v=3.5.0"></script>
-  <script src="./app.js?v=3.5.0"></script>
-  <script src="./aurora-caribe-panel.js?v=3.5.0"></script>
-  <script src="./aurora-dust-panel.js?v=3.5.0"></script>
-  <script src="./real-map.js?v=3.5.0"></script>
-  <script src="./storm-map.js?v=3.5.0"></script>
-  <script src="./storm-history-panel.js?v=3.5.0"></script>
+  <script src="https://unpkg.com/three@0.160.0/build/three.min.js"></script>
+  <script src="./api-config.js?v=3.6.0"></script>
+  <script src="./app.js?v=3.6.0"></script>
+  <script src="./aurora-caribe-panel.js?v=3.6.0"></script>
+  <script src="./aurora-dust-panel.js?v=3.6.0"></script>
+  <script src="./aurora-3d-command-center.js?v=3.6.0"></script>
+  <script src="./real-map.js?v=3.6.0"></script>
+  <script src="./storm-map.js?v=3.6.0"></script>
+  <script src="./storm-history-panel.js?v=3.6.0"></script>
 </body>
 </html>
