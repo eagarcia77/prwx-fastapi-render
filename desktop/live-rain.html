@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0f766e">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <link rel="stylesheet" href="./styles.css?v=3.7.0">
+  <link rel="stylesheet" href="./live-rain-v37.css?v=3.7.0">
+  <title>PR-WX · AURORA RainCast PR</title>
+</head>
+<body>
+  <header class="hero">
+    <div>
+      <p class="eyebrow">PR-WX v3.7.0 · AURORA RainCast PR</p>
+      <h1>Mapa de lluvias en vivo, inundaciones y avisos oficiales</h1>
+      <p>Radar NOAA, lluvia observada, QPF, alertas filtradas de inundación/lluvia y análisis municipal experimental para Puerto Rico.</p>
+    </div>
+    <nav class="links">
+      <a href="/desktop/">Dashboard</a>
+      <a href="/docs">API Docs</a>
+      <a href="/desktop-health">Desktop Health</a>
+    </nav>
+  </header>
+
+  <main class="layout">
+    <section class="card wide">
+      <h2>Conexión</h2>
+      <label for="apiBase">URL de la API</label>
+      <input id="apiBase" type="url" value="https://prwx-fastapi-render.onrender.com" placeholder="https://prwx-fastapi-render.onrender.com">
+      <div class="actions">
+        <button id="liveRainRefreshBtn" class="primary" type="button">Actualizar lluvia en vivo</button>
+        <a href="/rain/live/status" target="_blank" rel="noopener">Estado RainCast</a>
+        <a href="/rain/live/layers" target="_blank" rel="noopener">Capas</a>
+        <a href="/rain/live/alerts" target="_blank" rel="noopener">Alertas</a>
+      </div>
+      <p class="note">La actualización automática usa 60 segundos para respetar límites razonables de los servicios oficiales.</p>
+    </section>
+
+    <section class="card wide liveRainCard" aria-labelledby="liveRainTitle">
+      <div class="liveRainHeader">
+        <div>
+          <h2 id="liveRainTitle">AURORA RainCast PR: lluvias en vivo e inundaciones</h2>
+          <p>Capas de radar y lluvia observada con resumen IA experimental por municipio. Validar siempre con NWS San Juan y manejo de emergencias.</p>
+        </div>
+        <div class="liveRainToolbar" role="group" aria-label="Capas de lluvia">
+          <button class="isActive" data-rain-layer="radar_live" type="button">Radar en vivo</button>
+          <button data-rain-layer="rain_1h" type="button">Lluvia 1h</button>
+          <button data-rain-layer="rain_3h" type="button">Lluvia 3h</button>
+          <button data-rain-layer="rain_24h" type="button">Lluvia 24h</button>
+          <button data-rain-layer="qpf_forecast" type="button">QPF forecast</button>
+        </div>
+      </div>
+
+      <div id="liveRainHud" class="liveRainHud" aria-live="polite"></div>
+
+      <div class="liveRainLayout">
+        <div class="liveRainMapShell">
+          <div class="liveRainPulse">Capa: <span id="liveRainLayerLabel">radar live</span></div>
+          <div id="liveRainMapCanvas" class="liveRainMapCanvas" role="img" aria-label="Mapa interactivo de lluvias, radar y avisos de inundación para Puerto Rico"></div>
+        </div>
+        <aside class="liveRainSide">
+          <div id="liveRainAlertsPanel" class="liveRainPanel" aria-live="polite">
+            <h3>Cargando anuncios...</h3>
+            <p>Consultando alertas activas de lluvia e inundación.</p>
+          </div>
+          <div id="liveRainMunicipalPanel" class="liveRainMunicipalPanel" aria-live="polite">
+            <h3>Cargando municipios...</h3>
+            <p>Preparando estimado municipal experimental.</p>
+          </div>
+        </aside>
+      </div>
+
+      <div class="liveRainLegend">
+        <span><strong>Radar:</strong> lluvia/reflectividad actual</span>
+        <span><strong>1h/3h/24h:</strong> acumulación observada</span>
+        <span><strong>QPF:</strong> pronóstico cuantitativo de precipitación</span>
+      </div>
+    </section>
+  </main>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="./api-config.js?v=3.7.0"></script>
+  <script src="./live-rain-map.js?v=3.7.0"></script>
+</body>
+</html>
