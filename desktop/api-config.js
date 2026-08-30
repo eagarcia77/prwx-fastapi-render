@@ -1,5 +1,5 @@
 window.PRWX_CONFIG = {
-  version: "3.6.0",
+  version: "3.7.0",
   renderApiBase: "https://prwx-fastapi-render.onrender.com",
   defaultApiBase: window.location.hostname.includes("github.io")
     ? "https://prwx-fastapi-render.onrender.com"
@@ -13,6 +13,13 @@ window.PRWX_CONFIG = {
     alerts: "/alerts/active",
     temperatureFocus: "/temperature/focus",
     mobileCluster: "/seismic/mobile-cluster",
+    liveRainModel: "/rain/live/model",
+    liveRainStatus: "/rain/live/status",
+    liveRainSources: "/rain/live/sources",
+    liveRainLayers: "/rain/live/layers",
+    liveRainAlerts: "/rain/live/alerts",
+    liveRainSummary: "/rain/live/summary",
+    liveRainMunicipalRisk: "/rain/live/municipal-risk",
     auroraCaribeModel: "/aurora-caribe/model",
     auroraCaribeStatus: "/aurora-caribe/status",
     auroraCaribeReadiness: "/aurora-caribe/readiness",
