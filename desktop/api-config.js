@@ -1,5 +1,5 @@
 window.PRWX_CONFIG = {
-  version: "3.3.0",
+  version: "3.4.0",
   renderApiBase: "https://prwx-fastapi-render.onrender.com",
   defaultApiBase: window.location.hostname.includes("github.io")
     ? "https://prwx-fastapi-render.onrender.com"
@@ -13,6 +13,16 @@ window.PRWX_CONFIG = {
     alerts: "/alerts/active",
     temperatureFocus: "/temperature/focus",
     mobileCluster: "/seismic/mobile-cluster",
+    auroraCaribeModel: "/aurora-caribe/model",
+    auroraCaribeStatus: "/aurora-caribe/status",
+    auroraCaribeReadiness: "/aurora-caribe/readiness",
+    auroraCaribeTrainingStatus: "/aurora-caribe/training/status",
+    auroraCaribeTrainingPlan: "/aurora-caribe/training/plan",
+    auroraCaribePredictions: "/aurora-caribe/predictions/summary",
+    auroraCaribeLayers: "/aurora-caribe/maps/layers",
+    auroraCaribeReport: "/aurora-caribe/report",
+    auroraCaribeTrainingAction: ".github/workflows/aurora-caribe-continuous-training-v34.yml",
+    auroraCaribeArtifact: "aurora-caribe-ai-training-v34",
     aiModelStatus: "/ai/model/status",
     aiModelAnalyze: "/ai/model/analyze",
     aiTrainingPlan: "/ai/model/training-plan",
