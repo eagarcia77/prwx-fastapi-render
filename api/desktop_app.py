@@ -14,10 +14,11 @@ from api.ai_maps_router import router as ai_maps_router
 from api.ai_training_router import router as ai_training_router
 from api.aurora_caribe_router import router as aurora_caribe_router
 from api.aurora_dust_router import router as aurora_dust_router
+from api.aurora_3d_router import router as aurora_3d_router
 from api.meteorological_report_router import router as meteorological_report_router
 from api.caribbean_router import router as caribbean_router
 
-VERSION = "3.5.0"
+VERSION = "3.6.0"
 DESKTOP_CLIENT = ROOT / "desktop"
 MOBILE_CLIENT = ROOT / "mobile"
 
@@ -56,6 +57,7 @@ _ensure_router(ai_storm_tracks_router, "ai_storm_tracks_router_installed", "ai_s
 _ensure_router(ai_storm_historical_router, "ai_storm_historical_router_installed", "ai_storm_historical_router_paths")
 _ensure_router(aurora_caribe_router, "aurora_caribe_router_installed", "aurora_caribe_router_paths")
 _ensure_router(aurora_dust_router, "aurora_dust_router_installed", "aurora_dust_router_paths")
+_ensure_router(aurora_3d_router, "aurora_3d_router_installed", "aurora_3d_router_paths")
 _ensure_router(caribbean_router, "caribbean_router_installed", "caribbean_router_paths")
 
 if not getattr(app.state, "desktop_wrapper_installed", False):
@@ -85,6 +87,11 @@ def api_status():
         "aurora_sahara_training_status": "/aurora-caribe/dust/training/status",
         "aurora_sahara_training_plan": "/aurora-caribe/dust/training/plan",
         "aurora_sahara_health_guidance": "/aurora-caribe/dust/health-guidance",
+        "aurora_3d_model": "/aurora-caribe/3d/model",
+        "aurora_3d_status": "/aurora-caribe/3d/status",
+        "aurora_3d_layers": "/aurora-caribe/3d/layers",
+        "aurora_3d_scene": "/aurora-caribe/3d/scene",
+        "aurora_3d_report": "/aurora-caribe/3d/report",
         "ai_maps_geojson": "/ai/maps/pr-municipalities.geojson",
         "ai_storm_tracks_geojson": "/ai/storm-tracks/map.geojson",
         "ai_storm_tracks_analysis": "/ai/storm-tracks/analysis",
@@ -114,6 +121,8 @@ def desktop_health():
         "desktop_map_enhancements_css_exists": (DESKTOP_CLIENT / "map-enhancements-v33.css").exists(),
         "desktop_dust_panel_exists": (DESKTOP_CLIENT / "aurora-dust-panel.js").exists(),
         "desktop_dust_css_exists": (DESKTOP_CLIENT / "dust-layer-v35.css").exists(),
+        "desktop_aurora_3d_exists": (DESKTOP_CLIENT / "aurora-3d-command-center.js").exists(),
+        "desktop_aurora_3d_css_exists": (DESKTOP_CLIENT / "aurora-3d.css").exists(),
         "desktop_storm_history_panel_exists": (DESKTOP_CLIENT / "storm-history-panel.js").exists(),
         "mobile_folder_exists": MOBILE_CLIENT.exists(),
         "mobile_index_exists": (MOBILE_CLIENT / "index.html").exists(),
@@ -125,6 +134,7 @@ def desktop_health():
         "ai_storm_historical_router_installed": bool(getattr(app.state, "ai_storm_historical_router_installed", False)),
         "aurora_caribe_router_installed": bool(getattr(app.state, "aurora_caribe_router_installed", False)),
         "aurora_dust_router_installed": bool(getattr(app.state, "aurora_dust_router_installed", False)),
+        "aurora_3d_router_installed": bool(getattr(app.state, "aurora_3d_router_installed", False)),
         "root_redirects_to": "/desktop/",
     }
 
@@ -146,6 +156,8 @@ def desktop_config_json():
         "aurora_sahara_analysis_endpoint": "/aurora-caribe/dust/analysis",
         "aurora_sahara_map_endpoint": "/aurora-caribe/dust/map.geojson",
         "aurora_sahara_training_status_endpoint": "/aurora-caribe/dust/training/status",
+        "aurora_3d_scene_endpoint": "/aurora-caribe/3d/scene",
+        "aurora_3d_report_endpoint": "/aurora-caribe/3d/report",
         "ai_maps_geojson_endpoint": "/ai/maps/pr-municipalities.geojson",
         "ai_storm_tracks_analysis_endpoint": "/ai/storm-tracks/analysis",
         "ai_storm_tracks_geojson_endpoint": "/ai/storm-tracks/map.geojson",
