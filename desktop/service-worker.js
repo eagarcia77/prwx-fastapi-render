@@ -1,5 +1,5 @@
-const CACHE = "prwx-desktop-v350-aurora-sahara-dust";
-const ASSETS = ["./", "./index.html", "./styles.css", "./storm-cinematic.css", "./map-enhancements-v33.css", "./dust-layer-v35.css", "./app.js", "./api-config.js", "./aurora-caribe-panel.js", "./aurora-dust-panel.js", "./real-map.js", "./storm-map.js", "./storm-history-panel.js", "./manifest.webmanifest"];
+const CACHE = "prwx-desktop-v360-aurora-3d-command-center";
+const ASSETS = ["./", "./index.html", "./styles.css", "./storm-cinematic.css", "./map-enhancements-v33.css", "./dust-layer-v35.css", "./aurora-3d.css", "./app.js", "./api-config.js", "./aurora-caribe-panel.js", "./aurora-dust-panel.js", "./aurora-3d-command-center.js", "./real-map.js", "./storm-map.js", "./storm-history-panel.js", "./manifest.webmanifest"];
 self.addEventListener("install", (event) => {
   event.waitUntil(caches.open(CACHE).then((cache) => cache.addAll(ASSETS)));
   self.skipWaiting();
