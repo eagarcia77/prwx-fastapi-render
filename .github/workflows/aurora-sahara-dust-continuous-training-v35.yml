@@ -1,0 +1,79 @@
+name: AURORA Sahara-Caribe Dust Continuous Training
+
+on:
+  workflow_dispatch:
+    inputs:
+      collect_data:
+        description: "Generate dust artifacts and source manifest"
+        required: true
+        type: boolean
+        default: true
+      train_model:
+        description: "Generate training readiness report"
+        required: true
+        type: boolean
+        default: true
+      force_training:
+        description: "Allow experimental run without full dataset"
+        required: true
+        type: boolean
+        default: true
+      retention_days:
+        description: "Artifact retention days"
+        required: true
+        type: choice
+        options: ["7", "14", "30"]
+        default: "14"
+  schedule:
+    - cron: "47 */6 * * *"
+
+permissions:
+  contents: read
+  actions: read
+
+concurrency:
+  group: aurora-sahara-dust-continuous-training
+  cancel-in-progress: false
+
+jobs:
+  train-aurora-sahara:
+    name: Train AURORA Sahara-Caribe
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install package
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e .
+
+      - name: Generate dust and aerosol artifacts
+        run: |
+          python scripts/42_aurora_sahara_dust_training_v35.py --collect --train --force
+
+      - name: Package AURORA Sahara artifacts
+        run: |
+          mkdir -p aurora_sahara_artifacts
+          cp -f data/processed/aurora_sahara_dust_*_v35.json aurora_sahara_artifacts/ 2>/dev/null || true
+          cp -f data/processed/aurora_sahara_dust_map_v35.geojson aurora_sahara_artifacts/ 2>/dev/null || true
+          cp -f data/processed/aurora_sahara_dust_artifact_manifest_v35.json aurora_sahara_artifacts/ 2>/dev/null || true
+          python - <<'PY'
+          import json, pathlib
+          root = pathlib.Path('aurora_sahara_artifacts')
+          files = sorted(str(p) for p in root.glob('*'))
+          (root / 'README_ARTIFACTS.json').write_text(json.dumps({'artifact':'aurora-sahara-dust-training-v35','files':files}, indent=2), encoding='utf-8')
+          PY
+
+      - name: Upload AURORA Sahara artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: aurora-sahara-dust-training-v35
+          path: aurora_sahara_artifacts
+          retention-days: ${{ inputs.retention_days || 14 }}
