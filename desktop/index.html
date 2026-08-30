@@ -6,17 +6,18 @@
   <meta name="theme-color" content="#0f766e">
   <link rel="manifest" href="./manifest.webmanifest">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
-  <link rel="stylesheet" href="./styles.css?v=3.4.0">
+  <link rel="stylesheet" href="./styles.css?v=3.5.0">
   <link rel="stylesheet" href="./storm-cinematic.css?v=3.2.0">
-  <link rel="stylesheet" href="./map-enhancements-v33.css?v=3.4.0">
+  <link rel="stylesheet" href="./map-enhancements-v33.css?v=3.5.0">
+  <link rel="stylesheet" href="./dust-layer-v35.css?v=3.5.0">
   <title>PR-WX Desktop</title>
 </head>
 <body>
   <header class="hero">
     <div>
-      <p class="eyebrow">PR-WX v3.4.0 · AURORA Caribe-Atlántico</p>
+      <p class="eyebrow">PR-WX v3.5.0 · AURORA Sahara-Caribe</p>
       <h1>Centro Meteorológico Puerto Rico, Caribe y Atlántico</h1>
-      <p>Pronóstico experimental, mapas reales, inteligencia artificial, predicciones, entrenamiento continuo y el nuevo modelo AURORA Caribe-Atlántico para Puerto Rico, Caribe y Atlántico tropical.</p>
+      <p>Pronóstico experimental, mapas reales, IA, predicciones, entrenamiento continuo, polvo del Sahara, aerosoles, PM2.5, visibilidad y riesgo meteorológico para Puerto Rico.</p>
     </div>
     <nav class="links">
       <a id="mobileLink" href="/mobile/">Mobile</a>
@@ -41,7 +42,7 @@
 
     <section class="card wide" aria-labelledby="auroraTitle">
       <h2 id="auroraTitle">Modelo AURORA Caribe-Atlántico</h2>
-      <p><strong>AURORA-CARIBE</strong> es el nuevo nombre del modelo IA experimental. Integra mapas, predicciones, capas de riesgo municipal, trayectorias tropicales y entrenamiento continuo para el Caribe y Atlántico.</p>
+      <p><strong>AURORA-CARIBE</strong> es el modelo IA experimental. Integra mapas, predicciones, capas de riesgo municipal, trayectorias tropicales, entrenamiento continuo y ahora un submodelo de polvo/aerosoles.</p>
       <div class="actions">
         <button id="auroraRefreshBtn" class="primary">Actualizar AURORA-CARIBE</button>
         <a href="https://github.com/eagarcia77/prwx-fastapi-render/actions/workflows/aurora-caribe-continuous-training-v34.yml" target="_blank" rel="noopener">Entrenamiento continuo</a>
@@ -49,6 +50,24 @@
         <a href="/aurora-caribe/predictions/summary" target="_blank" rel="noopener">Predicciones AURORA</a>
       </div>
       <div id="auroraCaribePanel" aria-live="polite"><p class="note">Cargando estado del modelo AURORA Caribe-Atlántico...</p></div>
+    </section>
+
+    <section class="card wide dustCard" aria-labelledby="auroraDustTitle">
+      <h2 id="auroraDustTitle">AURORA Sahara-Caribe: polvo del Sahara, aerosoles y calidad del aire</h2>
+      <p><strong>AURORA-SAHARA</strong> añade análisis de polvo mineral, aerosoles, AOD, PM2.5 estimado, visibilidad y riesgo respiratorio experimental para Puerto Rico y el Caribe.</p>
+      <div class="actions mapControls">
+        <button id="auroraDustRefreshBtn" class="primary">Actualizar polvo/aerosoles</button>
+        <a id="auroraDustGeoJsonLink" href="/aurora-caribe/dust/map.geojson" target="_blank" rel="noopener">GeoJSON polvo</a>
+        <a href="/aurora-caribe/dust/sources" target="_blank" rel="noopener">Fuentes</a>
+        <a href="https://github.com/eagarcia77/prwx-fastapi-render/actions/workflows/aurora-sahara-dust-continuous-training-v35.yml" target="_blank" rel="noopener">Entrenar AURORA-SAHARA</a>
+      </div>
+      <div class="dustGrid">
+        <div id="dustMapCanvas" class="dustMapCanvas" role="img" aria-label="Mapa experimental de polvo del Sahara, aerosoles y riesgo respiratorio hacia Puerto Rico"></div>
+        <aside>
+          <div id="auroraDustPanel" aria-live="polite"><p class="note">Cargando AURORA Sahara-Caribe...</p></div>
+          <div class="dustPlumeHint"><strong>Capas incluidas:</strong> NASA Worldview/MERRA-2, NOAA GOES-East, CAMS aerosol/dust, PM2.5 y contexto NWS San Juan cuando exista data conectada.</div>
+        </aside>
+      </div>
     </section>
 
     <section class="card wide" aria-labelledby="stormTrackTitle">
@@ -174,11 +193,12 @@
   </main>
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  <script src="./api-config.js?v=3.4.0"></script>
-  <script src="./app.js?v=3.4.0"></script>
-  <script src="./aurora-caribe-panel.js?v=3.4.0"></script>
-  <script src="./real-map.js?v=3.4.0"></script>
-  <script src="./storm-map.js?v=3.4.0"></script>
-  <script src="./storm-history-panel.js?v=3.4.0"></script>
+  <script src="./api-config.js?v=3.5.0"></script>
+  <script src="./app.js?v=3.5.0"></script>
+  <script src="./aurora-caribe-panel.js?v=3.5.0"></script>
+  <script src="./aurora-dust-panel.js?v=3.5.0"></script>
+  <script src="./real-map.js?v=3.5.0"></script>
+  <script src="./storm-map.js?v=3.5.0"></script>
+  <script src="./storm-history-panel.js?v=3.5.0"></script>
 </body>
 </html>
