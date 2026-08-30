@@ -12,10 +12,11 @@ from api.ai_storm_historical_router import router as ai_storm_historical_router
 from api.ai_storm_tracks_router import router as ai_storm_tracks_router
 from api.ai_maps_router import router as ai_maps_router
 from api.ai_training_router import router as ai_training_router
+from api.aurora_caribe_router import router as aurora_caribe_router
 from api.meteorological_report_router import router as meteorological_report_router
 from api.caribbean_router import router as caribbean_router
 
-VERSION = "3.3.0"
+VERSION = "3.4.0"
 DESKTOP_CLIENT = ROOT / "desktop"
 MOBILE_CLIENT = ROOT / "mobile"
 
@@ -52,6 +53,7 @@ _ensure_router(ai_training_router, "ai_training_router_installed", "ai_training_
 _ensure_router(ai_maps_router, "ai_maps_router_installed", "ai_maps_router_paths")
 _ensure_router(ai_storm_tracks_router, "ai_storm_tracks_router_installed", "ai_storm_tracks_router_paths")
 _ensure_router(ai_storm_historical_router, "ai_storm_historical_router_installed", "ai_storm_historical_router_paths")
+_ensure_router(aurora_caribe_router, "aurora_caribe_router_installed", "aurora_caribe_router_paths")
 _ensure_router(caribbean_router, "caribbean_router_installed", "caribbean_router_paths")
 
 if not getattr(app.state, "desktop_wrapper_installed", False):
@@ -71,6 +73,15 @@ def api_status():
         "desktop_health": "/desktop-health",
         "web_bridge_status": "/web-bridge/status",
         "api_docs": "/docs",
+        "model_name": "AURORA Caribe-Atlántico",
+        "aurora_caribe_status": "/aurora-caribe/status",
+        "aurora_caribe_model": "/aurora-caribe/model",
+        "aurora_caribe_predictions": "/aurora-caribe/predictions/summary",
+        "aurora_caribe_training_status": "/aurora-caribe/training/status",
+        "aurora_caribe_training_plan": "/aurora-caribe/training/plan",
+        "aurora_caribe_layers": "/aurora-caribe/maps/layers",
+        "aurora_caribe_report": "/aurora-caribe/report",
+        "aurora_continuous_training_action": ".github/workflows/aurora-caribe-continuous-training-v34.yml",
         "ai_maps_geojson": "/ai/maps/pr-municipalities.geojson",
         "ai_storm_tracks_geojson": "/ai/storm-tracks/map.geojson",
         "ai_storm_tracks_analysis": "/ai/storm-tracks/analysis",
@@ -95,6 +106,7 @@ def desktop_health():
         "desktop_config_exists": (DESKTOP_CLIENT / "api-config.js").exists(),
         "desktop_real_map_exists": (DESKTOP_CLIENT / "real-map.js").exists(),
         "desktop_storm_map_exists": (DESKTOP_CLIENT / "storm-map.js").exists(),
+        "desktop_aurora_panel_exists": (DESKTOP_CLIENT / "aurora-caribe-panel.js").exists(),
         "desktop_map_enhancements_css_exists": (DESKTOP_CLIENT / "map-enhancements-v33.css").exists(),
         "desktop_storm_history_panel_exists": (DESKTOP_CLIENT / "storm-history-panel.js").exists(),
         "mobile_folder_exists": MOBILE_CLIENT.exists(),
@@ -105,6 +117,7 @@ def desktop_health():
         "ai_maps_router_installed": bool(getattr(app.state, "ai_maps_router_installed", False)),
         "ai_storm_tracks_router_installed": bool(getattr(app.state, "ai_storm_tracks_router_installed", False)),
         "ai_storm_historical_router_installed": bool(getattr(app.state, "ai_storm_historical_router_installed", False)),
+        "aurora_caribe_router_installed": bool(getattr(app.state, "aurora_caribe_router_installed", False)),
         "root_redirects_to": "/desktop/",
     }
 
@@ -120,6 +133,12 @@ def desktop_config_json():
         "alerts_endpoint": "/alerts/active",
         "temperature_endpoint": "/temperature/focus",
         "mobile_cluster_endpoint": "/seismic/mobile-cluster",
+        "aurora_caribe_status_endpoint": "/aurora-caribe/status",
+        "aurora_caribe_model_endpoint": "/aurora-caribe/model",
+        "aurora_caribe_predictions_endpoint": "/aurora-caribe/predictions/summary",
+        "aurora_caribe_training_status_endpoint": "/aurora-caribe/training/status",
+        "aurora_caribe_training_plan_endpoint": "/aurora-caribe/training/plan",
+        "aurora_caribe_layers_endpoint": "/aurora-caribe/maps/layers",
         "ai_maps_geojson_endpoint": "/ai/maps/pr-municipalities.geojson",
         "ai_storm_tracks_analysis_endpoint": "/ai/storm-tracks/analysis",
         "ai_storm_tracks_geojson_endpoint": "/ai/storm-tracks/map.geojson",
