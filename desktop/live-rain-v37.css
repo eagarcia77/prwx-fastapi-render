@@ -1,0 +1,196 @@
+/* PR-WX v3.7.0 — AURORA RainCast PR */
+.liveRainCard {
+  border: 1px solid rgba(59, 130, 246, .22);
+  background:
+    radial-gradient(circle at top left, rgba(14, 165, 233, .14), transparent 34%),
+    radial-gradient(circle at bottom right, rgba(16, 185, 129, .12), transparent 30%),
+    linear-gradient(180deg, rgba(255,255,255,.98), rgba(239,246,255,.98));
+}
+.liveRainHeader {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+.liveRainHud {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(150px, 1fr));
+  gap: 10px;
+  margin: 14px 0;
+}
+.liveRainHud article {
+  border: 1px solid rgba(148, 163, 184, .32);
+  background: rgba(255,255,255,.86);
+  border-radius: 16px;
+  padding: 12px;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, .07);
+}
+.liveRainHud span {
+  display: block;
+  color: #475569;
+  font-size: .9rem;
+  font-weight: 700;
+}
+.liveRainHud strong {
+  display: block;
+  margin-top: 4px;
+  font-size: 1.1rem;
+  color: #0f172a;
+}
+.liveRainLayout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.65fr) minmax(320px, .9fr);
+  gap: 16px;
+  align-items: start;
+}
+.liveRainMapShell {
+  position: relative;
+  min-height: 560px;
+  border-radius: 22px;
+  overflow: hidden;
+  border: 2px solid rgba(14, 116, 144, .18);
+  background: #dbeafe;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.6), 0 18px 48px rgba(14, 116, 144, .14);
+}
+.liveRainMapCanvas {
+  min-height: 560px;
+  height: 560px;
+  width: 100%;
+}
+.liveRainToolbar {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items: center;
+  margin: 12px 0;
+}
+.liveRainToolbar button,
+.liveRainToolbar a {
+  border: 1px solid rgba(15, 23, 42, .12);
+  border-radius: 999px;
+  padding: 10px 14px;
+  background: #e0f2fe;
+  color: #0f172a;
+  font-weight: 800;
+  text-decoration: none;
+}
+.liveRainToolbar button.isActive,
+.liveRainToolbar button.primary {
+  background: #007b5f;
+  color: #fff;
+}
+.liveRainSide {
+  display: grid;
+  gap: 12px;
+}
+.liveRainPanel,
+.liveRainMunicipalPanel {
+  border: 1px solid rgba(148, 163, 184, .32);
+  border-radius: 18px;
+  padding: 14px;
+  background: rgba(255,255,255,.92);
+  box-shadow: 0 10px 28px rgba(15, 23, 42, .07);
+}
+.liveRainPanel h3,
+.liveRainMunicipalPanel h3 {
+  margin: 0 0 8px;
+}
+.rainAlertList {
+  display: grid;
+  gap: 10px;
+  max-height: 360px;
+  overflow: auto;
+  padding-right: 4px;
+}
+.rainAlertCard {
+  border: 1px solid rgba(148, 163, 184, .32);
+  border-left: 7px solid #38bdf8;
+  border-radius: 14px;
+  padding: 12px;
+  background: #f8fafc;
+}
+.rainAlertCard h4 {
+  margin: 6px 0;
+  color: #0f172a;
+}
+.rainAlertCard p {
+  margin: 4px 0;
+  color: #334155;
+  font-size: .94rem;
+}
+.rainBadge {
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 10px;
+  border-radius: 999px;
+  font-size: .82rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: .02em;
+}
+.rainHigh {
+  color: #fff;
+  background: #dc2626;
+  box-shadow: 0 0 16px rgba(220, 38, 38, .28);
+}
+.rainModerate {
+  color: #1f2937;
+  background: #fbbf24;
+  box-shadow: 0 0 16px rgba(251, 191, 36, .32);
+}
+.rainLow {
+  color: #052e16;
+  background: #86efac;
+  box-shadow: 0 0 16px rgba(34, 197, 94, .22);
+}
+.rainMunicipalGrid {
+  display: grid;
+  gap: 10px;
+}
+.rainMunicipalGrid article {
+  border: 1px solid rgba(148, 163, 184, .32);
+  border-radius: 14px;
+  padding: 11px;
+  background: #ffffff;
+}
+.rainMunicipalGrid strong {
+  display: block;
+  margin-top: 6px;
+  color: #0f172a;
+}
+.rainMunicipalGrid p,
+.rainMunicipalGrid small {
+  color: #475569;
+}
+.liveRainLegend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 10px;
+  color: #475569;
+  font-size: .92rem;
+}
+.liveRainPulse {
+  position: absolute;
+  z-index: 500;
+  right: 14px;
+  top: 14px;
+  background: rgba(15, 23, 42, .78);
+  color: #e0f2fe;
+  border: 1px solid rgba(125, 211, 252, .2);
+  border-radius: 999px;
+  padding: 8px 12px;
+  font-weight: 900;
+  backdrop-filter: blur(8px);
+}
+@media (max-width: 1100px) {
+  .liveRainLayout { grid-template-columns: 1fr; }
+  .liveRainHud { grid-template-columns: repeat(2, minmax(0,1fr)); }
+  .liveRainMapShell, .liveRainMapCanvas { min-height: 420px; height: 420px; }
+}
+@media (max-width: 720px) {
+  .liveRainHud { grid-template-columns: 1fr; }
+  .liveRainToolbar button, .liveRainToolbar a { width: 100%; text-align: center; }
+  .liveRainMapShell, .liveRainMapCanvas { min-height: 360px; height: 360px; }
+}
