@@ -1,5 +1,5 @@
 window.PRWX_CONFIG = {
-  version: "3.5.0",
+  version: "3.6.0",
   renderApiBase: "https://prwx-fastapi-render.onrender.com",
   defaultApiBase: window.location.hostname.includes("github.io")
     ? "https://prwx-fastapi-render.onrender.com"
@@ -33,6 +33,11 @@ window.PRWX_CONFIG = {
     auroraDustHealthGuidance: "/aurora-caribe/dust/health-guidance",
     auroraDustTrainingAction: ".github/workflows/aurora-sahara-dust-continuous-training-v35.yml",
     auroraDustArtifact: "aurora-sahara-dust-training-v35",
+    aurora3DModel: "/aurora-caribe/3d/model",
+    aurora3DStatus: "/aurora-caribe/3d/status",
+    aurora3DLayers: "/aurora-caribe/3d/layers",
+    aurora3DScene: "/aurora-caribe/3d/scene",
+    aurora3DReport: "/aurora-caribe/3d/report",
     aiModelStatus: "/ai/model/status",
     aiModelAnalyze: "/ai/model/analyze",
     aiTrainingPlan: "/ai/model/training-plan",
