@@ -5,16 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#007b5f">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
-  <link rel="stylesheet" href="./live-rain-v38.css?v=3.8.0">
-  <title>PR-WX · AURORA RainCast PR v3.8</title>
+  <link rel="stylesheet" href="./live-rain-v39.css?v=3.9.0">
+  <title>PR-WX · AURORA RainCast PR v3.9</title>
 </head>
 <body>
   <main class="shell">
     <header class="hero">
       <div>
-        <p class="eyebrow">PR-WX v3.8.0 · AURORA RainCast PR</p>
-        <h1>Radar vivo de lluvia, nubes y trayectoria por pueblo</h1>
-        <p>Mapa operacional experimental para Puerto Rico con radar NOAA nowCOAST, nubes GOES visibles e infrarrojas, alertas oficiales NWS y trayectorias aproximadas de lluvia por pueblo.</p>
+        <p class="eyebrow">PR-WX v3.9.0 · AURORA RainCast PR Impact Ready</p>
+        <h1>Radar vivo de lluvia, nubes, impacto y trayectoria por pueblo</h1>
+        <p>Mapa operacional experimental para Puerto Rico con radar NOAA nowCOAST, nubes GOES visibles e infrarrojas, alertas oficiales NWS, análisis de impacto, salud de servicios y trayectorias aproximadas de lluvia por pueblo.</p>
       </div>
       <nav class="hero-actions">
         <a class="btn btn-primary" href="/desktop/">Dashboard</a>
@@ -36,17 +36,20 @@
       <aside class="left">
         <article class="card">
           <h2>Capas del mapa</h2>
-          <div class="layerControls" aria-label="Capas visuales">
+          <div class="baseControls" aria-label="Mapa base">
+            <button class="active" type="button" data-base="satellite">Satélite</button>
+            <button type="button" data-base="topo">Topográfico</button>
+            <button type="button" data-base="streets">Calles</button>
+          </div>
+          <div class="layerControls" aria-label="Capas visuales" style="margin-top:10px">
             <button class="active" type="button" data-layer="all">Radar + Nubes</button>
             <button type="button" data-layer="rain">Solo lluvia</button>
             <button type="button" data-layer="visible">Nubes visibles</button>
             <button type="button" data-layer="ir">Nubes IR</button>
           </div>
-          <div class="timeline">
-            <strong>Recarga automática</strong>
-            <p>Las capas se recargan cada 60 segundos para mantener una lectura operacional sin saturar los servicios.</p>
-            <p>Mapa: <span id="mapUpdated">—</span></p>
-          </div>
+          <div class="slider"><label>Opacidad radar</label><input type="range" min="0" max="1" step="0.05" value="0.78" data-opacity="radar"></div>
+          <div class="slider"><label>Opacidad nubes</label><input type="range" min="0" max="1" step="0.05" value="0.45" data-opacity="clouds"></div>
+          <div class="timeline"><strong>Recarga automática</strong><p>Las capas y los paneles se recargan cada 60 segundos.</p><p>Mapa: <span id="mapUpdated">—</span></p></div>
           <h3>Leyenda</h3>
           <div class="legend">
             <div class="legendRow"><span class="sw" style="background:#34d399"></span><span>Lluvia ligera</span></div>
@@ -62,64 +65,37 @@
           <label class="small" for="townFocus">Centrar mapa</label>
           <select id="townFocus" class="select">
             <option value="">Todo Puerto Rico</option>
-            <option value="juana_diaz">Juana Díaz</option>
-            <option value="ponce">Ponce</option>
-            <option value="san_juan">San Juan</option>
-            <option value="san_german">San Germán</option>
-            <option value="mayaguez">Mayagüez</option>
-            <option value="arecibo">Arecibo</option>
-            <option value="caguas">Caguas</option>
-            <option value="fajardo">Fajardo</option>
-            <option value="humacao">Humacao</option>
-            <option value="guayama">Guayama</option>
-            <option value="aguadilla">Aguadilla</option>
-            <option value="bayamon">Bayamón</option>
+            <option value="juana_diaz">Juana Díaz</option><option value="ponce">Ponce</option><option value="san_juan">San Juan</option><option value="san_german">San Germán</option>
+            <option value="mayaguez">Mayagüez</option><option value="arecibo">Arecibo</option><option value="caguas">Caguas</option><option value="fajardo">Fajardo</option><option value="humacao">Humacao</option><option value="guayama">Guayama</option><option value="aguadilla">Aguadilla</option><option value="bayamon">Bayamón</option><option value="vieques">Vieques</option><option value="culebra">Culebra</option>
           </select>
           <div id="focusBox"></div>
           <div id="advice"></div>
         </article>
+        <article class="card" style="margin-top:14px"><h2>Panel del modelo</h2><div id="modelPanel"><p class="muted">Cargando modelo…</p></div></article>
+        <article class="card" style="margin-top:14px"><h2>Salud de servicios</h2><div id="healthPanel"><p class="muted">Verificando servicios…</p></div></article>
       </aside>
 
       <section class="center">
         <article class="card mapCard">
           <div class="mapHeader">
-            <div>
-              <h2>Mapa vivo de lluvia y nubosidad</h2>
-              <p class="muted">Las flechas azules/naranjas/rojas muestran trayectoria aproximada de corto plazo por pueblo usando viento observado.</p>
-            </div>
-            <div class="toolControls">
-              <button id="resetView" type="button">Vista PR</button>
-              <button id="emergencyMode" type="button">Modo emergencia</button>
-              <button id="refreshBtn" class="primary" type="button">Actualizar</button>
-            </div>
+            <div><h2>Mapa vivo de lluvia y nubosidad</h2><p class="muted">Las flechas muestran trayectoria aproximada de corto plazo por pueblo usando viento observado. Los círculos muestran impacto estimado.</p></div>
+            <div class="toolControls"><button id="resetView" type="button">Vista PR</button><button id="emergencyMode" type="button">Modo emergencia</button><button id="refreshBtn" class="primary" type="button">Actualizar</button></div>
           </div>
-          <div class="mapFrame">
-            <div class="mapChip">Puerto Rico · lluvia en vivo + nubes + trayectoria</div>
-            <div id="rainMap" class="map" role="img" aria-label="Mapa de lluvia, nubes y trayectoria por pueblo en Puerto Rico"></div>
-          </div>
-          <p class="footerNote">Uso experimental. Validar con NOAA/NWS y manejo de emergencias.</p>
+          <div class="mapFrame"><div class="mapChip">Puerto Rico · lluvia en vivo + nubes + impacto</div><div id="rainMap" class="map" role="img" aria-label="Mapa de lluvia, nubes, impacto y trayectoria por pueblo en Puerto Rico"></div></div>
+          <p class="footerNote">Uso experimental. Validar con NOAA/NWS San Juan, NHC y manejo de emergencias.</p>
         </article>
+        <article class="card" style="margin-top:14px"><h2>Tablero de impacto potencial</h2><div id="impactBoard"><p class="muted">Cargando impacto…</p></div></article>
+        <article class="card" style="margin-top:14px"><h2>Nowcast 0 a 6 horas</h2><div id="nowcast" class="townList"><p class="muted">Cargando nowcast…</p></div></article>
       </section>
 
       <aside class="right">
-        <article class="card">
-          <h2>Trayectoria IA por pueblo</h2>
-          <div id="analysis" class="analysisList"><p class="muted">Cargando análisis…</p></div>
-        </article>
-        <article class="card" style="margin-top:14px">
-          <h2>Municipios monitoreados</h2>
-          <p class="muted small">Incluye 4 pueblos prioritarios y municipios regionales para lectura rápida.</p>
-          <div id="towns" class="townList"></div>
-          <p class="footerNote">Actualizado: <span id="townsUpdated">—</span></p>
-        </article>
-        <article class="card" style="margin-top:14px">
-          <h2>Alertas NWS Puerto Rico</h2>
-          <div id="alerts" class="alertList"><p class="muted">Cargando alertas…</p></div>
-        </article>
+        <article class="card"><h2>Trayectoria IA por pueblo</h2><div id="analysis" class="analysisList"><p class="muted">Cargando análisis…</p></div></article>
+        <article class="card" style="margin-top:14px"><h2>Municipios monitoreados</h2><p class="muted small">Incluye pueblos prioritarios y municipios regionales para lectura rápida.</p><div id="towns" class="townList"></div><p class="footerNote">Actualizado: <span id="townsUpdated">—</span></p></article>
+        <article class="card" style="margin-top:14px"><h2>Alertas NWS Puerto Rico</h2><div id="alerts" class="alertList"><p class="muted">Cargando alertas…</p></div></article>
       </aside>
     </section>
   </main>
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  <script src="./live-rain-v38.js?v=3.8.0"></script>
+  <script src="./live-rain-v39.js?v=3.9.0"></script>
 </body>
 </html>
