@@ -1,5 +1,5 @@
-const CACHE = "prwx-desktop-v390-live-rain-impact-ready";
-const ASSETS = ["./", "./index.html", "./live-rain.html", "./styles.css", "./storm-cinematic.css", "./map-enhancements-v33.css", "./dust-layer-v35.css", "./aurora-3d.css", "./live-rain-v37.css", "./live-rain-v38.css", "./live-rain-v39.css", "./app.js", "./api-config.js", "./aurora-caribe-panel.js", "./aurora-dust-panel.js", "./aurora-3d-command-center.js", "./live-rain-map.js", "./live-rain-v38.js", "./live-rain-v39.js", "./real-map.js", "./storm-map.js", "./storm-history-panel.js", "./manifest.webmanifest"];
+const CACHE = "prwx-desktop-v400-aurora-raincast-4d";
+const ASSETS = ["./", "./index.html", "./live-rain.html", "./styles.css", "./storm-cinematic.css", "./map-enhancements-v33.css", "./dust-layer-v35.css", "./aurora-3d.css", "./live-rain-v37.css", "./live-rain-v38.css", "./live-rain-v39.css", "./live-rain-v40.css", "./app.js", "./api-config.js", "./aurora-caribe-panel.js", "./aurora-dust-panel.js", "./aurora-3d-command-center.js", "./live-rain-map.js", "./live-rain-v38.js", "./live-rain-v39.js", "./live-rain-v40.js", "./real-map.js", "./storm-map.js", "./storm-history-panel.js", "./manifest.webmanifest"];
 self.addEventListener("install", (event) => {
   event.waitUntil(caches.open(CACHE).then((cache) => cache.addAll(ASSETS)));
   self.skipWaiting();
