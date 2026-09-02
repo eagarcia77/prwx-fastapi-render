@@ -1,5 +1,5 @@
-const CACHE = "prwx-desktop-v490-aurora-raincast-cloud-analysis-lab";
-const ASSETS = ["./", "./index.html", "./live-rain.html", "./styles.css", "./storm-cinematic.css", "./map-enhancements-v33.css", "./dust-layer-v35.css", "./aurora-3d.css", "./live-rain-v49.css", "./app.js", "./api-config.js", "./aurora-caribe-panel.js", "./aurora-dust-panel.js", "./aurora-3d-command-center.js", "./live-rain-map.js", "./live-rain-v49.js", "./real-map.js", "./storm-map.js", "./storm-history-panel.js", "./manifest.webmanifest"];
+const CACHE = "prwx-desktop-v500-aurora-raincast-cloud-operational-console";
+const ASSETS = ["./", "./index.html", "./live-rain.html", "./styles.css", "./storm-cinematic.css", "./map-enhancements-v33.css", "./dust-layer-v35.css", "./aurora-3d.css", "./live-rain-v50.css", "./app.js", "./api-config.js", "./aurora-caribe-panel.js", "./aurora-dust-panel.js", "./aurora-3d-command-center.js", "./live-rain-map.js", "./live-rain-v50.js", "./real-map.js", "./storm-map.js", "./storm-history-panel.js", "./manifest.webmanifest"];
 self.addEventListener("install", (event) => {
   event.waitUntil(caches.open(CACHE).then((cache) => cache.addAll(ASSETS)));
   self.skipWaiting();
