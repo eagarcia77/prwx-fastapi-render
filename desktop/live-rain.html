@@ -5,23 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#007b5f">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
-  <link rel="stylesheet" href="./live-rain-v39.css?v=3.9.0">
-  <link rel="stylesheet" href="./live-rain-v40.css?v=4.0.0">
-  <link rel="stylesheet" href="./live-rain-v41.css?v=4.1.0">
-  <link rel="stylesheet" href="./live-rain-v42.css?v=4.2.0">
-  <link rel="stylesheet" href="./live-rain-v43.css?v=4.3.0">
-  <link rel="stylesheet" href="./live-rain-v44.css?v=4.4.0">
-  <link rel="stylesheet" href="./live-rain-v45.css?v=4.5.0">
-  <link rel="stylesheet" href="./live-rain-v46.css?v=4.6.0">
-  <title>PR-WX · AURORA RainCast PR Cloud Reveal v4.6</title>
+  <link rel="stylesheet" href="./live-rain-v47.css?v=4.7.0">
+  <title>PR-WX · AURORA RainCast PR Cloud Motion Tracker v4.7</title>
 </head>
 <body>
   <main class="shell">
     <header class="hero">
       <div>
-        <p class="eyebrow">PR-WX v4.6.0 · AURORA RainCast PR Cloud Reveal</p>
-        <h1>Radar vivo de lluvia y nubes Reveal sobre Puerto Rico</h1>
-        <p>Mapa operacional experimental para Puerto Rico con radar NOAA nowCOAST, GOES infrarrojo de alto contraste, GOES visible, imagen WMS directa de respaldo, briefing operacional, trayectoria aproximada y alertas NWS para ver mejor por dónde están pasando las nubes.</p>
+        <p class="eyebrow">PR-WX v4.7.0 · AURORA RainCast PR Cloud Motion Tracker</p>
+        <h1>Mapa vivo de nubes reales, radar y trayectoria sobre Puerto Rico</h1>
+        <p>Vista operacional experimental enfocada en resolver la visibilidad de nubes. Activa GOES infrarrojo con opacidad alta, GOES visible como apoyo, radar NOAA nowCOAST encima y respaldo por imagen WMS directa para confirmar la nubosidad que pasa por PR.</p>
       </div>
       <nav class="hero-actions">
         <a class="btn btn-primary" href="/desktop/">Dashboard</a>
@@ -31,83 +24,102 @@
     </header>
 
     <section class="kpis" aria-label="Indicadores principales">
-      <article class="kpi"><span class="k">Promedio lluvia próxima hora</span><span id="avgRain" class="v">—</span></article>
-      <article class="kpi"><span class="k">Pueblo de vigilancia</span><span id="focusTown" class="v">—</span></article>
-      <article class="kpi"><span class="k">Rain Impact Score</span><span id="riskScore" class="v">—</span></article>
+      <article class="kpi"><span class="k">Modo activo</span><span id="focusTown" class="v">Nubes IR</span></article>
+      <article class="kpi"><span class="k">GOES IR</span><span class="v">Activo</span></article>
+      <article class="kpi"><span class="k">GOES visible</span><span class="v">Apoyo</span></article>
+      <article class="kpi"><span class="k">Radar lluvia</span><span class="v">Encima</span></article>
       <article class="kpi"><span class="k">Alertas activas</span><span id="alertCount" class="v">—</span></article>
-      <article class="kpi"><span class="k">Alertas inundación</span><span id="floodCount" class="v">—</span></article>
       <article class="kpi"><span class="k">Actualizado</span><span id="lastUpdated" class="v small">—</span></article>
     </section>
 
     <section class="layout">
-      <aside class="left">
+      <aside class="side">
         <article class="card">
-          <h2>Capas del mapa</h2>
-          <div class="baseControls" aria-label="Mapa base">
-            <button class="active" type="button" data-base="satellite">Satélite</button>
-            <button type="button" data-base="topo">Topográfico</button>
-            <button type="button" data-base="streets">Calles</button>
+          <h2>Controles de nubes</h2>
+          <p class="muted">Use primero <strong>IR fuerte</strong>. Es la vista recomendada cuando las nubes no se ven claras.</p>
+          <div class="btnRow" aria-label="Modos de nube">
+            <button class="active" type="button" data-mode="all">Todo</button>
+            <button type="button" data-mode="ir">IR fuerte</button>
+            <button type="button" data-mode="vis">Visible + IR</button>
+            <button type="button" data-mode="radar">Radar + IR</button>
           </div>
-          <div class="layerControls" aria-label="Capas visuales" style="margin-top:10px">
-            <button class="active" type="button" data-layer="all">Radar + Nubes</button>
-            <button type="button" data-layer="rain">Solo lluvia</button>
-            <button type="button" data-layer="visible">Nubes visibles</button>
-            <button type="button" data-layer="ir">Nubes IR</button>
+          <div class="slider">
+            <label for="irOpacity">Nubes IR <span id="irVal">95%</span></label>
+            <input id="irOpacity" type="range" min="0" max="1" step="0.05" value="0.95">
+            <label for="visOpacity">Nubes visibles <span id="visVal">55%</span></label>
+            <input id="visOpacity" type="range" min="0" max="1" step="0.05" value="0.55">
+            <label for="radarOpacity">Radar <span id="radarVal">64%</span></label>
+            <input id="radarOpacity" type="range" min="0" max="1" step="0.05" value="0.64">
           </div>
-          <div class="slider"><label>Opacidad radar</label><input type="range" min="0" max="1" step="0.05" value="0.78" data-opacity="radar"></div>
-          <div class="slider"><label>Opacidad nubes</label><input type="range" min="0" max="1" step="0.05" value="0.45" data-opacity="clouds"></div>
-          <div class="timeline"><strong>Recarga automática</strong><p>Las capas y los paneles se recargan cada 60 segundos.</p><p>Mapa: <span id="mapUpdated">—</span></p></div>
+          <p class="notice" id="cloudStatus">Inicializando GOES IR…</p>
+          <p class="footerNote">Mapa actualizado: <span id="mapUpdated">—</span></p>
         </article>
 
-        <article class="card" style="margin-top:14px">
-          <h2>Enfoque por pueblo</h2>
-          <label class="small" for="townFocus">Centrar mapa</label>
-          <select id="townFocus" class="select">
-            <option value="">Todo Puerto Rico</option>
-            <option value="juana_diaz">Juana Díaz</option><option value="ponce">Ponce</option><option value="san_juan">San Juan</option><option value="san_german">San Germán</option>
-            <option value="mayaguez">Mayagüez</option><option value="arecibo">Arecibo</option><option value="caguas">Caguas</option><option value="fajardo">Fajardo</option><option value="humacao">Humacao</option><option value="guayama">Guayama</option><option value="aguadilla">Aguadilla</option><option value="bayamon">Bayamón</option><option value="vieques">Vieques</option><option value="culebra">Culebra</option>
-          </select>
-          <div id="focusBox"></div><div id="advice"></div>
+        <article class="card">
+          <h2>Enfoque municipal</h2>
+          <div class="townGrid">
+            <button type="button" data-town="juana_diaz">Juana Díaz</button>
+            <button type="button" data-town="ponce">Ponce</button>
+            <button type="button" data-town="san_juan">San Juan</button>
+            <button type="button" data-town="san_german">San Germán</button>
+            <button type="button" data-town="mayaguez">Mayagüez</button>
+            <button type="button" data-town="fajardo">Fajardo</button>
+            <button type="button" data-town="vieques">Vieques</button>
+            <button type="button" data-town="culebra">Culebra</button>
+          </div>
         </article>
-        <article class="card" style="margin-top:14px"><h2>Panel del modelo</h2><div id="modelPanel"><p class="muted">Cargando modelo…</p></div></article>
-        <article class="card" style="margin-top:14px"><h2>Salud de servicios</h2><div id="healthPanel"><p class="muted">Verificando servicios…</p></div></article>
-        <article class="card" style="margin-top:14px"><h2><span class="aurora4dBadge">AURORA 4D</span> Calidad de datos</h2><div id="rainQuality4d"><p class="muted">Analizando calidad…</p></div></article>
+
+        <article class="card">
+          <h2>Leyenda</h2>
+          <div class="legendRow"><span class="sw" style="background:#94a3b8"></span><span>Nubes infrarrojas GOES</span></div>
+          <div class="legendRow"><span class="sw" style="background:#e2e8f0"></span><span>Nubes visibles GOES</span></div>
+          <div class="legendRow"><span class="sw" style="background:#38bdf8"></span><span>Radar de lluvia</span></div>
+          <div class="legendRow"><span class="sw" style="background:#fed141"></span><span>Municipio de referencia</span></div>
+        </article>
+
+        <article class="card">
+          <h2>Decisión rápida</h2>
+          <p id="cloudAdvice" class="notice">Cargando alertas NWS…</p>
+          <p class="footerNote">Validar con NOAA, NWS San Juan, NHC y manejo de emergencias.</p>
+        </article>
       </aside>
 
       <section class="center">
         <article class="card mapCard">
           <div class="mapHeader">
-            <div><h2>Mapa vivo de lluvia y nubosidad 4D</h2><p class="muted">Las flechas muestran trayectoria aproximada por pueblo. Debajo aparece el mapa Reveal v4.6 para verificar mejor las nubes reales pasando por PR.</p></div>
-            <div class="toolControls"><button id="resetView" type="button">Vista PR</button><button id="emergencyMode" type="button">Modo emergencia</button><button id="refreshBtn" class="primary" type="button">Actualizar</button></div>
+            <div>
+              <h2>Cloud Motion Tracker · Puerto Rico</h2>
+              <p class="muted">GOES IR aparece con opacidad alta para que la nubosidad se vea aun cuando la capa visible esté débil. La animación visual ayuda a interpretar desplazamiento, pero no sustituye la validación oficial.</p>
+            </div>
+            <div class="toolControls btnRow">
+              <button id="refreshBtn" class="primary" type="button">Actualizar</button>
+              <button id="kioskBtn" type="button">Modo kiosco</button>
+              <button id="printBtn" type="button">Imprimir</button>
+            </div>
           </div>
-          <div class="mapFrame"><div class="mapChip">Puerto Rico · lluvia + nubes + impacto</div><div id="rainMap" class="map" role="img" aria-label="Mapa de lluvia, nubes, impacto y trayectoria por pueblo en Puerto Rico"></div></div>
-          <p class="footerNote">Uso experimental. Validar con NOAA/NWS San Juan, NHC y manejo de emergencias.</p>
+          <div class="mapFrame">
+            <div class="mapChip">Puerto Rico · GOES IR + GOES Visible + Radar</div>
+            <div class="cloudStamp">IR fuerte por defecto</div>
+            <div class="cloudFlow" aria-hidden="true"></div>
+            <div class="cloudScan" aria-hidden="true"></div>
+            <div class="cloudPulse">Nubes pasando por PR</div>
+            <div id="rainMap" class="map" role="img" aria-label="Mapa de nubes GOES y radar sobre Puerto Rico"></div>
+          </div>
+          <p class="footerNote">Uso experimental. Las capas provienen de servicios externos y pueden demorar o verse débiles si el servicio está limitado.</p>
         </article>
-        <article class="card" style="margin-top:14px"><h2><span class="aurora4dBadge">AURORA 4D Intelligence</span></h2><div id="aurora4dPanel"><p class="muted">Cargando inteligencia 4D…</p></div></article>
-        <article class="card" style="margin-top:14px"><h2>Narrativa automática 4D</h2><div id="rainNarrative4d"><p class="muted">Generando narrativa…</p></div></article>
-        <article class="card" style="margin-top:14px"><h2>Ranking municipal 0–3 horas</h2><div id="rainTimeline4d"><p class="muted">Cargando ranking…</p></div></article>
-        <article class="card" style="margin-top:14px"><h2>Centro de decisiones AURORA v4.1</h2><div id="aurora41DecisionPanel"><p class="muted">Cargando apoyo decisional…</p></div></article>
-        <article class="card" style="margin-top:14px"><h2>Centro operacional AURORA v4.2</h2><div id="aurora42Panel"><p class="muted">Cargando centro operacional…</p></div></article>
-        <article class="card" style="margin-top:14px"><h2><span class="aurora43Badge">AURORA v4.3</span> Centro de briefing</h2><div id="aurora43Center"><p class="muted">Cargando briefing operacional…</p></div></article>
-        <article class="card" style="margin-top:14px"><h2>Tablero de impacto potencial</h2><div id="impactBoard"><p class="muted">Cargando impacto…</p></div></article>
-        <article class="card" style="margin-top:14px"><h2>Nowcast 0 a 6 horas</h2><div id="nowcast" class="townList"><p class="muted">Cargando nowcast…</p></div></article>
-      </section>
 
-      <aside class="right">
-        <article class="card"><h2>Trayectoria IA por pueblo</h2><div id="analysis" class="analysisList"><p class="muted">Cargando análisis…</p></div></article>
-        <article class="card" style="margin-top:14px"><h2>Municipios monitoreados</h2><p class="muted small">Incluye pueblos prioritarios y municipios regionales.</p><div id="towns" class="townList"></div><p class="footerNote">Actualizado: <span id="townsUpdated">—</span></p></article>
-        <article class="card" style="margin-top:14px"><h2>Alertas NWS Puerto Rico</h2><div id="alerts" class="alertList"><p class="muted">Cargando alertas…</p></div></article>
-      </aside>
+        <article class="card" style="margin-top:14px">
+          <h2>Validación directa de nubes WMS</h2>
+          <p class="muted">Estas imágenes directas confirman si NOAA nowCOAST está entregando nubosidad para el área de Puerto Rico, aun cuando una capa del mapa tarde en renderizar.</p>
+          <div class="directImgs">
+            <div><h3>GOES IR</h3><img id="directIr" alt="Imagen WMS directa de nubes infrarrojas GOES sobre Puerto Rico"></div>
+            <div><h3>GOES visible</h3><img id="directVis" alt="Imagen WMS directa de nubes visibles GOES sobre Puerto Rico"></div>
+          </div>
+        </article>
+      </section>
     </section>
   </main>
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  <script src="./live-rain-v39.js?v=3.9.0"></script>
-  <script src="./live-rain-v40.js?v=4.0.0"></script>
-  <script src="./live-rain-v41.js?v=4.1.0"></script>
-  <script src="./live-rain-v42.js?v=4.2.0"></script>
-  <script src="./live-rain-v43.js?v=4.3.0"></script>
-  <script src="./live-rain-v44.js?v=4.4.0"></script>
-  <script src="./live-rain-v45.js?v=4.5.0"></script>
-  <script src="./live-rain-v46.js?v=4.6.0"></script>
+  <script src="./live-rain-v47.js?v=4.7.0"></script>
 </body>
 </html>
