@@ -10,15 +10,16 @@
   <link rel="stylesheet" href="./live-rain-v41.css?v=4.1.0">
   <link rel="stylesheet" href="./live-rain-v42.css?v=4.2.0">
   <link rel="stylesheet" href="./live-rain-v43.css?v=4.3.0">
-  <title>PR-WX · AURORA RainCast PR Briefing Center v4.3</title>
+  <link rel="stylesheet" href="./live-rain-v44.css?v=4.4.0">
+  <title>PR-WX · AURORA RainCast PR Cloud Visibility v4.4</title>
 </head>
 <body>
   <main class="shell">
     <header class="hero">
       <div>
-        <p class="eyebrow">PR-WX v4.3.0 · AURORA RainCast PR Briefing Center</p>
-        <h1>Radar vivo de lluvia, nubes 4D, impacto, trayectoria y briefing operacional</h1>
-        <p>Mapa operacional experimental para Puerto Rico con radar NOAA nowCOAST, nubes GOES visibles e infrarrojas, alertas oficiales NWS, análisis de impacto, salud de servicios, trayectorias aproximadas de lluvia y un centro de briefing para copiar, exportar, imprimir y presentar en modo kiosco.</p>
+        <p class="eyebrow">PR-WX v4.4.0 · AURORA RainCast PR Cloud Visibility Fix</p>
+        <h1>Radar vivo de lluvia, nubes reales sobre PR, impacto y briefing operacional</h1>
+        <p>Mapa operacional experimental para Puerto Rico con radar NOAA nowCOAST, nubes GOES infrarrojas y visibles, alertas oficiales NWS, análisis de impacto, trayectoria aproximada y un nuevo mapa dedicado para que la nubosidad se vea claramente sobre Puerto Rico.</p>
       </div>
       <nav class="hero-actions">
         <a class="btn btn-primary" href="/desktop/">Dashboard</a>
@@ -56,11 +57,10 @@
           <div class="timeline"><strong>Recarga automática</strong><p>Las capas y los paneles se recargan cada 60 segundos.</p><p>Mapa: <span id="mapUpdated">—</span></p></div>
           <h3>Leyenda</h3>
           <div class="legend">
-            <div class="legendRow"><span class="sw" style="background:#34d399"></span><span>Lluvia ligera</span></div>
-            <div class="legendRow"><span class="sw" style="background:#facc15"></span><span>Lluvia moderada</span></div>
-            <div class="legendRow"><span class="sw" style="background:#fb923c"></span><span>Lluvia fuerte</span></div>
+            <div class="legendRow"><span class="sw" style="background:#94a3b8"></span><span>Nubes infrarrojas GOES</span></div>
+            <div class="legendRow"><span class="sw" style="background:#e2e8f0"></span><span>Nubes visibles GOES</span></div>
+            <div class="legendRow"><span class="sw" style="background:#0ea5e9"></span><span>Radar lluvia</span></div>
             <div class="legendRow"><span class="sw" style="background:#ef4444"></span><span>Núcleo intenso / riesgo alto</span></div>
-            <div class="legendRow"><span class="sw" style="background:#0ea5e9"></span><span>Trayectoria probable por viento</span></div>
           </div>
         </article>
 
@@ -112,5 +112,6 @@
   <script src="./live-rain-v41.js?v=4.1.0"></script>
   <script src="./live-rain-v42.js?v=4.2.0"></script>
   <script src="./live-rain-v43.js?v=4.3.0"></script>
+  <script src="./live-rain-v44.js?v=4.4.0"></script>
 </body>
 </html>
