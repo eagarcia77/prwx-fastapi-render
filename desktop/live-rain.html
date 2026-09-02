@@ -5,16 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#007b5f">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
-  <link rel="stylesheet" href="./live-rain-v49.css?v=4.9.0">
-  <title>PR-WX · AURORA RainCast PR Cloud Analysis Lab v4.9</title>
+  <link rel="stylesheet" href="./live-rain-v50.css?v=5.0.0">
+  <title>PR-WX · AURORA RainCast PR Cloud Operational Console v5.0</title>
 </head>
 <body>
   <main class="shell">
     <header class="hero">
       <div>
-        <p class="eyebrow">PR-WX v4.9.0 · AURORA RainCast PR Cloud Analysis Lab</p>
-        <h1>Laboratorio visual de nubes reales sobre Puerto Rico</h1>
-        <p>Vista operacional experimental enfocada en que la nubosidad se vea con claridad. Usa GOES infrarrojo al máximo, GOES visible como apoyo, radar NOAA nowCOAST y diagnóstico directo de capas WMS para confirmar si la data llega correctamente.</p>
+        <p class="eyebrow">PR-WX v5.0.0 · AURORA RainCast PR Cloud Operational Console</p>
+        <h1>Consola operacional de nubes reales sobre Puerto Rico</h1>
+        <p>Vista experimental enfocada en ver y validar la nubosidad que pasa por PR. Usa GOES infrarrojo al 100%, GOES visible como apoyo, radar NOAA nowCOAST con menor opacidad, diagnóstico WMS directo y enfoque municipal.</p>
       </div>
       <nav class="hero-actions">
         <a class="btn btn-primary" href="/desktop/">Dashboard</a>
@@ -24,7 +24,7 @@
     </header>
 
     <section class="kpis" aria-label="Indicadores principales">
-      <article class="kpi"><span class="k">Modo activo</span><span id="focusTown" class="v">IR Máximo</span></article>
+      <article class="kpi"><span class="k">Modo activo</span><span id="focusTown" class="v">Todo</span></article>
       <article class="kpi"><span class="k">Capa principal</span><span class="v">GOES IR 100%</span></article>
       <article class="kpi"><span class="k">Fuente</span><span class="v">nowCOAST WMS</span></article>
       <article class="kpi"><span class="k">Diagnóstico</span><span id="diagLayer" class="v">—</span></article>
@@ -36,7 +36,7 @@
       <aside class="side">
         <article class="card">
           <h2>Controles de nubes</h2>
-          <p class="muted">Comience con <strong>IR Máximo</strong>. Ese modo aumenta la posibilidad de ver la nubosidad aun cuando la capa visible esté débil.</p>
+          <p class="muted">Comience con <strong>Todo</strong>. Use <strong>IR Máximo</strong> cuando la nubosidad no se vea clara en el mapa.</p>
           <div class="btnRow" aria-label="Modos de nube">
             <button class="active" type="button" data-mode="all">Todo</button>
             <button type="button" data-mode="ir">IR Máximo</button>
@@ -46,12 +46,12 @@
           <div class="slider">
             <label for="irOpacity">Nubes IR <span id="irVal">100%</span></label>
             <input id="irOpacity" type="range" min="0" max="1" step="0.05" value="1">
-            <label for="visOpacity">Nubes visibles <span id="visVal">65%</span></label>
-            <input id="visOpacity" type="range" min="0" max="1" step="0.05" value="0.65">
-            <label for="radarOpacity">Radar <span id="radarVal">50%</span></label>
-            <input id="radarOpacity" type="range" min="0" max="1" step="0.05" value="0.50">
+            <label for="visOpacity">Nubes visibles <span id="visVal">70%</span></label>
+            <input id="visOpacity" type="range" min="0" max="1" step="0.05" value="0.70">
+            <label for="radarOpacity">Radar <span id="radarVal">42%</span></label>
+            <input id="radarOpacity" type="range" min="0" max="1" step="0.05" value="0.42">
           </div>
-          <p class="notice" id="cloudStatus">Inicializando GOES IR máximo…</p>
+          <p class="notice" id="cloudStatus">Inicializando consola operacional de nubes…</p>
           <p class="footerNote">Mapa actualizado: <span id="mapUpdated">—</span></p>
         </article>
 
@@ -79,13 +79,9 @@
             <button type="button" data-town="humacao">Humacao</button>
             <button type="button" data-town="guayama">Guayama</button>
             <button type="button" data-town="aguadilla">Aguadilla</button>
+            <button type="button" data-town="salinas">Salinas</button>
+            <button type="button" data-town="yabucoa">Yabucoa</button>
           </div>
-        </article>
-
-        <article class="card">
-          <h2>Diagnóstico WMS</h2>
-          <div class="diagnosticList" id="diagnosticList"><p class="muted">Verificando capas…</p></div>
-          <p id="cloudAdvice" class="notice">Preparando validación directa…</p>
         </article>
       </aside>
 
@@ -93,8 +89,8 @@
         <article class="card mapCard">
           <div class="mapHeader">
             <div>
-              <h2>Cloud Analysis Lab · Puerto Rico</h2>
-              <p class="muted">La capa infrarroja inicia al 100%. El radar baja a 50% para que no tape las nubes. La animación de flujo es una guía visual, no una predicción oficial.</p>
+              <h2>Cloud Operational Console · Puerto Rico</h2>
+              <p class="muted">GOES IR inicia al 100% para resaltar nubes. GOES visible apoya la lectura diurna. Radar se mantiene con menor opacidad para no tapar la nubosidad.</p>
             </div>
             <div class="toolControls btnRow">
               <button id="refreshBtn" class="primary" type="button">Actualizar</button>
@@ -103,9 +99,9 @@
             </div>
           </div>
           <div class="mapFrame">
-            <div class="mapChip">Puerto Rico · GOES IR 100% + Visible + Radar</div>
-            <div class="cloudStamp">IR Máximo</div>
-            <div class="motionBadge">Movimiento visual de nubes</div>
+            <div class="mapChip">Puerto Rico · GOES IR + Visible + Radar</div>
+            <div class="cloudStamp">IR 100%</div>
+            <div class="motionBadge">flujo visual de nubes</div>
             <div class="cloudPulse">Nubes pasando por PR</div>
             <div class="cloudFlow" aria-hidden="true"></div>
             <div class="cloudScan" aria-hidden="true"></div>
@@ -115,12 +111,12 @@
         </article>
 
         <article class="card directPanel" style="margin-top:14px">
-          <h2>Validación directa de capas</h2>
-          <p class="muted">Estas imágenes directas permiten comprobar si las capas oficiales están entregando imagen sobre el área de Puerto Rico, aunque el mapa interactivo tarde en renderizar.</p>
+          <h2>Validación directa WMS</h2>
+          <p class="muted">Estas imágenes directas verifican si las capas oficiales entregan imagen sobre el área de Puerto Rico, aunque el mapa interactivo tarde en renderizar.</p>
           <div class="directGrid">
-            <div class="directCard"><h3>GOES IR</h3><p class="footerNote">Nubes infrarrojas</p><img id="directIr" alt="Imagen WMS directa de nubes infrarrojas GOES sobre Puerto Rico"></div>
-            <div class="directCard"><h3>GOES visible</h3><p class="footerNote">Nubes visibles</p><img id="directVis" alt="Imagen WMS directa de nubes visibles GOES sobre Puerto Rico"></div>
-            <div class="directCard"><h3>Radar lluvia</h3><p class="footerNote">Precipitación cercana</p><img id="directRadar" alt="Imagen WMS directa de radar de lluvia sobre Puerto Rico"></div>
+            <div class="directCard"><h3>GOES IR</h3><p id="irStatus" class="footerNote">—</p><img id="directIr" alt="Imagen WMS directa de nubes infrarrojas GOES sobre Puerto Rico"></div>
+            <div class="directCard"><h3>GOES visible</h3><p id="visStatus" class="footerNote">—</p><img id="directVis" alt="Imagen WMS directa de nubes visibles GOES sobre Puerto Rico"></div>
+            <div class="directCard"><h3>Radar lluvia</h3><p id="radarStatus" class="footerNote">—</p><img id="directRadar" alt="Imagen WMS directa de radar de lluvia sobre Puerto Rico"></div>
           </div>
         </article>
       </section>
@@ -128,10 +124,10 @@
       <aside class="right">
         <article class="card readout">
           <h2>Lectura rápida</h2>
-          <p><span class="sw" style="background:#94a3b8"></span>GOES IR muestra nubosidad por temperatura de tope de nube.</p>
-          <p><span class="sw" style="background:#e2e8f0"></span>GOES visible ayuda de día, pero puede verse débil.</p>
-          <p><span class="sw" style="background:#38bdf8"></span>Radar muestra lluvia, no toda nube visible.</p>
-          <p class="notice">Use IR Máximo para confirmar nubosidad pasando por PR. Use Radar + IR para ver si esa nubosidad tiene precipitación asociada.</p>
+          <p><span class="sw" style="background:#94a3b8"></span>GOES IR ayuda a distinguir nubosidad aunque no haya luz visible.</p>
+          <p><span class="sw" style="background:#e2e8f0"></span>GOES visible ayuda más durante el día.</p>
+          <p><span class="sw" style="background:#38bdf8"></span>Radar muestra lluvia, pero no toda nube produce lluvia.</p>
+          <p class="notice" id="cloudAdvice">Use Todo para lectura completa. Use Radar + IR para comparar nube y precipitación.</p>
         </article>
         <article class="card">
           <h2>Estado técnico</h2>
@@ -143,6 +139,6 @@
     </section>
   </main>
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  <script src="./live-rain-v49.js?v=4.9.0"></script>
+  <script src="./live-rain-v50.js?v=5.0.0"></script>
 </body>
 </html>
