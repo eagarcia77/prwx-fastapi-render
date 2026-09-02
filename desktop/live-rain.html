@@ -5,21 +5,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#007b5f">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
-  <link rel="stylesheet" href="./live-rain-v51.css?v=5.1.0">
-  <title>PR-WX · AURORA RainCast PR Satellite Fallback v5.1</title>
+  <link rel="stylesheet" href="./live-rain-v52.css?v=5.2.0">
+  <title>PR-WX · AURORA RainCast PR Official Satellite Viewer v5.2</title>
 </head>
 <body>
   <main class="shell">
     <header class="hero">
       <div>
-        <p class="eyebrow">PR-WX v5.1.0 · AURORA RainCast PR Satellite Fallback</p>
-        <h1>Imagen satelital directa de nubes sobre Puerto Rico</h1>
-        <p>Corrección directa para el problema de nubes invisibles. Esta vista usa imágenes reales NOAA/NESDIS/STAR del sector Puerto Rico como fuente principal y deja nowCOAST WMS como capa secundaria de comparación.</p>
+        <p class="eyebrow">PR-WX v5.2.0 · AURORA RainCast PR Official Satellite Viewer</p>
+        <h1>Visor oficial de nubes sobre Puerto Rico</h1>
+        <p>Corrección directa cuando las nubes no se ven. La vista principal usa imagen satelital directa NOAA/NESDIS/STAR del sector Puerto Rico, con enlace e iframe oficial como respaldo. nowCOAST queda como comparación secundaria de radar y WMS.</p>
       </div>
       <nav class="hero-actions">
         <a class="btn btn-primary" href="/desktop/">Dashboard</a>
-        <a class="btn btn-secondary" href="https://www.star.nesdis.noaa.gov/goes/sector_band.php?band=GEOCOLOR&length=12&sat=G19&sector=pr" target="_blank" rel="noopener">NOAA GOES PR</a>
-        <a class="btn btn-dark" href="/desktop-health" target="_blank" rel="noopener">Health</a>
+        <a id="officialLink" class="btn btn-secondary" href="https://www.star.nesdis.noaa.gov/goes/sector_band.php?band=13&length=12&sat=G19&sector=pr" target="_blank" rel="noopener">Vista oficial NOAA</a>
+        <button id="clearCacheBtn" type="button" class="btn-dark">Limpiar cache visual</button>
       </nav>
     </header>
 
@@ -28,122 +28,90 @@
       <article class="kpi"><span class="k">Producto</span><span id="satProduct" class="v">Banda 13 IR</span></article>
       <article class="kpi"><span class="k">Fuente principal</span><span class="v">NOAA STAR</span></article>
       <article class="kpi"><span class="k">Comparación</span><span id="diagLayer" class="v">nowCOAST</span></article>
-      <article class="kpi"><span class="k">Confianza visual</span><span id="cloudConfidence" class="risk low">—</span></article>
+      <article class="kpi"><span class="k">Confianza visual</span><span id="cloudConfidence" class="risk med">—</span></article>
       <article class="kpi"><span class="k">Actualizado</span><span id="lastUpdated" class="v small">—</span></article>
     </section>
 
-    <section class="card satPanel">
-      <div class="satViewer">
-        <div class="satTitle">Imagen satelital directa · <span id="satProductTitle">GOES PR</span></div>
-        <img id="satMain" alt="Imagen satelital directa GOES del sector Puerto Rico mostrando nubes reales">
-        <div class="satTime"><span id="satStatus">Cargando imagen satelital directa…</span></div>
-      </div>
-      <aside>
+    <section class="mainStage">
+      <article class="card">
+        <h2>Imagen satelital directa NOAA STAR</h2>
+        <p class="muted">Esta es la vista principal. Use Banda 13 IR para ver nubes aunque sea de noche o aunque nowCOAST no renderice bien.</p>
+        <div id="satFrame" class="satFrame ir">
+          <div class="overlayLabel">Producto: <span id="satProductTitle">Banda 13 IR</span></div>
+          <div class="stamp">Nubes reales PR</div>
+          <img id="satMain" alt="Imagen satelital directa GOES del sector Puerto Rico mostrando nubes reales">
+        </div>
+        <p class="footerNote"><span id="satStatus">Cargando imagen satelital directa…</span></p>
+      </article>
+      <aside class="card">
         <h2>Productos satelitales</h2>
         <p id="satNote" class="notice">Use Banda 13 IR para ver nubes de día y de noche.</p>
-        <div class="thumbGrid">
-          <button class="thumb" type="button" data-sat="geocolor"><strong>GeoColor</strong><img id="geocolorThumb" alt="Miniatura GeoColor Puerto Rico"></button>
-          <button class="thumb active" type="button" data-sat="band13"><strong>Banda 13 IR</strong><img id="band13Thumb" alt="Miniatura banda 13 infrarroja Puerto Rico"></button>
-          <button class="thumb" type="button" data-sat="band14"><strong>Banda 14 IR</strong><img id="band14Thumb" alt="Miniatura banda 14 infrarroja Puerto Rico"></button>
-          <button class="thumb" type="button" data-sat="band02"><strong>Banda 2 visible</strong><img id="band02Thumb" alt="Miniatura banda visible Puerto Rico"></button>
+        <div class="productGrid">
+          <button class="active" type="button" data-product="band13">Banda 13 IR</button>
+          <button type="button" data-product="geocolor">GeoColor</button>
+          <button type="button" data-product="band14">Banda 14 IR</button>
+          <button type="button" data-product="visible">Banda 2 Visible</button>
         </div>
-        <p class="footerNote">Esta imagen directa debe mostrar nubes aunque el WMS del mapa se vea vacío o transparente.</p>
+        <div class="rawLinks">
+          <a href="https://www.star.nesdis.noaa.gov/goes/sector_band.php?band=13&length=12&sat=G19&sector=pr" target="_blank" rel="noopener">Abrir Banda 13 IR en NOAA</a>
+          <a href="https://goes.noaa.gov/sector.php?sat=G19&sector=pr" target="_blank" rel="noopener">Abrir sector Puerto Rico en NOAA</a>
+        </div>
+        <p class="notice">Si aquí tampoco se ven nubes, el problema no es el mapa: puede ser bloqueo del navegador, caché o disponibilidad temporal de la fuente externa. Use el enlace oficial NOAA.</p>
       </aside>
     </section>
 
-    <section class="layout">
+    <section class="card" style="margin-top:16px">
+      <h2>Respaldo oficial integrado</h2>
+      <p class="muted">Este panel carga la página oficial NOAA STAR dentro del sistema. Es la verificación final cuando la imagen directa o el mapa WMS no muestran nubes.</p>
+      <div class="satFrame"><iframe id="officialFrame" title="Página oficial NOAA STAR Puerto Rico"></iframe></div>
+    </section>
+
+    <section class="layout" style="margin-top:16px">
       <aside class="side">
-        <article class="card">
-          <h2>Controles nowCOAST</h2>
-          <p class="muted">El mapa inferior queda como comparación. La imagen satelital superior es la fuente visual principal.</p>
-          <div class="btnRow" aria-label="Modos de nube">
-            <button type="button" data-mode="ir">IR WMS</button>
-            <button type="button" data-mode="vis">Visible + IR</button>
-            <button class="active" type="button" data-mode="radar">Radar + IR</button>
-            <button type="button" data-mode="all">Todo</button>
-          </div>
-          <div class="slider">
-            <label for="irOpacity">Nubes IR WMS <span id="irVal">78%</span></label>
-            <input id="irOpacity" type="range" min="0" max="1" step="0.05" value="0.78">
-            <label for="visOpacity">Nubes visibles WMS <span id="visVal">45%</span></label>
-            <input id="visOpacity" type="range" min="0" max="1" step="0.05" value="0.45">
-            <label for="radarOpacity">Radar <span id="radarVal">38%</span></label>
-            <input id="radarOpacity" type="range" min="0" max="1" step="0.05" value="0.38">
-          </div>
-          <p class="notice" id="cloudStatus">Inicializando comparación WMS…</p>
-          <p class="footerNote">Mapa actualizado: <span id="mapUpdated">—</span></p>
-        </article>
-
-        <article class="card">
-          <h2>Mapa base</h2>
-          <div class="btnRow">
-            <button class="active" type="button" data-base="sat">Satélite</button>
-            <button type="button" data-base="topo">Topográfico</button>
-            <button type="button" data-base="streets">Calles</button>
-          </div>
-        </article>
-
         <article class="card">
           <h2>Enfoque municipal</h2>
           <div class="townGrid">
-            <button type="button" data-town="juana_diaz">Juana Díaz</button><button type="button" data-town="ponce">Ponce</button><button type="button" data-town="san_juan">San Juan</button><button type="button" data-town="san_german">San Germán</button><button type="button" data-town="mayaguez">Mayagüez</button><button type="button" data-town="fajardo">Fajardo</button><button type="button" data-town="vieques">Vieques</button><button type="button" data-town="culebra">Culebra</button><button type="button" data-town="arecibo">Arecibo</button><button type="button" data-town="humacao">Humacao</button><button type="button" data-town="guayama">Guayama</button><button type="button" data-town="aguadilla">Aguadilla</button><button type="button" data-town="salinas">Salinas</button><button type="button" data-town="yabucoa">Yabucoa</button>
+            <button type="button" data-town="juana_diaz">Juana Díaz</button><button type="button" data-town="ponce">Ponce</button><button type="button" data-town="san_juan">San Juan</button><button type="button" data-town="san_german">San Germán</button><button type="button" data-town="mayaguez">Mayagüez</button><button type="button" data-town="fajardo">Fajardo</button><button type="button" data-town="vieques">Vieques</button><button type="button" data-town="culebra">Culebra</button><button type="button" data-town="arecibo">Arecibo</button><button type="button" data-town="humacao">Humacao</button><button type="button" data-town="salinas">Salinas</button><button type="button" data-town="yabucoa">Yabucoa</button>
           </div>
-        </article>
-      </aside>
-
-      <section class="center">
-        <article class="card mapCard">
-          <div class="mapHeader">
-            <div>
-              <h2>Mapa de comparación nowCOAST</h2>
-              <p class="muted">Este mapa compara WMS IR/radar con la imagen directa superior. Si el WMS se ve vacío, use la imagen directa STAR.</p>
-            </div>
-            <div class="toolControls btnRow">
-              <button id="refreshBtn" class="primary" type="button">Actualizar</button>
-              <button id="kioskBtn" type="button">Modo kiosco</button>
-              <button id="printBtn" type="button">Imprimir</button>
-            </div>
-          </div>
-          <div class="mapFrame">
-            <div class="mapChip">Puerto Rico · nowCOAST WMS comparación</div>
-            <div class="cloudStamp">WMS secundario</div>
-            <div class="motionBadge">la imagen directa está arriba</div>
-            <div class="cloudPulse">Comparar nube vs lluvia</div>
-            <div class="cloudFlow" aria-hidden="true"></div>
-            <div class="cloudScan" aria-hidden="true"></div>
-            <div id="rainMap" class="map" role="img" aria-label="Mapa de comparación WMS GOES y radar sobre Puerto Rico"></div>
-          </div>
-          <p class="footerNote">Uso experimental. Validar con NOAA, NWS San Juan, NHC y manejo de emergencias antes de cualquier decisión crítica.</p>
-        </article>
-
-        <article class="card directPanel" style="margin-top:14px">
-          <h2>Validación directa WMS</h2>
-          <div class="directGrid">
-            <div class="directCard"><h3>GOES IR WMS</h3><p id="irStatus" class="footerNote">—</p><img id="directIr" alt="Imagen WMS directa de nubes infrarrojas GOES sobre Puerto Rico"></div>
-            <div class="directCard"><h3>GOES visible WMS</h3><p id="visStatus" class="footerNote">—</p><img id="directVis" alt="Imagen WMS directa de nubes visibles GOES sobre Puerto Rico"></div>
-            <div class="directCard"><h3>Radar lluvia WMS</h3><p id="radarStatus" class="footerNote">—</p><img id="directRadar" alt="Imagen WMS directa de radar de lluvia sobre Puerto Rico"></div>
-          </div>
-        </article>
-      </section>
-
-      <aside class="right">
-        <article class="card readout">
-          <h2>Lectura rápida</h2>
-          <p><span class="sw" style="background:#94a3b8"></span>La imagen directa STAR es ahora la vista principal de nubes.</p>
-          <p><span class="sw" style="background:#e2e8f0"></span>GeoColor muestra nubes con aspecto más natural.</p>
-          <p><span class="sw" style="background:#38bdf8"></span>Radar muestra lluvia; no toda nube produce lluvia.</p>
-          <p class="notice" id="cloudAdvice">Use Banda 13 IR. Esa debe mostrar nubes aun cuando el mapa WMS no las muestre.</p>
         </article>
         <article class="card">
           <h2>Estado técnico</h2>
           <div class="diagItem"><span>Versión</span><strong id="diagVersion">—</strong></div>
           <div class="diagItem"><span>Fuente</span><strong id="diagSource">—</strong></div>
           <div class="diagItem"><span>Refresco</span><strong id="diagRefresh">—</strong></div>
+          <p id="cloudStatus" class="notice">Preparando validación visual…</p>
+        </article>
+      </aside>
+      <section class="center">
+        <article class="card mapCard">
+          <div class="mapHeader">
+            <div><h2>Mapa secundario nowCOAST</h2><p class="muted">Este mapa queda solo para comparar radar/IR. La vista principal de nubes es la imagen STAR superior.</p></div>
+            <div class="toolControls btnRow"><button id="refreshBtn" class="primary" type="button">Actualizar</button><button id="kioskBtn" type="button">Modo kiosco</button><button id="printBtn" type="button">Imprimir</button></div>
+          </div>
+          <div class="mapFrame"><div class="mapChip">nowCOAST comparación</div><div id="rainMap" class="map" role="img" aria-label="Mapa secundario nowCOAST de comparación sobre Puerto Rico"></div></div>
+          <p class="footerNote">Mapa actualizado: <span id="mapUpdated">—</span></p>
+        </article>
+        <article class="card directPanel" style="margin-top:14px">
+          <h2>Validación directa WMS</h2>
+          <div class="directGrid">
+            <div class="directCard"><h3>GOES IR WMS</h3><p id="irStatus" class="footerNote">—</p><img id="directIr" alt="Imagen WMS directa de nubes infrarrojas GOES sobre Puerto Rico"></div>
+            <div class="directCard"><h3>GOES visible WMS</h3><p id="visStatus" class="footerNote">—</p><img id="directVis" alt="Imagen WMS directa de nubes visibles GOES sobre Puerto Rico"></div>
+            <div class="directCard"><h3>Radar WMS</h3><p id="radarStatus" class="footerNote">—</p><img id="directRadar" alt="Imagen WMS directa de radar de lluvia sobre Puerto Rico"></div>
+          </div>
+        </article>
+      </section>
+      <aside class="right">
+        <article class="card readout">
+          <h2>Lectura rápida</h2>
+          <p><span class="sw" style="background:#94a3b8"></span>Banda 13 IR: mejor para nubes.</p>
+          <p><span class="sw" style="background:#e2e8f0"></span>GeoColor: apariencia más natural.</p>
+          <p><span class="sw" style="background:#38bdf8"></span>Radar: lluvia, no nube.</p>
+          <p id="cloudAdvice" class="notice">Primero mire la imagen STAR superior. Luego compare con radar nowCOAST.</p>
         </article>
       </aside>
     </section>
   </main>
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  <script src="./live-rain-v51.js?v=5.1.0"></script>
+  <script src="./live-rain-v52.js?v=5.2.0"></script>
 </body>
 </html>
