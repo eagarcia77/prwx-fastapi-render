@@ -11,15 +11,16 @@
   <link rel="stylesheet" href="./live-rain-v42.css?v=4.2.0">
   <link rel="stylesheet" href="./live-rain-v43.css?v=4.3.0">
   <link rel="stylesheet" href="./live-rain-v44.css?v=4.4.0">
-  <title>PR-WX · AURORA RainCast PR Cloud Visibility v4.4</title>
+  <link rel="stylesheet" href="./live-rain-v45.css?v=4.5.0">
+  <title>PR-WX · AURORA RainCast PR Cloud Boost v4.5</title>
 </head>
 <body>
   <main class="shell">
     <header class="hero">
       <div>
-        <p class="eyebrow">PR-WX v4.4.0 · AURORA RainCast PR Cloud Visibility Fix</p>
-        <h1>Radar vivo de lluvia, nubes reales sobre PR, impacto y briefing operacional</h1>
-        <p>Mapa operacional experimental para Puerto Rico con radar NOAA nowCOAST, nubes GOES infrarrojas y visibles, alertas oficiales NWS, análisis de impacto, trayectoria aproximada y un nuevo mapa dedicado para que la nubosidad se vea claramente sobre Puerto Rico.</p>
+        <p class="eyebrow">PR-WX v4.5.0 · AURORA RainCast PR Cloud Boost</p>
+        <h1>Radar vivo de lluvia y nubes reforzadas sobre Puerto Rico</h1>
+        <p>Mapa operacional experimental para Puerto Rico con radar NOAA nowCOAST, GOES infrarrojo de alto contraste, GOES visible, briefing operacional, trayectoria aproximada, alertas NWS y nuevo panel reforzado para ver por dónde están pasando las nubes.</p>
       </div>
       <nav class="hero-actions">
         <a class="btn btn-primary" href="/desktop/">Dashboard</a>
@@ -55,13 +56,6 @@
           <div class="slider"><label>Opacidad radar</label><input type="range" min="0" max="1" step="0.05" value="0.78" data-opacity="radar"></div>
           <div class="slider"><label>Opacidad nubes</label><input type="range" min="0" max="1" step="0.05" value="0.45" data-opacity="clouds"></div>
           <div class="timeline"><strong>Recarga automática</strong><p>Las capas y los paneles se recargan cada 60 segundos.</p><p>Mapa: <span id="mapUpdated">—</span></p></div>
-          <h3>Leyenda</h3>
-          <div class="legend">
-            <div class="legendRow"><span class="sw" style="background:#94a3b8"></span><span>Nubes infrarrojas GOES</span></div>
-            <div class="legendRow"><span class="sw" style="background:#e2e8f0"></span><span>Nubes visibles GOES</span></div>
-            <div class="legendRow"><span class="sw" style="background:#0ea5e9"></span><span>Radar lluvia</span></div>
-            <div class="legendRow"><span class="sw" style="background:#ef4444"></span><span>Núcleo intenso / riesgo alto</span></div>
-          </div>
         </article>
 
         <article class="card" style="margin-top:14px">
@@ -72,8 +66,7 @@
             <option value="juana_diaz">Juana Díaz</option><option value="ponce">Ponce</option><option value="san_juan">San Juan</option><option value="san_german">San Germán</option>
             <option value="mayaguez">Mayagüez</option><option value="arecibo">Arecibo</option><option value="caguas">Caguas</option><option value="fajardo">Fajardo</option><option value="humacao">Humacao</option><option value="guayama">Guayama</option><option value="aguadilla">Aguadilla</option><option value="bayamon">Bayamón</option><option value="vieques">Vieques</option><option value="culebra">Culebra</option>
           </select>
-          <div id="focusBox"></div>
-          <div id="advice"></div>
+          <div id="focusBox"></div><div id="advice"></div>
         </article>
         <article class="card" style="margin-top:14px"><h2>Panel del modelo</h2><div id="modelPanel"><p class="muted">Cargando modelo…</p></div></article>
         <article class="card" style="margin-top:14px"><h2>Salud de servicios</h2><div id="healthPanel"><p class="muted">Verificando servicios…</p></div></article>
@@ -83,10 +76,10 @@
       <section class="center">
         <article class="card mapCard">
           <div class="mapHeader">
-            <div><h2>Mapa vivo de lluvia y nubosidad 4D</h2><p class="muted">Las flechas muestran trayectoria aproximada de corto plazo por pueblo usando viento observado. Los círculos muestran impacto estimado y la capa 4D añade movimiento visual de nubes de lluvia.</p></div>
+            <div><h2>Mapa vivo de lluvia y nubosidad 4D</h2><p class="muted">Las flechas muestran trayectoria aproximada por pueblo. Debajo aparece el mapa reforzado v4.5 para ver mejor las nubes reales pasando por PR.</p></div>
             <div class="toolControls"><button id="resetView" type="button">Vista PR</button><button id="emergencyMode" type="button">Modo emergencia</button><button id="refreshBtn" class="primary" type="button">Actualizar</button></div>
           </div>
-          <div class="mapFrame"><div class="mapChip">Puerto Rico · lluvia en vivo + nubes 4D + impacto</div><div id="rainMap" class="map" role="img" aria-label="Mapa de lluvia, nubes, impacto y trayectoria por pueblo en Puerto Rico"></div></div>
+          <div class="mapFrame"><div class="mapChip">Puerto Rico · lluvia + nubes + impacto</div><div id="rainMap" class="map" role="img" aria-label="Mapa de lluvia, nubes, impacto y trayectoria por pueblo en Puerto Rico"></div></div>
           <p class="footerNote">Uso experimental. Validar con NOAA/NWS San Juan, NHC y manejo de emergencias.</p>
         </article>
         <article class="card" style="margin-top:14px"><h2><span class="aurora4dBadge">AURORA 4D Intelligence</span></h2><div id="aurora4dPanel"><p class="muted">Cargando inteligencia 4D…</p></div></article>
@@ -101,7 +94,7 @@
 
       <aside class="right">
         <article class="card"><h2>Trayectoria IA por pueblo</h2><div id="analysis" class="analysisList"><p class="muted">Cargando análisis…</p></div></article>
-        <article class="card" style="margin-top:14px"><h2>Municipios monitoreados</h2><p class="muted small">Incluye pueblos prioritarios y municipios regionales para lectura rápida.</p><div id="towns" class="townList"></div><p class="footerNote">Actualizado: <span id="townsUpdated">—</span></p></article>
+        <article class="card" style="margin-top:14px"><h2>Municipios monitoreados</h2><p class="muted small">Incluye pueblos prioritarios y municipios regionales.</p><div id="towns" class="townList"></div><p class="footerNote">Actualizado: <span id="townsUpdated">—</span></p></article>
         <article class="card" style="margin-top:14px"><h2>Alertas NWS Puerto Rico</h2><div id="alerts" class="alertList"><p class="muted">Cargando alertas…</p></div></article>
       </aside>
     </section>
@@ -113,5 +106,6 @@
   <script src="./live-rain-v42.js?v=4.2.0"></script>
   <script src="./live-rain-v43.js?v=4.3.0"></script>
   <script src="./live-rain-v44.js?v=4.4.0"></script>
+  <script src="./live-rain-v45.js?v=4.5.0"></script>
 </body>
 </html>
