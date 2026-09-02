@@ -19,7 +19,7 @@ from api.live_rain_router import router as live_rain_router
 from api.meteorological_report_router import router as meteorological_report_router
 from api.caribbean_router import router as caribbean_router
 
-VERSION = "3.7.0"
+VERSION = "5.3.0"
 DESKTOP_CLIENT = ROOT / "desktop"
 MOBILE_CLIENT = ROOT / "mobile"
 
@@ -85,6 +85,7 @@ def api_status():
         "live_rain_alerts": "/rain/live/alerts",
         "live_rain_summary": "/rain/live/summary",
         "live_rain_municipal_risk": "/rain/live/municipal-risk",
+        "live_rain_satellite_latest": "/rain/live/satellite/latest",
         "aurora_caribe_model": "/aurora-caribe/model",
         "aurora_caribe_status": "/aurora-caribe/status",
         "aurora_caribe_predictions": "/aurora-caribe/predictions/summary",
@@ -127,7 +128,8 @@ def desktop_health():
         "desktop_real_map_exists": (DESKTOP_CLIENT / "real-map.js").exists(),
         "desktop_storm_map_exists": (DESKTOP_CLIENT / "storm-map.js").exists(),
         "desktop_live_rain_map_exists": (DESKTOP_CLIENT / "live-rain-map.js").exists(),
-        "desktop_live_rain_css_exists": (DESKTOP_CLIENT / "live-rain-v37.css").exists(),
+        "desktop_live_rain_css_exists": (DESKTOP_CLIENT / "live-rain-v53.css").exists(),
+        "desktop_live_rain_js_exists": (DESKTOP_CLIENT / "live-rain-v53.js").exists(),
         "desktop_map_enhancements_css_exists": (DESKTOP_CLIENT / "map-enhancements-v33.css").exists(),
         "desktop_dust_panel_exists": (DESKTOP_CLIENT / "aurora-dust-panel.js").exists(),
         "desktop_dust_css_exists": (DESKTOP_CLIENT / "dust-layer-v35.css").exists(),
@@ -166,6 +168,7 @@ def desktop_config_json():
         "live_rain_alerts_endpoint": "/rain/live/alerts",
         "live_rain_summary_endpoint": "/rain/live/summary",
         "live_rain_municipal_risk_endpoint": "/rain/live/municipal-risk",
+        "live_rain_satellite_latest_endpoint": "/rain/live/satellite/latest",
         "aurora_caribe_status_endpoint": "/aurora-caribe/status",
         "aurora_caribe_predictions_endpoint": "/aurora-caribe/predictions/summary",
         "aurora_sahara_status_endpoint": "/aurora-caribe/dust/status",
