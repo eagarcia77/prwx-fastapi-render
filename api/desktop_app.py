@@ -19,7 +19,7 @@ from api.caribbean_router import router as caribbean_router
 from api.live_rain_router import router as live_rain_router
 from api.meteorological_report_router import router as meteorological_report_router
 
-VERSION = "5.7.0"
+VERSION = "5.8.0"
 DESKTOP_CLIENT = ROOT / "desktop"
 MOBILE_CLIENT = ROOT / "mobile"
 
@@ -88,6 +88,7 @@ def api_status():
         "live_rain_satellite_self_test": "/rain/live/satellite/self-test",
         "live_rain_satellite_proxy_band13": "/rain/live/satellite/proxy/band13",
         "live_rain_satellite_image_band13": "/rain/live/satellite/image/band13.jpg",
+        "live_rain_satellite_wfo_band13": "/rain/live/satellite/wfo/band13.jpg",
         "live_rain_satellite_debug_band13": "/rain/live/satellite/debug/band13.html",
         "aurora_caribe_model": "/aurora-caribe/model",
         "aurora_caribe_status": "/aurora-caribe/status",
@@ -118,8 +119,8 @@ def desktop_health():
         "desktop_real_map_exists": (DESKTOP_CLIENT / "real-map.js").exists(),
         "desktop_storm_map_exists": (DESKTOP_CLIENT / "storm-map.js").exists(),
         "desktop_live_rain_map_exists": (DESKTOP_CLIENT / "live-rain-map.js").exists(),
-        "desktop_live_rain_css_exists": (DESKTOP_CLIENT / "live-rain-v57.css").exists(),
-        "desktop_live_rain_js_exists": (DESKTOP_CLIENT / "live-rain-v57.js").exists(),
+        "desktop_live_rain_css_exists": (DESKTOP_CLIENT / "live-rain-v58.css").exists(),
+        "desktop_live_rain_js_exists": (DESKTOP_CLIENT / "live-rain-v58.js").exists(),
         "mobile_folder_exists": MOBILE_CLIENT.exists(),
         "mobile_index_exists": (MOBILE_CLIENT / "index.html").exists(),
         "live_rain_router_installed": bool(getattr(app.state, "live_rain_router_installed", False)),
@@ -143,6 +144,7 @@ def desktop_config_json():
         "live_rain_satellite_self_test_endpoint": "/rain/live/satellite/self-test",
         "live_rain_satellite_proxy_band13_endpoint": "/rain/live/satellite/proxy/band13",
         "live_rain_satellite_image_band13_endpoint": "/rain/live/satellite/image/band13.jpg",
+        "live_rain_satellite_wfo_band13_endpoint": "/rain/live/satellite/wfo/band13.jpg",
         "live_rain_satellite_debug_band13_endpoint": "/rain/live/satellite/debug/band13.html",
         "aurora_caribe_status_endpoint": "/aurora-caribe/status",
         "aurora_sahara_status_endpoint": "/aurora-caribe/dust/status",
