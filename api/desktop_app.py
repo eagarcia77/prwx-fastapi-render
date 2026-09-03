@@ -19,7 +19,7 @@ from api.caribbean_router import router as caribbean_router
 from api.live_rain_router import router as live_rain_router
 from api.meteorological_report_router import router as meteorological_report_router
 
-VERSION = "5.8.0"
+VERSION = "5.9.0"
 DESKTOP_CLIENT = ROOT / "desktop"
 MOBILE_CLIENT = ROOT / "mobile"
 
@@ -92,11 +92,7 @@ def api_status():
         "live_rain_satellite_debug_band13": "/rain/live/satellite/debug/band13.html",
         "aurora_caribe_model": "/aurora-caribe/model",
         "aurora_caribe_status": "/aurora-caribe/status",
-        "aurora_caribe_predictions": "/aurora-caribe/predictions/summary",
-        "aurora_sahara_model": "/aurora-caribe/dust/model",
         "aurora_sahara_status": "/aurora-caribe/dust/status",
-        "aurora_sahara_analysis": "/aurora-caribe/dust/analysis",
-        "aurora_sahara_map_geojson": "/aurora-caribe/dust/map.geojson",
         "aurora_3d_scene": "/aurora-caribe/3d/scene",
         "ai_maps_geojson": "/ai/maps/pr-municipalities.geojson",
         "ai_storm_tracks_geojson": "/ai/storm-tracks/map.geojson",
@@ -119,8 +115,8 @@ def desktop_health():
         "desktop_real_map_exists": (DESKTOP_CLIENT / "real-map.js").exists(),
         "desktop_storm_map_exists": (DESKTOP_CLIENT / "storm-map.js").exists(),
         "desktop_live_rain_map_exists": (DESKTOP_CLIENT / "live-rain-map.js").exists(),
-        "desktop_live_rain_css_exists": (DESKTOP_CLIENT / "live-rain-v58.css").exists(),
-        "desktop_live_rain_js_exists": (DESKTOP_CLIENT / "live-rain-v58.js").exists(),
+        "desktop_live_rain_css_exists": (DESKTOP_CLIENT / "live-rain-v59.css").exists(),
+        "desktop_live_rain_js_exists": (DESKTOP_CLIENT / "live-rain-v59.js").exists(),
         "mobile_folder_exists": MOBILE_CLIENT.exists(),
         "mobile_index_exists": (MOBILE_CLIENT / "index.html").exists(),
         "live_rain_router_installed": bool(getattr(app.state, "live_rain_router_installed", False)),
