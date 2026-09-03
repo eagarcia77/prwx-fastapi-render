@@ -21,13 +21,14 @@ from prwx.live_rain_v37 import (
 
 router = APIRouter(tags=["AURORA RainCast PR"])
 
-VERSION = "5.8.0"
+VERSION = "5.9.0"
 STAR_BASE = "https://cdn.star.nesdis.noaa.gov/GOES19/ABI/SECTOR/pr"
 STAR_LEGACY_BASE = "https://cdn.star.nesdis.noaa.gov/GOES16/ABI/SECTOR/pr"
-STAR_PAGE_BASE = "https://www.goes.noaa.gov/sector_band.php"
+STAR_PAGE_BASE = "https://www.star.nesdis.noaa.gov/goes/sector_band.php"
+GOES_PAGE_BASE = "https://www.goes.noaa.gov/sector_band.php"
 WFO_PAGE = "https://www.goes.noaa.gov/wfo.php?wfo=sju"
 WFO_REFRESH_PAGE = "https://www.goes.noaa.gov/wfo.php?refresh=true&wfo=sju"
-OFFICIAL_SECTOR_PAGE = "https://www.goes.noaa.gov/sector.php?sat=G19&sector=pr&src=nav"
+OFFICIAL_SECTOR_PAGE = "https://www.star.nesdis.noaa.gov/goes/sector.php?sat=G19&sector=pr&src=nav"
 
 PRODUCTS: dict[str, dict[str, str]] = {
     "band13": {"folder": "13", "label": "Banda 13 IR", "kind": "ir", "band": "13", "note": "Infrarrojo térmico. Recomendado para ver nubes de día y de noche."},
@@ -42,7 +43,7 @@ def _utc_now() -> str:
 
 
 def _request(url: str):
-    return urllib.request.Request(url, headers={"User-Agent": "PR-WX/5.8 wfo-satellite-fallback"})
+    return urllib.request.Request(url, headers={"User-Agent": "PR-WX/5.9 direct-cdn-first"})
 
 
 def _read_text(url: str, timeout: int = 8) -> str:
@@ -54,6 +55,10 @@ def _product_page(band: str) -> str:
     return f"{STAR_PAGE_BASE}?band={urllib.parse.quote(band)}&length=12&sat=G19&sector=pr&src=nav"
 
 
+def _goes_product_page(band: str) -> str:
+    return f"{GOES_PAGE_BASE}?band={urllib.parse.quote(band)}&length=12&sat=G19&sector=pr&src=nav"
+
+
 def _absolute_url(href: str, folder: str) -> str:
     href = href.strip().replace("&amp;", "&")
     if href.startswith("https://"):
@@ -61,7 +66,7 @@ def _absolute_url(href: str, folder: str) -> str:
     if href.startswith("//"):
         return "https:" + href
     if href.startswith("/"):
-        return "https://www.goes.noaa.gov" + href
+        return "https://www.star.nesdis.noaa.gov" + href
     if href.startswith("GOES19") or href.startswith("20"):
         return f"{STAR_BASE}/{folder}/{href}"
     return urllib.parse.urljoin(f"{STAR_BASE}/{folder}/", href)
@@ -69,13 +74,13 @@ def _absolute_url(href: str, folder: str) -> str:
 
 def _collect_image_urls(html: str, folder: str, band: str) -> list[str]:
     urls: list[str] = []
-    for match in re.finditer(r'(?:src|href)=["\']([^"\']+\.(?:jpg|jpeg|gif|png))(?:\?[^"\']*)?["\']', html, flags=re.IGNORECASE):
+    for match in re.finditer(r"(?:src|href)=[\"']([^\"']+\.(?:jpg|jpeg|gif|png))(?:\?[^\"']*)?[\"']", html, flags=re.IGNORECASE):
         url = _absolute_url(match.group(1), folder)
         low = url.lower()
-        want_folder = f"/pr/{folder.lower()}/" in low or f"-pr-{band.lower()}-" in low or f"band={band.lower()}" in low
-        if want_folder and "600x60" not in low and url not in urls:
+        want = f"/pr/{folder.lower()}/" in low or f"-pr-{band.lower()}-" in low
+        if want and "600x60" not in low and url not in urls:
             urls.append(url)
-    for match in re.finditer(r'https://cdn\.star\.nesdis\.noaa\.gov/[^"\'<>\s]+\.(?:jpg|jpeg|gif|png)', html, flags=re.IGNORECASE):
+    for match in re.finditer(r"https://cdn\.star\.nesdis\.noaa\.gov/[^\"'<>\s]+\.(?:jpg|jpeg|gif|png)", html, flags=re.IGNORECASE):
         url = match.group(0)
         low = url.lower()
         if (f"/pr/{folder.lower()}/" in low or f"-pr-{band.lower()}-" in low) and "600x60" not in low and url not in urls:
@@ -85,7 +90,7 @@ def _collect_image_urls(html: str, folder: str, band: str) -> list[str]:
 
 def _page_candidates(folder: str, band: str) -> list[str]:
     urls: list[str] = []
-    for page in (_product_page(band), _product_page(band).replace("www.goes.noaa.gov", "www.star.nesdis.noaa.gov/goes")):
+    for page in (_product_page(band), _goes_product_page(band)):
         try:
             html = _read_text(page)
         except Exception:
@@ -116,7 +121,7 @@ def _index_candidates(folder: str, band: str) -> list[str]:
         return []
     rows: list[tuple[str, int]] = []
     pattern = re.compile(
-        r'href="([^"<>]*(\d{11})_GOES19-ABI-pr-' + re.escape(band) + r'-(1200x1200|600x600|2400x2400)\.(jpg|gif))"',
+        r"href=\"([^\"<>]*(\d{11})_GOES19-ABI-pr-" + re.escape(band) + r"-(1200x1200|600x600|2400x2400)\.(jpg|gif))\"",
         re.IGNORECASE,
     )
     for match in pattern.finditer(html):
@@ -124,7 +129,7 @@ def _index_candidates(folder: str, band: str) -> list[str]:
         score = 3 if size == "1200x1200" else 2 if size == "600x600" else 1
         rows.append((_absolute_url(href, folder), int(stamp) * 10 + score))
     rows.sort(key=lambda row: row[1], reverse=True)
-    return [url for url, _score in rows[:10]]
+    return [url for url, _score in rows[:16]]
 
 
 def _latest_urls(folder: str, band: str, wfo_first: bool = False) -> list[str]:
@@ -135,7 +140,9 @@ def _latest_urls(folder: str, band: str, wfo_first: bool = False) -> list[str]:
         f"{STAR_LEGACY_BASE}/{folder}/1200x1200.jpg",
         f"{STAR_LEGACY_BASE}/{folder}/600x600.jpg",
     ]
-    groups = (_wfo_candidates(folder, band), _page_candidates(folder, band), _index_candidates(folder, band), fallback) if wfo_first else (_page_candidates(folder, band), _wfo_candidates(folder, band), _index_candidates(folder, band), fallback)
+    groups = (_index_candidates(folder, band), _page_candidates(folder, band), _wfo_candidates(folder, band), fallback)
+    if wfo_first:
+        groups = (_wfo_candidates(folder, band), _index_candidates(folder, band), _page_candidates(folder, band), fallback)
     urls: list[str] = []
     for group in groups:
         for url in group:
@@ -155,12 +162,14 @@ def _svg_fallback(product: str, message: str) -> bytes:
 <text x='600' y='535' text-anchor='middle' font-family='Arial' font-size='42' fill='#fed141' font-weight='700'>PR-WX Satellite Diagnostic</text>
 <text x='600' y='595' text-anchor='middle' font-family='Arial' font-size='30' fill='#ffffff'>Producto: {safe_product}</text>
 <text x='600' y='640' text-anchor='middle' font-family='Arial' font-size='24' fill='#cbd5e1'>{safe_message}</text>
-<text x='600' y='742' text-anchor='middle' font-family='Arial' font-size='24' fill='#86efac'>Abra /rain/live/satellite/self-test para diagnostico.</text>
+<text x='600' y='742' text-anchor='middle' font-family='Arial' font-size='24' fill='#86efac'>Abra /rain/live/satellite/latest para ver URLs CDN.</text>
 </svg>"""
     return svg.encode("utf-8")
 
 
 def _download_first_image(product: str, wfo_first: bool = False) -> tuple[bytes, str, str, bool, str]:
+    if product not in PRODUCTS:
+        raise HTTPException(status_code=404, detail="Unknown satellite product")
     info = PRODUCTS[product]
     urls = _latest_urls(info["folder"], info["band"], wfo_first=wfo_first)
     last_error = "unknown"
@@ -179,8 +188,6 @@ def _download_first_image(product: str, wfo_first: bool = False) -> tuple[bytes,
 
 
 def _satellite_response(product: str, wfo_first: bool = False) -> Response:
-    if product not in PRODUCTS:
-        raise HTTPException(status_code=404, detail="Unknown satellite product")
     data, content_type, source_url, ok, message = _download_first_image(product, wfo_first=wfo_first)
     headers = {
         "Cache-Control": "no-cache, max-age=60",
@@ -256,13 +263,13 @@ def rain_live_satellite_latest() -> dict[str, Any]:
             "proxy": f"/rain/live/satellite/proxy/{key}",
             "image": f"/rain/live/satellite/image/{key}.jpg",
             "wfo_image": f"/rain/live/satellite/wfo/{key}.jpg",
-            "urls": _latest_urls(info["folder"], info["band"], wfo_first=True)[:12],
+            "urls": _latest_urls(info["folder"], info["band"], wfo_first=False)[:16],
         }
     return {
         "version": VERSION,
-        "model": "AURORA RainCast PR WFO Satellite Fallback",
+        "model": "AURORA RainCast PR Direct CDN First",
         "generated_utc": _utc_now(),
-        "source": "NOAA/NESDIS/STAR GOES Puerto Rico + WFO San Juan page resolver + same-origin image endpoints",
+        "source": "NOAA/NESDIS/STAR direct CDN resolver + PR-WX image endpoints",
         "official_sector_page": OFFICIAL_SECTOR_PAGE,
         "wfo_sju_page": WFO_PAGE,
         "self_test": "/rain/live/satellite/self-test",
@@ -296,7 +303,7 @@ def rain_live_satellite_debug(product: str):
     if product not in PRODUCTS:
         raise HTTPException(status_code=404, detail="Unknown satellite product")
     info = PRODUCTS[product]
-    urls = _latest_urls(info["folder"], info["band"], wfo_first=True)[:16]
+    urls = _latest_urls(info["folder"], info["band"], wfo_first=False)[:20]
     rows = "".join(f"<li><a href='{url}' target='_blank' rel='noopener'>{url}</a></li>" for url in urls)
-    html = f"""<!doctype html><html lang='es'><head><meta charset='utf-8'><title>PR-WX Debug {product}</title><style>body{{font-family:Arial;background:#06111d;color:#fff;padding:24px}}a{{color:#fed141}}img{{max-width:100%;background:#000;border:1px solid #334155;border-radius:12px}}</style></head><body><h1>PR-WX v{VERSION} Debug {info['label']}</h1><p>Fuente WFO San Juan + page resolver + CDN fallback.</p><p><a href='/rain/live/satellite/wfo/{product}.jpg'>Abrir WFO image endpoint</a> · <a href='/rain/live/satellite/image/{product}.jpg'>Abrir image endpoint</a> · <a href='/rain/live/satellite/self-test'>Self-test JSON</a></p><img src='/rain/live/satellite/wfo/{product}.jpg?debug=1'><h2>Candidatos encontrados</h2><ol>{rows}</ol></body></html>"""
+    html = f"""<!doctype html><html lang='es'><head><meta charset='utf-8'><title>PR-WX Debug {product}</title><style>body{{font-family:Arial;background:#06111d;color:#fff;padding:24px}}a{{color:#fed141}}img{{max-width:100%;background:#000;border:1px solid #334155;border-radius:12px}}</style></head><body><h1>PR-WX v{VERSION} Debug {info['label']}</h1><p>Direct CDN First: primero se intentan URLs reales cdn.star.nesdis.noaa.gov.</p><p><a href='/rain/live/satellite/latest'>Latest JSON</a> · <a href='/rain/live/satellite/wfo/{product}.jpg'>WFO image endpoint</a> · <a href='/rain/live/satellite/image/{product}.jpg'>Image endpoint</a> · <a href='/rain/live/satellite/self-test'>Self-test JSON</a></p><img src='/rain/live/satellite/image/{product}.jpg?debug=1'><h2>Candidatos encontrados</h2><ol>{rows}</ol></body></html>"""
     return HTMLResponse(html)
