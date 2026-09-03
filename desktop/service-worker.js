@@ -1,5 +1,5 @@
-const CACHE = "prwx-desktop-v560-aurora-raincast-no-blank-satellite-image";
-const ASSETS = ["./", "./index.html", "./live-rain.html", "./styles.css", "./storm-cinematic.css", "./map-enhancements-v33.css", "./dust-layer-v35.css", "./aurora-3d.css", "./live-rain-v56.css", "./app.js", "./api-config.js", "./aurora-caribe-panel.js", "./aurora-dust-panel.js", "./aurora-3d-command-center.js", "./live-rain-map.js", "./live-rain-v56.js", "./real-map.js", "./storm-map.js", "./storm-history-panel.js", "./manifest.webmanifest"];
+const CACHE = "prwx-desktop-v570-aurora-raincast-page-resolver";
+const ASSETS = ["./", "./index.html", "./live-rain.html", "./styles.css", "./storm-cinematic.css", "./map-enhancements-v33.css", "./dust-layer-v35.css", "./aurora-3d.css", "./live-rain-v57.css", "./app.js", "./api-config.js", "./aurora-caribe-panel.js", "./aurora-dust-panel.js", "./aurora-3d-command-center.js", "./live-rain-map.js", "./live-rain-v57.js", "./real-map.js", "./storm-map.js", "./storm-history-panel.js", "./manifest.webmanifest"];
 self.addEventListener("install", (event) => {
   event.waitUntil(caches.open(CACHE).then((cache) => cache.addAll(ASSETS)));
   self.skipWaiting();
