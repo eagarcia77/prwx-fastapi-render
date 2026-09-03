@@ -5,16 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#007b5f">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
-  <link rel="stylesheet" href="./live-rain-v54.css?v=5.4.0">
-  <title>PR-WX · AURORA RainCast PR Backend Image Proxy v5.4</title>
+  <link rel="stylesheet" href="./live-rain-v55.css?v=5.5.0">
+  <title>PR-WX · AURORA RainCast PR Satellite Proxy Diagnostic Console v5.5</title>
 </head>
 <body>
   <main class="shell">
     <header class="hero">
       <div>
-        <p class="eyebrow">PR-WX v5.4.0 · AURORA RainCast PR Backend Image Proxy</p>
-        <h1>Visor proxy de nubes reales sobre Puerto Rico</h1>
-        <p>Corrección directa al panel gris de respaldo oficial. Esta versión elimina el iframe integrado y sirve la imagen satelital NOAA/NESDIS/STAR desde un endpoint propio de PR-WX para que el navegador la pueda mostrar como imagen normal.</p>
+        <p class="eyebrow">PR-WX v5.5.0 · AURORA RainCast PR Satellite Proxy Diagnostic Console</p>
+        <h1>Consola de nubes por proxy sobre Puerto Rico</h1>
+        <p>Corrección reforzada para cuando no se ven las nubes. La imagen principal se sirve desde el backend de PR-WX y se añade un self-test para confirmar si el proxy realmente está entregando la imagen satelital NOAA/NESDIS/STAR.</p>
       </div>
       <nav class="hero-actions">
         <a class="btn btn-primary" href="/desktop/">Dashboard</a>
@@ -24,7 +24,7 @@
     </header>
 
     <section class="kpis" aria-label="Indicadores principales">
-      <article class="kpi"><span class="k">Modo activo</span><span id="focusTown" class="v">Proxy NOAA</span></article>
+      <article class="kpi"><span class="k">Modo activo</span><span id="focusTown" class="v">Proxy backend</span></article>
       <article class="kpi"><span class="k">Producto</span><span id="satProduct" class="v">Banda 13 IR</span></article>
       <article class="kpi"><span class="k">Fuente</span><span class="v">PR-WX Proxy</span></article>
       <article class="kpi"><span class="k">Resolvedor</span><span id="resolverStatus" class="v">—</span></article>
@@ -32,24 +32,31 @@
       <article class="kpi"><span class="k">Actualizado</span><span id="lastUpdated" class="v small">—</span></article>
     </section>
 
-    <section class="mainGrid">
+    <section class="viewerGrid">
       <article class="card">
         <div id="satFrame" class="proxyFrame ir">
-          <div class="proxyTop"><span class="pill">NOAA STAR servido por PR-WX</span><span class="pill" id="satProductTitle">Banda 13 IR</span></div>
-          <img id="satMain" alt="Imagen satelital de nubes GOES del sector Puerto Rico servida por proxy PR-WX">
+          <div class="proxyTop"><span class="pill">Imagen servida por PR-WX</span><span class="pill" id="satProductTitle">Banda 13 IR</span></div>
+          <img id="satMain" alt="Imagen satelital GOES del sector Puerto Rico servida por proxy PR-WX">
           <div class="proxyBottom"><span class="pill" id="satStatus">Cargando proxy satelital…</span><span class="pill">Resuelto: <span id="resolverTime">—</span></span></div>
         </div>
       </article>
       <aside class="card">
         <h2>Productos satelitales</h2>
-        <p id="satNote" class="noIframe">Use Banda 13 IR. Esta versión no usa iframe, porque el panel oficial integrado puede bloquearse y verse gris.</p>
+        <p class="noIframe">Esta versión no usa iframe. La prueba clave es abrir el proxy directamente y verificar que el navegador muestre una imagen.</p>
         <div class="productGrid">
           <button class="product active" type="button" data-product="band13"><strong>Banda 13 IR</strong><br><span>Nubes día/noche</span><img id="band13Thumb" alt="Miniatura Banda 13 IR Puerto Rico"></button>
           <button class="product" type="button" data-product="geocolor"><strong>GeoColor</strong><br><span>Natural/IR nocturno</span><img id="geocolorThumb" alt="Miniatura GeoColor Puerto Rico"></button>
           <button class="product" type="button" data-product="band14"><strong>Banda 14 IR</strong><br><span>IR alternativa</span><img id="band14Thumb" alt="Miniatura Banda 14 IR Puerto Rico"></button>
           <button class="product" type="button" data-product="visible"><strong>Banda 2 Visible</strong><br><span>Mejor de día</span><img id="visibleThumb" alt="Miniatura Banda visible Puerto Rico"></button>
         </div>
-        <p class="footerNote">La imagen grande superior es la lectura principal. El mapa inferior solo compara WMS/radar.</p>
+        <h2>Prueba técnica inmediata</h2>
+        <div class="testGrid">
+          <button id="testBtn" class="primary" type="button">Probar proxy</button>
+          <a class="testLink" href="/rain/live/satellite/proxy/band13" target="_blank" rel="noopener">Abrir proxy Banda 13 IR</a>
+          <a class="testLink" href="/rain/live/satellite/self-test" target="_blank" rel="noopener">Abrir self-test JSON</a>
+          <a class="testLink" href="/rain/live/satellite/latest" target="_blank" rel="noopener">Abrir latest JSON</a>
+        </div>
+        <div id="testResults" class="footerNote" style="margin-top:10px">Ejecutando prueba…</div>
       </aside>
     </section>
 
@@ -62,7 +69,7 @@
             <button id="kioskBtn" type="button">Modo kiosco</button>
             <button id="printBtn" type="button">Imprimir</button>
           </div>
-          <p class="notice" id="cloudStatus">Inicializando proxy backend de imagen NOAA…</p>
+          <p class="notice" id="cloudStatus">Inicializando consola de diagnóstico…</p>
           <p class="footerNote">Mapa actualizado: <span id="mapUpdated">—</span></p>
         </article>
         <article class="card">
@@ -72,10 +79,9 @@
           </div>
         </article>
       </aside>
-
       <section class="center">
         <article class="card mapCard">
-          <div class="mapHeader"><h2>Comparación nowCOAST WMS</h2><p class="muted">Comparación secundaria de IR/radar. La vista principal es la imagen proxy de NOAA STAR arriba.</p></div>
+          <div class="mapHeader"><h2>Comparación nowCOAST WMS</h2><p class="muted">Comparación secundaria. La vista principal es la imagen proxy de NOAA STAR arriba.</p></div>
           <div class="mapFrame"><div class="mapChip">Puerto Rico · nowCOAST WMS comparación</div><div class="stamp">WMS secundario</div><div id="rainMap" class="map" role="img" aria-label="Mapa de comparación WMS GOES y radar sobre Puerto Rico"></div></div>
         </article>
         <article class="card directPanel" style="margin-top:14px">
@@ -87,14 +93,13 @@
           </div>
         </article>
       </section>
-
       <aside class="right">
         <article class="card readout">
           <h2>Lectura rápida</h2>
-          <p><span class="sw" style="background:#94a3b8"></span>La imagen principal se sirve desde el backend de PR-WX.</p>
-          <p><span class="sw" style="background:#e2e8f0"></span>Se eliminó el iframe que aparecía gris.</p>
+          <p><span class="sw" style="background:#94a3b8"></span>La imagen principal debe verse como imagen normal del mismo dominio.</p>
+          <p><span class="sw" style="background:#e2e8f0"></span>El self-test confirma si el proxy devuelve bytes de imagen.</p>
           <p><span class="sw" style="background:#38bdf8"></span>Radar muestra lluvia, no toda nube.</p>
-          <p class="notice">Use Banda 13 IR para verificar nubosidad sobre Puerto Rico.</p>
+          <p class="notice">Prueba crítica: abrir /rain/live/satellite/proxy/band13.</p>
         </article>
         <article class="card">
           <h2>Estado técnico</h2>
@@ -106,6 +111,6 @@
     </section>
   </main>
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  <script src="./live-rain-v54.js?v=5.4.0"></script>
+  <script src="./live-rain-v55.js?v=5.5.0"></script>
 </body>
 </html>
