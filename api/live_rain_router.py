@@ -6,7 +6,7 @@ from datetime import datetime, timezone
 from typing import Any
 
 from fastapi import APIRouter, HTTPException
-from fastapi.responses import StreamingResponse
+from fastapi.responses import Response
 
 from prwx.live_rain_v37 import (
     active_pr_alerts,
@@ -20,6 +20,7 @@ from prwx.live_rain_v37 import (
 
 router = APIRouter(tags=["AURORA RainCast PR"])
 
+VERSION = "5.5.0"
 STAR_BASE = "https://cdn.star.nesdis.noaa.gov/GOES19/ABI/SECTOR/pr"
 STAR_LEGACY_BASE = "https://cdn.star.nesdis.noaa.gov/GOES16/ABI/SECTOR/pr"
 STAR_PAGE_BASE = "https://www.star.nesdis.noaa.gov/goes/sector_band.php"
@@ -37,7 +38,7 @@ def _utc_now() -> str:
 
 
 def _request(url: str):
-    return urllib.request.Request(url, headers={"User-Agent": "PR-WX/5.4 satellite-proxy"})
+    return urllib.request.Request(url, headers={"User-Agent": "PR-WX/5.5 satellite-proxy-diagnostic"})
 
 
 def _read_index(folder: str) -> str:
@@ -83,18 +84,53 @@ def _product_page(band: str) -> str:
     return f"{STAR_PAGE_BASE}?band={band}&length=12&sat=G19&sector=pr"
 
 
-def _download_first_image(urls: list[str]) -> tuple[bytes, str, str]:
+def _svg_fallback(product: str, message: str) -> bytes:
+    safe_product = product.replace("<", "").replace(">", "")
+    safe_message = message.replace("<", "").replace(">", "")[:180]
+    svg = f"""<svg xmlns='http://www.w3.org/2000/svg' width='1200' height='900' viewBox='0 0 1200 900'>
+<defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop offset='0' stop-color='#0f2f4f'/><stop offset='1' stop-color='#020617'/></linearGradient></defs>
+<rect width='1200' height='900' fill='url(#g)'/>
+<circle cx='360' cy='320' r='130' fill='#94a3b8' opacity='.35'/><circle cx='500' cy='280' r='170' fill='#cbd5e1' opacity='.28'/><circle cx='690' cy='345' r='150' fill='#64748b' opacity='.32'/><circle cx='835' cy='295' r='115' fill='#e2e8f0' opacity='.23'/>
+<rect x='135' y='455' width='930' height='190' rx='26' fill='rgba(2,6,23,.78)' stroke='#fed141' stroke-width='5'/>
+<text x='600' y='535' text-anchor='middle' font-family='Arial' font-size='42' fill='#fed141' font-weight='700'>PR-WX Satellite Proxy</text>
+<text x='600' y='595' text-anchor='middle' font-family='Arial' font-size='30' fill='#ffffff'>Producto: {safe_product}</text>
+<text x='600' y='640' text-anchor='middle' font-family='Arial' font-size='24' fill='#cbd5e1'>{safe_message}</text>
+<text x='600' y='742' text-anchor='middle' font-family='Arial' font-size='24' fill='#86efac'>Abra /rain/live/satellite/self-test para diagnóstico.</text>
+</svg>"""
+    return svg.encode("utf-8")
+
+
+def _download_first_image(urls: list[str]) -> tuple[bytes, str, str, bool, str]:
     last_error = "unknown"
     for url in urls:
         try:
             with urllib.request.urlopen(_request(url), timeout=10) as response:  # nosec - public NOAA URL
                 content_type = response.headers.get("Content-Type", "image/jpeg")
                 data = response.read()
-                if data:
-                    return data, content_type, url
+                looks_like_html = data[:40].lower().lstrip().startswith((b"<html", b"<!doctype"))
+                if data and len(data) > 5000 and content_type.startswith("image/") and not looks_like_html:
+                    return data, content_type, url, True, "ok"
+                last_error = f"invalid image response from {url}: {content_type}, {len(data)} bytes"
         except Exception as exc:  # pragma: no cover - network dependent
             last_error = str(exc)
-    raise HTTPException(status_code=502, detail=f"No NOAA STAR image could be fetched: {last_error}")
+    fallback = _svg_fallback("satellite", last_error)
+    return fallback, "image/svg+xml", "generated-fallback", False, last_error
+
+
+def _test_product(key: str) -> dict[str, Any]:
+    info = PRODUCTS[key]
+    urls = _latest_urls(info["folder"], info["band"])
+    data, content_type, source_url, ok, message = _download_first_image(urls)
+    return {
+        "product": key,
+        "label": info["label"],
+        "ok": ok,
+        "content_type": content_type,
+        "bytes": len(data),
+        "source_url": source_url,
+        "proxy": f"/rain/live/satellite/proxy/{key}",
+        "message": message,
+    }
 
 
 @router.get("/rain/live/model")
@@ -147,13 +183,23 @@ def rain_live_satellite_latest() -> dict[str, Any]:
             "urls": _latest_urls(folder, band),
         }
     return {
-        "version": "5.4.0",
-        "model": "AURORA RainCast PR Backend Image Proxy",
+        "version": VERSION,
+        "model": "AURORA RainCast PR Satellite Proxy Diagnostic Console",
         "generated_utc": _utc_now(),
         "source": "NOAA/NESDIS/STAR GOES-19 Puerto Rico sector resolver + same-origin image proxy",
         "official_sector_page": "https://goes.noaa.gov/sector.php?sat=G19&sector=pr&src=nav",
+        "self_test": "/rain/live/satellite/self-test",
         "products": resolved,
         "note": "Experimental helper endpoint. Official interpretation must come from NOAA/NWS/NHC and emergency-management agencies.",
+    }
+
+
+@router.get("/rain/live/satellite/self-test")
+def rain_live_satellite_self_test() -> dict[str, Any]:
+    return {
+        "version": VERSION,
+        "generated_utc": _utc_now(),
+        "products": {key: _test_product(key) for key in PRODUCTS},
     }
 
 
@@ -162,10 +208,12 @@ def rain_live_satellite_proxy(product: str):
     if product not in PRODUCTS:
         raise HTTPException(status_code=404, detail="Unknown satellite product")
     info = PRODUCTS[product]
-    data, content_type, source_url = _download_first_image(_latest_urls(info["folder"], info["band"]))
+    data, content_type, source_url, ok, message = _download_first_image(_latest_urls(info["folder"], info["band"]))
     headers = {
         "Cache-Control": "public, max-age=60",
-        "X-PRWX-Version": "5.4.0",
+        "X-PRWX-Version": VERSION,
         "X-PRWX-Source-URL": source_url,
+        "X-PRWX-Proxy-OK": "true" if ok else "false",
+        "X-PRWX-Proxy-Message": message[:150],
     }
-    return StreamingResponse(iter([data]), media_type=content_type, headers=headers)
+    return Response(content=data, media_type=content_type, headers=headers)
