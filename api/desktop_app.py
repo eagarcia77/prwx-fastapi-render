@@ -19,7 +19,7 @@ from api.live_rain_router import router as live_rain_router
 from api.meteorological_report_router import router as meteorological_report_router
 from api.caribbean_router import router as caribbean_router
 
-VERSION = "5.4.0"
+VERSION = "5.6.0"
 DESKTOP_CLIENT = ROOT / "desktop"
 MOBILE_CLIENT = ROOT / "mobile"
 
@@ -86,7 +86,9 @@ def api_status():
         "live_rain_summary": "/rain/live/summary",
         "live_rain_municipal_risk": "/rain/live/municipal-risk",
         "live_rain_satellite_latest": "/rain/live/satellite/latest",
+        "live_rain_satellite_self_test": "/rain/live/satellite/self-test",
         "live_rain_satellite_proxy_band13": "/rain/live/satellite/proxy/band13",
+        "live_rain_satellite_image_band13": "/rain/live/satellite/image/band13.jpg",
         "aurora_caribe_model": "/aurora-caribe/model",
         "aurora_caribe_status": "/aurora-caribe/status",
         "aurora_caribe_predictions": "/aurora-caribe/predictions/summary",
@@ -106,10 +108,6 @@ def api_status():
         "ai_storm_tracks_geojson": "/ai/storm-tracks/map.geojson",
         "ai_storm_tracks_analysis": "/ai/storm-tracks/analysis",
         "ai_storm_historical_download_plan": "/ai/storm-tracks/historical/download-plan",
-        "github_action_storm_ai_training": ".github/workflows/train-storm-historical-ai-v31.yml",
-        "github_action_aurora_training": ".github/workflows/aurora-caribe-continuous-training-v34.yml",
-        "github_action_aurora_sahara_training": ".github/workflows/aurora-sahara-dust-continuous-training-v35.yml",
-        "github_action_aurora_sahara_artifact": "aurora-sahara-dust-training-v35",
         "caribbean_atlantic_report": "/weather/report/caribbean-atlantic",
         "weather_report_example": "/weather/report/San Juan",
         "render_url": _public_render_url(),
@@ -129,8 +127,8 @@ def desktop_health():
         "desktop_real_map_exists": (DESKTOP_CLIENT / "real-map.js").exists(),
         "desktop_storm_map_exists": (DESKTOP_CLIENT / "storm-map.js").exists(),
         "desktop_live_rain_map_exists": (DESKTOP_CLIENT / "live-rain-map.js").exists(),
-        "desktop_live_rain_css_exists": (DESKTOP_CLIENT / "live-rain-v54.css").exists(),
-        "desktop_live_rain_js_exists": (DESKTOP_CLIENT / "live-rain-v54.js").exists(),
+        "desktop_live_rain_css_exists": (DESKTOP_CLIENT / "live-rain-v56.css").exists(),
+        "desktop_live_rain_js_exists": (DESKTOP_CLIENT / "live-rain-v56.js").exists(),
         "desktop_map_enhancements_css_exists": (DESKTOP_CLIENT / "map-enhancements-v33.css").exists(),
         "desktop_dust_panel_exists": (DESKTOP_CLIENT / "aurora-dust-panel.js").exists(),
         "desktop_dust_css_exists": (DESKTOP_CLIENT / "dust-layer-v35.css").exists(),
@@ -170,7 +168,9 @@ def desktop_config_json():
         "live_rain_summary_endpoint": "/rain/live/summary",
         "live_rain_municipal_risk_endpoint": "/rain/live/municipal-risk",
         "live_rain_satellite_latest_endpoint": "/rain/live/satellite/latest",
+        "live_rain_satellite_self_test_endpoint": "/rain/live/satellite/self-test",
         "live_rain_satellite_proxy_band13_endpoint": "/rain/live/satellite/proxy/band13",
+        "live_rain_satellite_image_band13_endpoint": "/rain/live/satellite/image/band13.jpg",
         "aurora_caribe_status_endpoint": "/aurora-caribe/status",
         "aurora_caribe_predictions_endpoint": "/aurora-caribe/predictions/summary",
         "aurora_sahara_status_endpoint": "/aurora-caribe/dust/status",
