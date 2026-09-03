@@ -5,26 +5,26 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#007b5f">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
-  <link rel="stylesheet" href="./live-rain-v57.css?v=5.7.0">
-  <title>PR-WX · AURORA RainCast PR Page Resolver v5.7</title>
+  <link rel="stylesheet" href="./live-rain-v58.css?v=5.8.0">
+  <title>PR-WX · AURORA RainCast PR WFO Satellite Fallback v5.8</title>
 </head>
 <body>
   <main class="shell">
     <header class="hero">
       <div>
-        <p class="eyebrow">PR-WX v5.7.0 · AURORA RainCast PR Page Resolver</p>
+        <p class="eyebrow">PR-WX v5.8.0 · AURORA RainCast PR WFO Satellite Fallback</p>
         <h1>Visor reforzado de nubes reales sobre Puerto Rico</h1>
-        <p>Corrección adicional para cuando las nubes no aparecen. El backend ahora busca la imagen desde la página oficial NOAA/NESDIS/STAR del producto y la sirve como imagen normal desde PR-WX. También se muestran tres fuentes visuales para diagnosticar rápido.</p>
+        <p>Esta versión añade un respaldo adicional desde la página GOES del WFO San Juan. La imagen principal intenta cargar el endpoint PR-WX, luego el fallback WFO SJU y luego el proxy alterno.</p>
       </div>
       <nav class="hero-actions">
         <a class="btn btn-primary" href="/desktop/">Dashboard</a>
-        <a id="officialLink" class="btn btn-secondary" href="https://www.star.nesdis.noaa.gov/goes/sector_band.php?band=13&length=12&sat=G19&sector=pr" target="_blank" rel="noopener">Abrir NOAA oficial</a>
+        <a id="officialLink" class="btn btn-secondary" href="https://www.goes.noaa.gov/sector_band.php?band=13&length=12&sat=G19&sector=pr&src=nav" target="_blank" rel="noopener">Abrir NOAA oficial</a>
         <button id="clearCacheBtn" type="button" class="btn-dark">Limpiar cache visual</button>
       </nav>
     </header>
 
     <section class="kpis" aria-label="Indicadores principales">
-      <article class="kpi"><span class="k">Modo activo</span><span id="focusTown" class="v">Page resolver</span></article>
+      <article class="kpi"><span class="k">Modo activo</span><span id="focusTown" class="v">WFO + Page resolver</span></article>
       <article class="kpi"><span class="k">Producto</span><span id="satProduct" class="v">Banda 13 IR</span></article>
       <article class="kpi"><span class="k">Fuente</span><span class="v">NOAA + PR-WX</span></article>
       <article class="kpi"><span class="k">Resolvedor</span><span id="resolverStatus" class="v">—</span></article>
@@ -35,25 +35,25 @@
     <section class="mainGrid">
       <article class="card">
         <div id="satFrame" class="imageFrame ir">
-          <div class="frameTop"><span class="pill">Imagen principal desde endpoint PR-WX</span><span class="pill" id="satProductTitle">Banda 13 IR</span></div>
-          <img id="satMain" class="satImage" src="/rain/live/satellite/image/band13.jpg?initial=1&v=5.7.0" alt="Imagen satelital GOES Banda 13 IR del sector Puerto Rico servida por PR-WX">
+          <div class="frameTop"><span class="pill">Imagen principal PR-WX + WFO SJU</span><span class="pill" id="satProductTitle">Banda 13 IR</span></div>
+          <img id="satMain" class="satImage" src="/rain/live/satellite/wfo/band13.jpg?initial=1&v=5.8.0" alt="Imagen satelital GOES Banda 13 IR del sector Puerto Rico servida por PR-WX">
           <div class="frameBottom"><span class="pill" id="satStatus">Cargando imagen principal…</span><span class="pill">Resuelto: <span id="resolverTime">—</span></span></div>
         </div>
       </article>
       <aside class="card">
         <h2>Productos satelitales</h2>
-        <p class="notice">Use primero Banda 13 IR. Esta versión ya no usa iframe y añade un resolvedor que lee la página oficial NOAA STAR.</p>
+        <p class="notice">Use primero Banda 13 IR. Esta versión añade el fallback WFO San Juan para evitar pantalla gris y mejorar la probabilidad de ver nubosidad real.</p>
         <div class="productGrid">
-          <button class="product active" type="button" data-product="band13"><strong>Banda 13 IR</strong><br><span>Nubes día/noche</span><img id="band13Thumb" src="/rain/live/satellite/image/band13.jpg?thumb=1&v=5.7.0" alt="Miniatura Banda 13 IR Puerto Rico"></button>
-          <button class="product" type="button" data-product="geocolor"><strong>GeoColor</strong><br><span>Natural/IR nocturno</span><img id="geocolorThumb" src="/rain/live/satellite/image/geocolor.jpg?thumb=1&v=5.7.0" alt="Miniatura GeoColor Puerto Rico"></button>
-          <button class="product" type="button" data-product="band14"><strong>Banda 14 IR</strong><br><span>IR alternativa</span><img id="band14Thumb" src="/rain/live/satellite/image/band14.jpg?thumb=1&v=5.7.0" alt="Miniatura Banda 14 IR Puerto Rico"></button>
-          <button class="product" type="button" data-product="visible"><strong>Banda 2 Visible</strong><br><span>Mejor de día</span><img id="visibleThumb" src="/rain/live/satellite/image/visible.jpg?thumb=1&v=5.7.0" alt="Miniatura Banda visible Puerto Rico"></button>
+          <button class="product active" type="button" data-product="band13"><strong>Banda 13 IR</strong><br><span>Nubes día/noche</span><img id="band13Thumb" src="/rain/live/satellite/wfo/band13.jpg?thumb=1&v=5.8.0" alt="Miniatura Banda 13 IR Puerto Rico"></button>
+          <button class="product" type="button" data-product="geocolor"><strong>GeoColor</strong><br><span>Natural/IR nocturno</span><img id="geocolorThumb" src="/rain/live/satellite/wfo/geocolor.jpg?thumb=1&v=5.8.0" alt="Miniatura GeoColor Puerto Rico"></button>
+          <button class="product" type="button" data-product="band14"><strong>Banda 14 IR</strong><br><span>IR alternativa</span><img id="band14Thumb" src="/rain/live/satellite/wfo/band14.jpg?thumb=1&v=5.8.0" alt="Miniatura Banda 14 IR Puerto Rico"></button>
+          <button class="product" type="button" data-product="visible"><strong>Banda 2 Visible</strong><br><span>Mejor de día</span><img id="visibleThumb" src="/rain/live/satellite/wfo/visible.jpg?thumb=1&v=5.8.0" alt="Miniatura Banda visible Puerto Rico"></button>
         </div>
         <h2>Prueba técnica inmediata</h2>
         <div class="testGrid">
           <button id="testBtn" class="primary" type="button">Probar resolvedor</button>
+          <a class="testLink" href="/rain/live/satellite/wfo/band13.jpg" target="_blank" rel="noopener">Abrir WFO SJU Banda 13 IR</a>
           <a class="testLink" href="/rain/live/satellite/image/band13.jpg" target="_blank" rel="noopener">Abrir imagen directa Banda 13 IR</a>
-          <a class="testLink" href="/rain/live/satellite/proxy/band13" target="_blank" rel="noopener">Abrir proxy Banda 13 IR</a>
           <a class="testLink" href="/rain/live/satellite/debug/band13.html" target="_blank" rel="noopener">Abrir debug HTML Band13</a>
           <a class="testLink" href="/rain/live/satellite/self-test" target="_blank" rel="noopener">Abrir self-test JSON</a>
         </div>
@@ -62,9 +62,10 @@
     </section>
 
     <section class="sourceGrid" aria-label="Fuentes visuales simultáneas">
-      <article class="card"><h2>Fuente A · Image endpoint</h2><p class="footerNote">Debe cargar como JPG normal desde PR-WX.</p><img id="imgA" class="diagImg" src="/rain/live/satellite/image/band13.jpg?a=1&v=5.7.0" alt="Fuente A de imagen satelital"></article>
-      <article class="card"><h2>Fuente B · Proxy</h2><p class="footerNote">Ruta alternativa sin extensión.</p><img id="imgB" class="diagImg" src="/rain/live/satellite/proxy/band13?b=1&v=5.7.0" alt="Fuente B de imagen satelital"></article>
-      <article class="card"><h2>Fuente C · Copia refrescada</h2><p class="footerNote">Segunda llamada para romper caché visual.</p><img id="imgC" class="diagImg" src="/rain/live/satellite/image/band13.jpg?c=1&v=5.7.0" alt="Fuente C de imagen satelital"></article>
+      <article class="card"><h2>Fuente A · Image endpoint</h2><p class="footerNote">Endpoint general de PR-WX.</p><img id="imgA" class="diagImg" src="/rain/live/satellite/image/band13.jpg?a=1&v=5.8.0" alt="Fuente A de imagen satelital"></article>
+      <article class="card"><h2>Fuente B · WFO SJU</h2><p class="footerNote">Nueva fuente reforzada.</p><img id="imgB" class="diagImg" src="/rain/live/satellite/wfo/band13.jpg?b=1&v=5.8.0" alt="Fuente B WFO SJU"></article>
+      <article class="card"><h2>Fuente C · Proxy</h2><p class="footerNote">Ruta alternativa sin extensión.</p><img id="imgC" class="diagImg" src="/rain/live/satellite/proxy/band13?c=1&v=5.8.0" alt="Fuente C proxy"></article>
+      <article class="card"><h2>Fuente D · Anti-cache</h2><p class="footerNote">Segunda llamada refrescada.</p><img id="imgD" class="diagImg" src="/rain/live/satellite/image/band13.jpg?d=1&v=5.8.0" alt="Fuente D anti-cache"></article>
     </section>
 
     <section class="layout">
@@ -76,7 +77,7 @@
             <button id="kioskBtn" type="button">Modo kiosco</button>
             <button id="printBtn" type="button">Imprimir</button>
           </div>
-          <p class="notice" id="cloudStatus">Inicializando page resolver…</p>
+          <p class="notice" id="cloudStatus">Inicializando WFO satellite fallback…</p>
           <p class="footerNote">Mapa actualizado: <span id="mapUpdated">—</span></p>
         </article>
         <article class="card">
@@ -88,7 +89,7 @@
       </aside>
       <section class="center">
         <article class="card mapCard">
-          <div class="mapHeader"><h2>Comparación nowCOAST WMS</h2><p class="muted">Comparación secundaria. La vista principal es la imagen resuelta de NOAA STAR arriba.</p></div>
+          <div class="mapHeader"><h2>Comparación nowCOAST WMS</h2><p class="muted">Comparación secundaria. La vista principal es la imagen satelital servida arriba.</p></div>
           <div class="mapFrame"><div class="mapChip">Puerto Rico · nowCOAST WMS comparación</div><div class="stamp">WMS secundario</div><div id="rainMap" class="map" role="img" aria-label="Mapa de comparación WMS GOES y radar sobre Puerto Rico"></div></div>
         </article>
         <article class="card directPanel" style="margin-top:14px">
@@ -103,10 +104,10 @@
       <aside class="right">
         <article class="card readout">
           <h2>Lectura rápida</h2>
-          <p><span class="sw" style="background:#94a3b8"></span>La imagen principal se resuelve desde la página oficial NOAA STAR.</p>
-          <p><span class="sw" style="background:#e2e8f0"></span>Las tres fuentes visuales ayudan a identificar bloqueo o caché.</p>
+          <p><span class="sw" style="background:#94a3b8"></span>La Fuente B usa el nuevo fallback WFO SJU.</p>
+          <p><span class="sw" style="background:#e2e8f0"></span>Banda 13 IR debe servir para día y noche.</p>
           <p><span class="sw" style="background:#38bdf8"></span>Radar muestra lluvia, no toda nube.</p>
-          <p class="notice">Prueba crítica: abrir /rain/live/satellite/debug/band13.html.</p>
+          <p class="notice">Prueba crítica: abrir /rain/live/satellite/wfo/band13.jpg.</p>
         </article>
         <article class="card">
           <h2>Estado técnico</h2>
@@ -118,6 +119,6 @@
     </section>
   </main>
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  <script src="./live-rain-v57.js?v=5.7.0"></script>
+  <script src="./live-rain-v58.js?v=5.8.0"></script>
 </body>
 </html>
